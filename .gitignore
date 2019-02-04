@@ -1,0 +1,8 @@
+a.out
+*.gch
+.DS_Store
+.vscode
+*.o
+*.a
+asm
+corewar
