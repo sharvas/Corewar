@@ -10,28 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../op.h"
-#include <stdio.h>// change to ft_printf in libft
-#include <string.h>//change to libft
+#include "vm.h"
 
 void    print_arena(unsigned char *arena)
 {
 	int i;
 	
 	i = 0;
-	printf("0x%.4x : ", i);
+	ft_printf("0x%.4x : ", i);
 	while(i < MEM_SIZE)
 	{
-		printf("%.2x", (unsigned int)arena[i]);
+		ft_printf("%.2x", (unsigned int)arena[i]);
 		if (i == MEM_SIZE - 1)
 		{
-			printf("\n");
+			ft_printf("\n");
 			break ;
 		}
 		if (i && (i + 1) % 64 == 0)
-			printf("\n%#.4x : ", i + 1);
+			ft_printf("\n%#.4x : ", i + 1);
 		else
-			printf(" ");
+			ft_printf(" ");
 		i++;
 	}
 }
@@ -61,7 +59,7 @@ int main(int argc, char **argv)
 	argv = NULL;//
 
 	unsigned char   arena[MEM_SIZE];
-	bzero(arena, MEM_SIZE);//ft_
+	ft_bzero(arena, MEM_SIZE);
 //	read_args(argc, argv);
 	arena[20] = 'a';//
 	print_arena(arena);
