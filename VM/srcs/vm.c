@@ -22,11 +22,8 @@ void    print_arena(unsigned char *arena)
 	{
 		ft_printf("%.2x", (unsigned int)arena[i]);
 		if (i == MEM_SIZE - 1)
-		{
 			ft_printf("\n");
-			break ;
-		}
-		if (i && (i + 1) % 64 == 0)
+		else if (i && (i + 1) % 64 == 0)
 			ft_printf("\n%#.4x : ", i + 1);
 		else
 			ft_printf(" ");
