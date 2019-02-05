@@ -25,6 +25,7 @@ typedef struct			s_process
 	int					duration;
 	unsigned char		reg[16];
 	int					carry;
+	int					alive;
 }						t_process;
 
 #endif
