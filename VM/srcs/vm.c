@@ -42,36 +42,86 @@ void	print_usage(/*t_game *game*/)
 	exit(1);
 }
 
-void	read_args(int argc, char **argv)
+void	read_dump(char *nbr, t_game *game)
 {
-	argc = 0;//
-	argv = NULL;//
-	// int	i;
+	int	i;
 
-	// i = 0;
-	// while (i < argc)
-	// {
-	// 	if (ft_strcmp((argv[i]), "-dump") == 0)
-	// 		read_dump(argv, i);
-	// 	else if (ft_strcmp((argv[i]), "-n") == 0)
-	// 		read_number(argv, i);
-	// 	else if (ft_strstr(argv[i], ".cor"))
-	// 		read_champion(argv[i]);
-	// 	else
+	i = -1;
+	while (nbr[++i])
+		if (!ft_isdigit(nbr[i]))
 			print_usage();
-		// i++;
-//	}
+	game->dump = ft_atoi(nbr);//correct atoi?
+	ft_printf("dump: %d\n", game->dump);//
+}
+
+void	read_nbr(char *nbr, t_game *game, int champ_count)
+{
+	int	i;
+
+	i = -1;
+	while (nbr[++i])
+		if (!ft_isdigit(nbr[i]))
+			print_usage();
+	game->champ[champ_count].nbr = ft_atoi(nbr);//correct atoi?
+	ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
+}
+
+// void	read_champion(t_game *game, char *cor, int champ_count)
+// {
+
+// }
+
+void	read_args(int argc, char **argv, t_game *game)
+{
+	int	i;
+	int	champ_count;
+
+	i = 1;
+	champ_count = 1;
+	if (argc == 1)
+		print_usage();
+	while (i < argc)
+	{
+		// ft_printf("here\n");//
+		if (ft_strcmp((argv[i]), "-dump") == 0)
+		{
+			// ft_printf("here_dump\n");//
+			if (argv[i + 1])
+				read_dump(argv[++i], game);
+			else
+				print_usage();
+		}
+		else if (ft_strcmp((argv[i]), "-n") == 0)
+		{
+			if (argv[i + 1])
+				read_nbr(argv[++i], game, champ_count);
+			else
+				print_usage();
+			// if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
+			// 	read_champion(game, argv[++i], champ_count++);
+			// else
+			// 	print_usage();
+		}
+		// else if (ft_strstr(argv[i], ".cor"))
+		// {
+		// 	read_champion(game, argv[i], champ_count);
+		// 	champ_count++;
+		// }
+		else
+			print_usage();
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
 {
-	// argc = 0;//
-	// argv = NULL;//
-
+	t_game			game;
 	unsigned char   arena[MEM_SIZE];
+
+	ft_bzero(&game, sizeof(game));
 	ft_bzero(arena, MEM_SIZE);
-	read_args(argc, argv);
-	arena[20] = 'a';//
-	print_arena(arena);
+	read_args(argc, argv, &game);
+	if (game.dump)//change to deal with cycles
+		print_arena(arena);
 	return (0);
 }
