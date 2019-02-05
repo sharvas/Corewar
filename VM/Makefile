@@ -25,7 +25,7 @@ HEADER = $(INC)vm.h
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = vm.c
+SRCS_FILES = vm.c #operations.c
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 
