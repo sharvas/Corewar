@@ -19,8 +19,8 @@ typedef struct			s_op
 typedef struct			s_process
 {
 	unsigned char		*current;
-	int					duration;
 	unsigned char		reg[16];
+	int					duration;
 	int					carry;
 	int					alive;
 }						t_process;
@@ -30,14 +30,17 @@ typedef struct			s_champ
 	int					nbr;
 	char				name[PROG_NAME_LENGTH];
 	char				comment[COMMENT_LENGTH];
-	struct s_process	*process;
 	int			    	alive;
 }						t_champ;
 
 typedef struct			s_game
 {
-	int					dump;
+	int					dump;//cycle_to_dump;
+	int					cycle_to_die;
+	int					cycle_delta;
+	int					max_checks;
 	struct s_champ		champ[4];
+	struct s_process	*process;
 }						t_game;
 
 #endif

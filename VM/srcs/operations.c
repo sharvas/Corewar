@@ -43,15 +43,15 @@ t_op	*init_op()
 	return (op_tab);
 }
 
-void	op_live(t_game *game, t_op *op_tab, unsigned char *current)
+void	op_live(t_game *game, t_op *op_tab, t_process *process)
 {
 	int id;
 
-	id = ft_convert_id(current);
-	game->champ->process->alive += op_tab[0].cycles;
+	id = *process->current;
+	game->process->alive += op_tab[0].cycles;
 	if (id > 0 && id < 5)
 	{
-		game->champ->alive += 1;
-		ft_printf("Player %i (%s) is alive.", id, game->champ[id].name);
+		game->champ[id].alive += 1;
+		ft_printf("Player %i (%s) is alive.", game->champ[id].nbr, game->champ[id].name);
 	}
 }
