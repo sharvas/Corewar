@@ -52,6 +52,6 @@ void	op_live(t_game *game, t_op *op_tab, t_process *process)
 	if (id > 0 && id < 5)
 	{
 		game->champ[id].alive += 1;
-		ft_printf("Player %i (%s) is alive.", game->champ[id].nbr, game->champ[id].name);
+		ft_printf("Player %i (%s) is alive.", game->champ[id].nbr, game->champ[id].header.prog_name);
 	}
 }

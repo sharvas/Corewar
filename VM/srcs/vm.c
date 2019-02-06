@@ -66,26 +66,64 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
-// void	read_champion(t_game *game, char *cor, int champ_count)
-// {
+void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
+{
+	int		fd;
+	unsigned char	binary[FILE_SIZE + 1];
+	int		i;
+	size_t	weight;
 
-// }
+	i = 0;
+	ft_bzero(binary, sizeof(binary));
+	// if (!(binary = (char *)malloc(sizeof(char) * ((MEM_SIZE / 6) + 1 ))))
+	// 	print_usage();//replace with error message
+	if ((fd = open(cor, O_RDONLY)) < 0)
+		print_usage();//replace with error message
+	// if (get_next_line(fd, &binary) != 1)
+	// 	print_usage();//replace with error message
+	weight = read(fd, binary, FILE_SIZE + 1);//integrate
+	if (weight > FILE_SIZE)
+		ft_putstr("ERROR champion too fat\n");
+	ft_printf("weight: %u\n", weight);
+	close(fd);
+	ft_memcpy(&game->champ[champ_count].header.magic, (char*)(binary + 1), 3);
+	ft_printf("magic: %x\n", game->champ[champ_count].header.magic);//
+	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
+	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
+	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
+	ft_printf("comment: %s\n", game->champ[champ_count].header.comment);//
+	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
+}
+
+int		find_champ_total(int argc, char **argv)
+{
+	int	champ_total;
+
+	champ_total = 0;
+	while (argc--)
+	{
+		if (ft_strstr(argv[argc], ".cor"))
+			champ_total++;
+	}
+	return (champ_total);
+}
 
 void	read_args(int argc, char **argv, t_game *game)
 {
 	int	i;
 	int	champ_count;
+	int	champ_total;
 
+	champ_total = find_champ_total(argc, argv);
+	ft_printf("champ_total: %d\n", champ_total);
 	i = 1;
 	champ_count = 1;
 	if (argc == 1)
 		print_usage();
 	while (i < argc)
 	{
-		// ft_printf("here\n");//
 		if (ft_strcmp((argv[i]), "-dump") == 0)
 		{
-			// ft_printf("here_dump\n");//
 			if (argv[i + 1])
 				read_dump(argv[++i], game);
 			else
@@ -97,16 +135,13 @@ void	read_args(int argc, char **argv, t_game *game)
 				read_nbr(argv[++i], game, champ_count);
 			else
 				print_usage();
-			// if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
-			// 	read_champion(game, argv[++i], champ_count++);
-			// else
-			// 	print_usage();
+			if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
+				read_champion(argv[++i], game, champ_count++, champ_total);
+			else
+				print_usage();
 		}
-		// else if (ft_strstr(argv[i], ".cor"))
-		// {
-		// 	read_champion(game, argv[i], champ_count);
-		// 	champ_count++;
-		// }
+		else if (ft_strstr(argv[i], ".cor"))
+			read_champion(argv[i], game, champ_count++, champ_total);
 		else
 			print_usage();
 		i++;
@@ -116,12 +151,10 @@ void	read_args(int argc, char **argv, t_game *game)
 int main(int argc, char **argv)
 {
 	t_game			game;
-	unsigned char   arena[MEM_SIZE];
 
 	ft_bzero(&game, sizeof(game));
-	ft_bzero(arena, MEM_SIZE);
 	read_args(argc, argv, &game);
-	if (game.dump)//change to deal with cycles
-		print_arena(arena);
+	// if (game.dump)//change to deal with cycles
+		print_arena(game.arena);
 	return (0);
 }

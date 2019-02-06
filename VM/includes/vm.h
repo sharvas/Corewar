@@ -3,6 +3,9 @@
 
 # include "../../op.h"
 # include "../libft/ft_printf/ft_printf.h"
+# include <fcntl.h>
+
+# define FILE_SIZE		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
 typedef struct			s_op
 {
@@ -25,16 +28,17 @@ typedef struct			s_process
 	int					alive;
 }						t_process;
 
+
 typedef struct			s_champ
 {
+	struct header_s		header;
 	int					nbr;
-	char				name[PROG_NAME_LENGTH];
-	char				comment[COMMENT_LENGTH];
 	int			    	alive;
 }						t_champ;
 
 typedef struct			s_game
 {
+	unsigned char		arena[MEM_SIZE];
 	int					dump;//cycle_to_dump;
 	int					cycle_to_die;
 	int					cycle_delta;
