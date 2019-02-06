@@ -66,10 +66,20 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
-// void	read_champion(t_game *game, char *cor, int champ_count)
-// {
+void	read_champion(char *cor/*, int champ_count*/)
+{
+	int		fd;
+	char	*binary;
 
-// }
+	// if (!(binary = (char *)malloc(sizeof(char) * ((MEM_SIZE / 6) + 1 ))))
+	// 	print_usage();//replace with error message
+	if ((fd = open(cor, O_RDONLY)) < 0)
+		print_usage();//replace with error message
+	if (get_next_line(fd, &binary) != 1)
+		print_usage();//replace with error message
+	close(fd);
+	ft_printf("binary: %s\n", binary);
+}
 
 void	read_args(int argc, char **argv, t_game *game)
 {
@@ -80,6 +90,7 @@ void	read_args(int argc, char **argv, t_game *game)
 	champ_count = 1;
 	if (argc == 1)
 		print_usage();
+	read_champion(argv[i++]/*, champ_count*/);
 	while (i < argc)
 	{
 		// ft_printf("here\n");//
@@ -91,25 +102,25 @@ void	read_args(int argc, char **argv, t_game *game)
 			else
 				print_usage();
 		}
-		else if (ft_strcmp((argv[i]), "-n") == 0)
-		{
-			if (argv[i + 1])
-				read_nbr(argv[++i], game, champ_count);
-			else
-				print_usage();
-			// if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
-			// 	read_champion(game, argv[++i], champ_count++);
-			// else
-			// 	print_usage();
-		}
-		// else if (ft_strstr(argv[i], ".cor"))
-		// {
-		// 	read_champion(game, argv[i], champ_count);
-		// 	champ_count++;
-		// }
-		else
-			print_usage();
-		i++;
+	// 	else if (ft_strcmp((argv[i]), "-n") == 0)
+	// 	{
+	// 		if (argv[i + 1])
+	// 			read_nbr(argv[++i], game, champ_count);
+	// 		else
+	// 			print_usage();
+	// 		// if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
+	// 		// 	read_champion(game, argv[++i], champ_count++);
+	// 		// else
+	// 		// 	print_usage();
+	// 	}
+	// 	// else if (ft_strstr(argv[i], ".cor"))
+	// 	// {
+	// 	// 	read_champion(game, argv[i], champ_count);
+	// 	// 	champ_count++;
+	// 	// }
+	// 	else
+	// 		print_usage();
+	// 	i++;
 	}
 }
 
