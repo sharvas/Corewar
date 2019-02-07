@@ -42,6 +42,15 @@ void	print_usage(/*t_game *game*/)
 	exit(1);
 }
 
+void	error_exit(char *err_message)
+{
+	ft_putstr("ERROR ");
+	ft_putstr(err_message);
+	ft_putstr("\n");
+	//free everything
+	exit (1);
+}
+
 void	read_dump(char *nbr, t_game *game)
 {
 	int	i;
@@ -62,8 +71,8 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			print_usage();
-	game->champ[champ_count - 1].nbr = ft_atoi(nbr);//correct atoi?
-	ft_printf("champ->nbr: %d\n", game->champ[champ_count - 1].nbr);
+	game->champ[champ_count].nbr = ft_atoi(nbr);//correct atoi?
+	// ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
 void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
@@ -75,24 +84,26 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 
 	i = 0;
 	ft_bzero(binary, sizeof(binary));
-	// if (!(binary = (char *)malloc(sizeof(char) * ((MEM_SIZE / 6) + 1 ))))
-	// 	print_usage();//replace with error message
 	if ((fd = open(cor, O_RDONLY)) < 0)
 		print_usage();//replace with error message
-	// if (get_next_line(fd, &binary) != 1)
-	// 	print_usage();//replace with error message
 	weight = read(fd, binary, FILE_SIZE + 1);//integrate
 	if (weight > FILE_SIZE)
-		ft_putstr("ERROR champion too fat\n");
+		error_exit("champion too fat");
+	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
+		error_exit("champion too thin");
 	ft_printf("weight: %u\n", weight);
 	close(fd);
-	ft_memcpy(&game->champ[champ_count - 1].header.magic, (char*)(binary + 1), 3);
-	ft_printf("magic: %x\n", game->champ[champ_count - 1].header.magic);//
-	ft_strncat(game->champ[champ_count - 1].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
-	ft_printf("name: %s\n", game->champ[champ_count - 1].header.prog_name);//
-	ft_strncat(game->champ[champ_count - 1].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
-	ft_printf("comment: %s\n", game->champ[champ_count - 1].header.comment);//
-	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
+	if (!game->champ[champ_count].nbr)
+		game->champ[champ_count].nbr = champ_count;
+	ft_printf("nbr: %d\n", game->champ[champ_count].nbr);//
+	ft_memcpy(&game->champ[champ_count].header.magic, (char*)(binary + 1), 3);
+	ft_printf("magic: %x\n", game->champ[champ_count].header.magic);//
+	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
+	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
+	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
+	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
+	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
+	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 }
 
 int		find_champ_total(int argc, char **argv)
@@ -105,6 +116,8 @@ int		find_champ_total(int argc, char **argv)
 		if (ft_strstr(argv[argc], ".cor"))
 			champ_total++;
 	}
+	if (champ_total > 4)
+		error_exit("too many champions");
 	return (champ_total);
 }
 
@@ -117,7 +130,7 @@ void	read_args(int argc, char **argv, t_game *game)
 	champ_total = find_champ_total(argc, argv);
 	ft_printf("champ_total: %d\n", champ_total);
 	i = 1;
-	champ_count = 1;
+	champ_count = 0;
 	if (argc == 1)
 		print_usage();
 	while (i < argc)
@@ -132,7 +145,10 @@ void	read_args(int argc, char **argv, t_game *game)
 		else if (ft_strcmp((argv[i]), "-n") == 0)
 		{
 			if (argv[i + 1])
+			{
+				game->champ[champ_count].nbr = 0;
 				read_nbr(argv[++i], game, champ_count);
+			}
 			else
 				print_usage();
 			if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
@@ -141,9 +157,13 @@ void	read_args(int argc, char **argv, t_game *game)
 				print_usage();
 		}
 		else if (ft_strstr(argv[i], ".cor"))
+		{
+			game->champ[champ_count].nbr = 0;
 			read_champion(argv[i], game, champ_count++, champ_total);
+		}
 		else
 			print_usage();
+//		print_arena(game->arena);//
 		i++;
 	}
 }
