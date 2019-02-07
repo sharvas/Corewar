@@ -88,16 +88,16 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 		print_usage();//replace with error message
 	weight = read(fd, binary, FILE_SIZE + 1);//integrate
 	if (weight > FILE_SIZE)
-		error_exit("champion too fat");
+		error_exit("champion size too big");
 	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
-		error_exit("champion too thin");
+		error_exit("champion size too small");
 	ft_printf("weight: %u\n", weight);
 	close(fd);
 	if (!game->champ[champ_count].nbr)
 		game->champ[champ_count].nbr = champ_count;
 	ft_printf("nbr: %d\n", game->champ[champ_count].nbr);//
-	ft_memcpy(&game->champ[champ_count].header.magic, (char*)(binary + 1), 3);
-	ft_printf("magic: %x\n", game->champ[champ_count].header.magic);//
+	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
+	ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3));
 	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
 	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
@@ -168,14 +168,21 @@ void	read_args(int argc, char **argv, t_game *game)
 	}
 }
 
+void	init_game(t_game *game)
+{
+	ft_bzero(game, sizeof(*game));
+	game->cycle_to_die = CYCLE_TO_DIE;
+	game->cycle = CYCLE_TO_DIE;
+}
+
 int main(int argc, char **argv)
 {
 	t_game	game;
 
-	ft_bzero(&game, sizeof(game));
+	init_game(&game);
 	read_args(argc, argv, &game);
+	ft_game(&game);
 	// if (game.dump)//change to deal with cycles
 		print_arena(game.arena);
-	ft_game(&game);
 	return (0);
 }
