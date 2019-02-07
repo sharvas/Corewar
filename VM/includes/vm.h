@@ -18,11 +18,19 @@ typedef struct			s_champ
 	int			    	alive;
 }						t_champ;
 
+// typedef struct			s_arena
+// {
+// 	unsigned char		value;
+// 	int					champ;
+// 	int					ptr;
+// }						t_arena;
+
 typedef struct			s_game
 {
 	int					dump;
 	struct s_champ		champ[4];
 	unsigned char   	arena[MEM_SIZE];
+	// struct s_arena		arena[MEM_SIZE];
 	// struct s_process	process;
 }						t_game;
 
