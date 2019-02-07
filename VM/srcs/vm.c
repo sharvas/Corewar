@@ -89,6 +89,8 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	weight = read(fd, binary, FILE_SIZE + 1);//integrate
 	if (weight > FILE_SIZE)
 		error_exit("champion too fat");
+	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
+		error_exit("champion too thin");
 	ft_printf("weight: %u\n", weight);
 	close(fd);
 	if (!game->champ[champ_count].nbr)
