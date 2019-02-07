@@ -62,8 +62,8 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			print_usage();
-	game->champ[champ_count].nbr = ft_atoi(nbr);//correct atoi?
-	ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
+	game->champ[champ_count - 1].nbr = ft_atoi(nbr);//correct atoi?
+	ft_printf("champ->nbr: %d\n", game->champ[champ_count - 1].nbr);
 }
 
 void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
@@ -86,12 +86,12 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 		ft_putstr("ERROR champion too fat\n");
 	ft_printf("weight: %u\n", weight);
 	close(fd);
-	ft_memcpy(&game->champ[champ_count].header.magic, (char*)(binary + 1), 3);
-	ft_printf("magic: %x\n", game->champ[champ_count].header.magic);//
-	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
-	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
-	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
-	ft_printf("comment: %s\n", game->champ[champ_count].header.comment);//
+	ft_memcpy(&game->champ[champ_count - 1].header.magic, (char*)(binary + 1), 3);
+	ft_printf("magic: %x\n", game->champ[champ_count - 1].header.magic);//
+	ft_strncat(game->champ[champ_count - 1].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
+	ft_printf("name: %s\n", game->champ[champ_count - 1].header.prog_name);//
+	ft_strncat(game->champ[champ_count - 1].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
+	ft_printf("comment: %s\n", game->champ[champ_count - 1].header.comment);//
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 }
 
@@ -150,11 +150,12 @@ void	read_args(int argc, char **argv, t_game *game)
 
 int main(int argc, char **argv)
 {
-	t_game			game;
+	t_game	game;
 
 	ft_bzero(&game, sizeof(game));
 	read_args(argc, argv, &game);
 	// if (game.dump)//change to deal with cycles
 		print_arena(game.arena);
+	ft_game(&game);
 	return (0);
 }

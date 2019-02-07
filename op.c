@@ -38,3 +38,8 @@ t_op    op_tab[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
+
+t_op	*ft_get_op(void)
+{
+	return (op_tab);
+}

@@ -76,4 +76,22 @@ typedef struct				header_s
 	char					comment[COMMENT_LENGTH + 1];
 }							header_t;
 
+/*
+**
+*/
+
+# define MAX_ARGS 			4
+
+typedef struct				s_op
+{
+	char					*name;
+	int						argc;
+	int						args[MAX_ARGS];
+	int						id;
+	int						cycles;
+	char					*long_name;
+	int						OCP;
+	int						carry;
+}							t_op;
+
 #endif

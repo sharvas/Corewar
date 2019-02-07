@@ -25,7 +25,7 @@ HEADER = $(INC)vm.h
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = vm.c #operations.c
+SRCS_FILES = vm.c game.c ../../op.c #operations.c
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 
@@ -55,14 +55,14 @@ fsanitize:
 
 $(COREWAR): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
 	@echo "Compiling:" $(GREEN) $(COREWAR) $(DEFAULT)
-	gcc $(FLAGS) $(G) $(OBJS_PATH) $(LIBFT_A) -o $(COREWAR) -I $(LIBFT) -I $(INC)
+	gcc $(G) $(OBJS_PATH) $(LIBFT_A) -o $(COREWAR) -I $(LIBFT) -I $(INC)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)
 	@echo "Compiling:" $(GREEN) $< $(DEFAULT)
-	gcc $(FLAGS) $(G) -c $< -o $@ -I $(INC)
+	gcc $(G) -c $< -o $@ -I $(INC)
 
 clean:
 	@make -C $(LIBFT)/ clean
