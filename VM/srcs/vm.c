@@ -91,9 +91,9 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 		error_exit("champion too fat");
 	ft_printf("weight: %u\n", weight);
 	close(fd);
-	// if (!game->champ[champ_count].nbr)
-	// 	game->champ[champ_count].nbr = champ_count;//
-	// ft_printf("nbr: %d\n", game->champ[champ_count].nbr);
+	if (!game->champ[champ_count].nbr)
+		game->champ[champ_count].nbr = champ_count;
+	ft_printf("nbr: %d\n", game->champ[champ_count].nbr);//
 	ft_memcpy(&game->champ[champ_count].header.magic, (char*)(binary + 1), 3);
 	ft_printf("magic: %x\n", game->champ[champ_count].header.magic);//
 	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
@@ -101,7 +101,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
 	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
 	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count - 1));//
-	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
+	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 }
 
 int		find_champ_total(int argc, char **argv)
@@ -128,7 +128,7 @@ void	read_args(int argc, char **argv, t_game *game)
 	champ_total = find_champ_total(argc, argv);
 	ft_printf("champ_total: %d\n", champ_total);
 	i = 1;
-	champ_count = 1;
+	champ_count = 0;
 	if (argc == 1)
 		print_usage();
 	while (i < argc)
@@ -144,7 +144,7 @@ void	read_args(int argc, char **argv, t_game *game)
 		{
 			if (argv[i + 1])
 			{
-				ft_bzero(&game->champ[champ_count], sizeof(game->champ[champ_count]));//
+				game->champ[champ_count].nbr = 0;
 				read_nbr(argv[++i], game, champ_count);
 			}
 			else
@@ -156,11 +156,12 @@ void	read_args(int argc, char **argv, t_game *game)
 		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
-			ft_bzero(&game->champ[champ_count], sizeof(game->champ[champ_count]));//
+			game->champ[champ_count].nbr = 0;
 			read_champion(argv[i], game, champ_count++, champ_total);
 		}
 		else
 			print_usage();
+		print_arena(game->arena);//
 		i++;
 	}
 }
@@ -172,6 +173,6 @@ int main(int argc, char **argv)
 	ft_bzero(&game, sizeof(game));
 	read_args(argc, argv, &game);
 	// if (game.dump)//change to deal with cycles
-		print_arena(game.arena);
+	//	print_arena(game.arena);
 	return (0);
 }
