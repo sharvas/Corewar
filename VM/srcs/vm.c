@@ -100,7 +100,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
 	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
-	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count - 1));//
+	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 }
 
