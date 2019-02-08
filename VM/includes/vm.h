@@ -11,7 +11,7 @@ typedef struct			s_process
 {
 	unsigned char		*current;//process
 	int					index;
-	unsigned char		reg[16];
+	unsigned int		reg[16];
 	int					duration;
 	int					carry;
 	int					alive;

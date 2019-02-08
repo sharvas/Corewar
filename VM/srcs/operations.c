@@ -37,6 +37,7 @@ void	op_ld(t_game *game, t_process *process)
 
 	op_tab = ft_get_op();
 	args = find_args(&process->current[(process->index + 1) % MEM_SIZE]);
+	
 	id = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], sizeof(id));
 	process->alive++;
 	process->duration += op_tab[0].cycles;
