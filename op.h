@@ -80,13 +80,11 @@ typedef struct				header_s
 **
 */
 
-# define MAX_ARGS 			4
-
 typedef struct				s_op
 {
 	char					*name;
 	int						argc;
-	int						args[MAX_ARGS];
+	int						args[MAX_ARGS_NUMBER];
 	int						id;
 	int						cycles;
 	char					*long_name;

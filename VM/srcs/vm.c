@@ -12,9 +12,47 @@
 
 #include "vm.h"
 
+void    print_arena_color(t_game *game)
+{
+	int			i;
+	int			printed;
+	t_process	*process;
+	char 		color[12] = "\033[47;1;31m";
+	char 		color1[12] = "\033[0;33m";
+	char		color0[6] = "\033[0m";
+
+	i = 0;
+	ft_printf("0x%.4x : ", i);
+	while(i < MEM_SIZE)
+	{
+		printed = 0;
+		process = game->process;
+		while (process)
+		{
+			if (i == process->index)
+			{
+				ft_printf("%s%.2x%s", color, (unsigned int)game->arena[i], color0);
+				printed++;
+			}
+			if (printed == game->champ_count)
+				break ;
+			process = process->next;
+		}
+		if (!printed)
+			ft_printf("%s%.2x%s", color1, (unsigned int)game->arena[i], color0);
+		if (i == MEM_SIZE - 1)
+			ft_printf("\n");
+		else if (i && (i + 1) % 64 == 0)
+			ft_printf("\n%#.4x : ", i + 1);
+		else
+			ft_printf(" ");
+		i++;
+	}
+}
+
 void    print_arena(unsigned char *arena)
 {
-	int i;
+	int	i;
 	
 	i = 0;
 	ft_printf("0x%.4x : ", i);
@@ -75,6 +113,11 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	// ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
+// void	fill_memory(t_game *game, int index, int champ)
+// {
+// 	while 
+// } //set champ no where it belongs and then print in color
+
 void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 {
 	int		fd;
@@ -104,6 +147,8 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
 	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
+	game->champ[champ_count].start_index = (MEM_SIZE / champ_total) * (champ_count);
+	// fill_memory(game, (MEM_SIZE / champ_total) * (champ_count), champ_count);
 }
 
 int		find_champ_total(int argc, char **argv)
@@ -125,10 +170,9 @@ void	read_args(int argc, char **argv, t_game *game)
 {
 	int	i;
 	int	champ_count;
-	int	champ_total;
 
-	champ_total = find_champ_total(argc, argv);
-	ft_printf("champ_total: %d\n", champ_total);
+	game->champ_count = find_champ_total(argc, argv);
+	ft_printf("champ_total: %d\n", game->champ_count);
 	i = 1;
 	champ_count = 0;
 	if (argc == 1)
@@ -152,14 +196,14 @@ void	read_args(int argc, char **argv, t_game *game)
 			else
 				print_usage();
 			if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
-				read_champion(argv[++i], game, champ_count++, champ_total);
+				read_champion(argv[++i], game, champ_count++, game->champ_count);
 			else
 				print_usage();
 		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
 			game->champ[champ_count].nbr = 0;
-			read_champion(argv[i], game, champ_count++, champ_total);
+			read_champion(argv[i], game, champ_count++, game->champ_count);
 		}
 		else
 			print_usage();
@@ -173,6 +217,7 @@ void	init_game(t_game *game)
 	ft_bzero(game, sizeof(*game));
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->cycle = CYCLE_TO_DIE;
+	game->frame_rate = 2;
 }
 
 int main(int argc, char **argv)
@@ -183,6 +228,6 @@ int main(int argc, char **argv)
 	read_args(argc, argv, &game);
 	ft_game(&game);
 	// if (game.dump)//change to deal with cycles
-		print_arena(game.arena);
+	//	print_arena(game.arena);
 	return (0);
 }
