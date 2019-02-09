@@ -24,7 +24,7 @@ void	op_live(t_game *game, t_process *process)
 	id = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], sizeof(id));
 	process->alive++;
 	process->duration += op_tab[0].cycles;
-	if (id >= 0 && id <= game->champ_count)
+	if (id >= 0 && id < game->champ_count)
 	{
 		game->alive++;
 		ft_printf("Player %i (%s) is alive!\n", game->champ[id].nbr, game->champ[id].header.prog_name);
