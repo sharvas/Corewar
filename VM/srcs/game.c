@@ -86,8 +86,8 @@ void	ft_game(t_game *game)
 				ft_printf("\033[2J");
 			ft_printf("\033[H\033[?25l");
 			print_arena_color(game);
-			ft_printf("\033[?12;25h");
-			usleep(200000);
+			ft_printf("\n\033[?12;25h");
+			usleep(50000);
 			game->cycle--;
 		}
 		if (i > MAX_CHECKS || game->alive >= NBR_LIVE)
