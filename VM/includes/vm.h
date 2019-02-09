@@ -9,7 +9,7 @@
 
 typedef struct			s_process
 {
-	unsigned char		*current;//process
+	unsigned char		*current;
 	int					index;
 	unsigned int		reg[16];
 	int					duration;
@@ -26,13 +26,6 @@ typedef struct			s_champ
 	int					nbr;
 	int			    	alive;
 }						t_champ;
-
-// typedef struct		s_arena
-// {
-// 	unsigned char		value;
-// 	int					champ;
-// 	int					ptr;
-// }					t_arena;
 
 typedef struct			s_game
 {
@@ -51,14 +44,16 @@ typedef struct			s_game
 /*
 **		game.c
 */
-void	ft_game(t_game *game);
+void					ft_game(t_game *game);
 
-t_op	*ft_get_op(void);
+t_op					*ft_get_op(void);
 
-long long	ft_reverse_bytes(unsigned char *ptr, int size);
+long long				ft_reverse_bytes(unsigned char *ptr, int size);
 
-void    print_arena_color(t_game *game);
+void					print_arena_color(t_game *game);
 
-void	op_ld(t_game *game, t_process *process);
+void					op_live(t_game *game, t_process *process);
+void					op_ld(t_process *process);
+void					op_st(t_process *process);
 
 #endif

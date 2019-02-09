@@ -17,8 +17,8 @@ void    print_arena_color(t_game *game)
 	int			i;
 	int			printed;
 	t_process	*process;
-	char 		color[12] = "\033[47;1;31m";
-	char 		color1[12] = "\033[0;33m";
+	char 		color[12] = "\033[47;1;31m"; // define in .h with all other codes
+	char 		color1[12] = "\033[0;34m";
 	char		color0[6] = "\033[0m";
 
 	i = 0;
@@ -120,10 +120,10 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 
 void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 {
-	int		fd;
+	int				fd;
 	unsigned char	binary[FILE_SIZE + 1];
-	int		i;
-	size_t	weight;
+	int				i;
+	size_t			weight;
 
 	i = 0;
 	ft_bzero(binary, sizeof(binary));
@@ -207,7 +207,6 @@ void	read_args(int argc, char **argv, t_game *game)
 		}
 		else
 			print_usage();
-//		print_arena(game->arena);//
 		i++;
 	}
 }
@@ -217,7 +216,7 @@ void	init_game(t_game *game)
 	ft_bzero(game, sizeof(*game));
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->cycle = CYCLE_TO_DIE;
-	game->frame_rate = 2;
+	game->frame_rate = 10;
 }
 
 int main(int argc, char **argv)
@@ -226,6 +225,7 @@ int main(int argc, char **argv)
 
 	init_game(&game);
 	read_args(argc, argv, &game);
+	ft_printf("\033[2J");
 	ft_game(&game);
 	// if (game.dump)//change to deal with cycles
 	//	print_arena(game.arena);
