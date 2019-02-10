@@ -1,15 +1,15 @@
 #include "vm.h"
 
-long long	ft_reverse_bytes(unsigned char *ptr, int size)
+unsigned int	ft_reverse_bytes(void *ptr, int size)
 {
-	long long	ret;
-	int			i;
+	unsigned int	ret;
+	int				i;
 
 	ret = 0;
 	i = 0;
 	while (size-- > 0)
 	{
-		ret |= *(ptr + i) << (size * 8);
+		ret |= *((unsigned char *)ptr + i) << (size * 8);
 		i++;
 	}
 	return (ret);
@@ -18,12 +18,12 @@ long long	ft_reverse_bytes(unsigned char *ptr, int size)
 void	op_live(t_game *game, t_process *process)
 {
 	int		id;
-	t_op	*op_tab;
+	t_op	op_tab;
 
-	op_tab = ft_get_op();
-	id = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], sizeof(id));
+	op_tab = ft_get_op(0);
+	id = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], DIR_SIZE);
 	process->alive++;
-	process->duration += op_tab[0].cycles;
+	process->duration += op_tab.cycles;
 	if (id >= 0 && id < game->champ_count)
 	{
 		game->alive++;
@@ -44,6 +44,7 @@ void	ft_add_process(t_game *game, int champ)
 	new->index = game->champ[champ].start_index;
 	new->champ = champ;
 	new->alive = 1;
+	new->reg[1] = game->champ[champ].nbr;
 	if (!game->process)
 		game->process = new;
 	else
@@ -79,6 +80,10 @@ void	ft_game(t_game *game)
 					op_ld(process);
 				else if (process->current[process->index % MEM_SIZE] == 3)
 					op_st(process);
+				else if (process->current[process->index % MEM_SIZE] == 4)
+					op_add(process);
+				else if (process->current[process->index % MEM_SIZE] == 5)
+					op_sub(process);
 				process->index = process->index % MEM_SIZE + 1;
 				process = process->next;
 			}

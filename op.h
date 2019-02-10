@@ -88,8 +88,8 @@ typedef struct				s_op
 	int						id;
 	int						cycles;
 	char					*long_name;
-	int						OCP;
 	int						carry;
+	int						addr_rest;
 }							t_op;
 
 #endif
