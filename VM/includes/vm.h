@@ -7,6 +7,13 @@
 
 # define FILE_SIZE 		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
+# define LIGHT		"\x1B[47;1;31m"
+# define RED		"\x1B[31m"
+# define GREEN		"\x1B[32m"
+# define YELLOW		"\x1b[33m"
+# define BLUE		"\x1b[34m"
+# define RESET		"\x1B[0m"
+
 typedef struct			s_process
 {
 	unsigned char		*current;
