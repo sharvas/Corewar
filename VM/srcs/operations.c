@@ -37,6 +37,7 @@ void	op_ld(t_process *process)
 	&& process->current[(process->index + DIR_SIZE + 1) % MEM_SIZE] < 16)
 	{
 		index = ft_reverse_bytes(&process->current[++process->index % MEM_SIZE], DIR_SIZE);
+		ft_printf("champ(%u) - load(%u, %u)\n", process->champ, index, process->current[(process->index + DIR_SIZE) % MEM_SIZE]);
 		process->reg[process->current[(process->index + DIR_SIZE) % MEM_SIZE]] = index;
 		process->index += DIR_SIZE;
 		process->duration += op_tab.cycles;
@@ -49,6 +50,7 @@ void	op_ld(t_process *process)
 	{
 		index = ft_reverse_bytes(&process->current[++process->index % MEM_SIZE], IND_SIZE);
 		reg = ft_reverse_bytes(&process->current[(((process->index + index - 2) % MEM_SIZE) % IDX_MOD)], DIR_SIZE);
+		ft_printf("champ(%u) - load(%u, %u)\n", process->champ, reg, process->current[(process->index + IND_SIZE) % MEM_SIZE]);
 		process->reg[process->current[(process->index + IND_SIZE) % MEM_SIZE]] = reg;
 		process->index += IND_SIZE;
 		process->duration += op_tab.cycles;

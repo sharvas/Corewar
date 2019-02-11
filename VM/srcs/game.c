@@ -22,11 +22,12 @@ void	op_live(t_game *game, t_process *process)
 
 	op_tab = ft_get_op(0);
 	id = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], DIR_SIZE);
-	process->alive++;
+	process->alive = 1;
 	process->duration += op_tab.cycles;
 	if (id >= 0 && id < game->champ_count)
 	{
 		game->alive++;
+		game->champ[id].alive++;
 		ft_printf("Player %i (%s) is alive!\n", game->champ[id].nbr, game->champ[id].header.prog_name);
 	}
 	process->index += DIR_SIZE;
@@ -104,7 +105,7 @@ void	ft_game(t_game *game)
 			ft_printf("\033[H\033[?25l");
 			print_arena_color(game);
 			ft_printf("\n\033[?12;25h");
-			usleep(50000);
+			usleep(500000);
 			game->cycle--;
 		}
 		if (i > MAX_CHECKS || game->alive >= NBR_LIVE)
