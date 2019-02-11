@@ -84,6 +84,18 @@ void	ft_game(t_game *game)
 					op_add(process);
 				else if (process->current[process->index % MEM_SIZE] == 5)
 					op_sub(process);
+				else if (process->current[process->index % MEM_SIZE] == 6)
+					op_and(process);
+				else if (process->current[process->index % MEM_SIZE] == 7)
+					op_or(process);
+				else if (process->current[process->index % MEM_SIZE] == 8)
+					op_xor(process);
+				else if (process->current[process->index % MEM_SIZE] == 9)
+					op_zjmp(process);
+				else if (process->current[process->index % MEM_SIZE] == 10)
+					op_ldi(process);
+				else if (process->current[process->index % MEM_SIZE] == 11)
+					op_sti(process);
 				process->index = process->index % MEM_SIZE + 1;
 				process = process->next;
 			}

@@ -57,5 +57,11 @@ void					op_ld(t_process *process);
 void					op_st(t_process *process);
 void					op_add(t_process *process);
 void					op_sub(t_process *process);
-
+void					op_and(t_process *process);
+void					op_or(t_process *process);
+void					op_xor(t_process *process);
+void					op_zjmp(t_process *process);
+void					op_ldi(t_process *process);
+void					op_sti(t_process *process);
+ 
 #endif
