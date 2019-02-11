@@ -17,9 +17,6 @@ void    print_arena_color(t_game *game)
 	int			i;
 	int			printed;
 	t_process	*process;
-	// char 		color[12] = "\033[47;1;31m"; // define in .h with all other codes
-	// char 		color1[12] = "\033[0;34m";
-	// char		color0[6] = "\033[0m";
 
 	i = 0;
 	ft_printf("0x%.4x : ", i);
@@ -33,16 +30,17 @@ void    print_arena_color(t_game *game)
 			{
 				ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
 				printed++;
+				break;
 			}
-			if (printed == game->champ_count)//
-				break ;//
+			if (printed == game->champ_count)//??
+				break ;//??
 			process = process->next;
 		}
-		// if (!printed && game->arena_data[i])//== game->champ[champ_count].nbr
-		// {
-		// 	ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
-		// 	printed++;
-		// }
+		if (!printed && game->arena_data[i])//== game->champ[champ_count].nbr
+		{
+			ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
+			printed++;
+		}
 		if (!printed)
 			ft_printf("%.2x", (unsigned int)game->arena[i]);
 		if (i == MEM_SIZE - 1)
@@ -145,24 +143,27 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	if (!game->champ[champ_count].nbr)
 		game->champ[champ_count].nbr = champ_count;
 	ft_printf("nbr: %d\n", game->champ[champ_count].nbr);//
+
 	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
 	ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3));
+
 	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
 	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
 
-	// ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 136), 4);
-	// ft_printf("prog_size: %s\n", game->champ[champ_count].header.prog_size);
+	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
+	ft_printf("prog_size: %x\n", game->champ[champ_count].header.prog_size);
+	// game->champ[champ_count].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)game->champ[champ_count].header.prog_size, 2);
 
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
 	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
 	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 	game->champ[champ_count].start_index = (MEM_SIZE / champ_total) * (champ_count);
-	// while (i < game->champ[champ_count].header.prog_size)
-	// {
-	// 	ft_memcpy(game->arena_data + ((MEM_SIZE / champ_total) * (champ_count)) + i, &game->champ[champ_count].nbr, CHAMP_MAX_SIZE - 16);
-	// 	i++;
-	// }
+	while (i < 12)//game->champ[champ_count].header.prog_size)
+	{
+		ft_memcpy(game->arena_data + ((MEM_SIZE / champ_total) * (champ_count)) + i, &game->champ[champ_count].nbr, 12);//CHAMP_MAX_SIZE - 16);correct number?
+		i++;
+	}
 	// fill_memory(game, (MEM_SIZE / champ_total) * (champ_count), champ_count);
 }
 

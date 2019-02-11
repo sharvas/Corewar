@@ -39,7 +39,7 @@ t_op    op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-t_op	*ft_get_op(void)
+t_op	*ft_get_op(void)//add int op_code
 {
 	return (op_tab);
 }
