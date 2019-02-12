@@ -30,25 +30,25 @@ void    print_arena_color(t_game *game)
 			{
 				if (!game->flag_cp)
 				{
-					if (game->arena_data[i] == game->champ[0].nbr)
+					if (game->arena_champs[i] == game->champ[0].nbr)
 					{
 						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
 						printed++;
 						break;
 					}
-					else if (game->arena_data[i] == game->champ[1].nbr)
+					else if (game->arena_champs[i] == game->champ[1].nbr)
 					{
 						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
 						printed++;
 						break;
 					}
-					else if (game->arena_data[i] == game->champ[2].nbr)
+					else if (game->arena_champs[i] == game->champ[2].nbr)
 					{
 						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
 						printed++;
 						break;
 					}
-					else if (game->arena_data[i] == game->champ[3].nbr)
+					else if (game->arena_champs[i] == game->champ[3].nbr)
 					{
 						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
 						printed++;
@@ -93,22 +93,22 @@ void    print_arena_color(t_game *game)
 			// 	break ;//??
 			process = process->next;
 		}
-		if (!printed && game->arena_data[i] == game->champ[0].nbr)
+		if (!printed && game->arena_champs[i] == game->champ[0].nbr)
 		{
 			ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);//
 			printed++;
 		}
-		else if (!printed && game->arena_data[i] == game->champ[1].nbr)
+		else if (!printed && game->arena_champs[i] == game->champ[1].nbr)
 		{
 			ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
 			printed++;
 		}
-		else if (!printed && game->arena_data[i] == game->champ[2].nbr)
+		else if (!printed && game->arena_champs[i] == game->champ[2].nbr)
 		{
 			ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);//
 			printed++;
 		}
-		else if (!printed && game->arena_data[i] == game->champ[3].nbr)
+		else if (!printed && game->arena_champs[i] == game->champ[3].nbr)
 		{
 			ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);//
 			printed++;
@@ -232,7 +232,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	game->champ[champ_count - 1].start_index = (MEM_SIZE / champ_total) * (champ_count - 1);
 	while (i < game->champ[champ_count - 1].header.prog_size)
 	{
-		ft_memcpy(game->arena_data + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i, &game->champ[champ_count - 1].nbr, 1);
+		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i, &game->champ[champ_count - 1].nbr, 1);
 		i++;
 	}
 }
@@ -302,7 +302,7 @@ void	read_args(int argc, char **argv, t_game *game)
 void	init_game(t_game *game)
 {
 	ft_bzero(game, sizeof(*game));
-	ft_bzero(game->arena_data, sizeof(MEM_SIZE));
+	ft_bzero(game->arena_champs, sizeof(MEM_SIZE));
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->cycle = CYCLE_TO_DIE;
 	game->frame_rate = 1;
