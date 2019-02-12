@@ -61,7 +61,7 @@ void    print_arena_color(t_game *game)
 						break;
 					}
 				}
-				else//
+				else
 				{
 					if (process->champ == game->champ[0].nbr)
 					{
@@ -150,7 +150,8 @@ void	print_usage(/*t_game *game*/)
 	ft_putstr("[[-n number] champion1.cor] ...\n\n");
 	ft_putstr("\t[-dump nbr_cycles] at the end of nbr_cycles of executions, ");
 	ft_putstr("dump the memory on the standard output and quit\n");
-	ft_putstr("\t[-n number] sets the number of the next player\n\n");
+	ft_putstr("\t[-n number] sets the number of the next player\n");
+	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n\n");
 //	free_everything(/*t_game *game*/);
 	exit(1);
 }
