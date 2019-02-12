@@ -34,14 +34,14 @@ typedef struct			s_champ
 {
 	struct header_s		header;
 	int					start_index;
-	int					nbr;
+	unsigned int		nbr;
 	int			    	alive;
 }						t_champ;
 
 typedef struct			s_game
 {
 	unsigned char		arena[MEM_SIZE];
-	int					arena_data[MEM_SIZE];
+	unsigned char		arena_champs[MEM_SIZE];
 	int					dump;//cycle_to_dump;
 	int					frame_rate;
 	int					cycle_to_die;
@@ -58,14 +58,22 @@ typedef struct			s_game
 */
 void					ft_game(t_game *game);
 
-t_op					*ft_get_op(void);
+t_op					ft_get_op(int index);
 
-long long				ft_reverse_bytes(unsigned char *ptr, int size);
+unsigned int			ft_reverse_bytes(void *ptr, int size);
 
 void					print_arena_color(t_game *game);
 
 void					op_live(t_game *game, t_process *process);
 void					op_ld(t_process *process);
 void					op_st(t_process *process);
-
+void					op_add(t_process *process);
+void					op_sub(t_process *process);
+void					op_and(t_process *process);
+void					op_or(t_process *process);
+void					op_xor(t_process *process);
+void					op_zjmp(t_process *process);
+void					op_ldi(t_process *process);
+void					op_sti(t_process *process);
+ 
 #endif
