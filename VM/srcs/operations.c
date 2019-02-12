@@ -74,6 +74,7 @@ void	op_st(t_process *process)
 	{
 		reg = process->current[++process->index % MEM_SIZE];
 		index = ft_reverse_bytes(&process->current[++process->index % MEM_SIZE], IND_SIZE);
+		ft_printf("champ(%u) - store(%u, %u)\n", process->champ, index, reg);
 		process->current[((process->index + index - 2) % MEM_SIZE) % IDX_MOD] = ft_reverse_bytes(&process->reg[reg], DIR_SIZE);
 		process->duration += op_tab.cycles;
 		process->index += IND_SIZE - 1;
@@ -85,6 +86,7 @@ void	op_st(t_process *process)
 	&& process->current[(process->index + 2) % MEM_SIZE] < 16)
 	{
 		reg = process->current[++process->index % MEM_SIZE];
+		ft_printf("champ(%u) - store(%u, %u)\n", process->champ, reg, process->current[(process->index + 1) % MEM_SIZE]);
 		process->reg[process->current[++process->index % MEM_SIZE]] = process->reg[reg];
 		process->duration += op_tab.cycles;
 	}
@@ -115,6 +117,7 @@ void	op_add(t_process *process)
 			process->carry = 1;
 		else if (op_tab.carry)
 			process->carry = 0;
+		ft_printf("champ (%i) - add(%i, %i, %i) [carry - %i]\n", process->champ, reg1, reg2, process->current[(process->index - 1) % MEM_SIZE], process->carry);
 	}
 }
 
@@ -143,6 +146,7 @@ void	op_sub(t_process *process)
 			process->carry = 1;
 		else if (op_tab.carry)
 			process->carry = 0;
+		ft_printf("champ (%i) - add(%i, %i, %i) [carry - %i]\n", process->champ, reg1, reg2, process->current[(process->index - 1) % MEM_SIZE], process->carry);
 	}
 }
 
@@ -197,7 +201,6 @@ int		get_second_value(t_process *process, t_arg_type *args, unsigned int *value2
 	&& process->current[(process->index + 1) % MEM_SIZE] >= 0
 	&& process->current[(process->index + 1) % MEM_SIZE] < 16)
 	{
-		// don't need to reverse, just take 2 bytes
 		*value2 = ft_reverse_bytes(&process->reg[process->current[++process->index % MEM_SIZE]], DIR_SIZE);
 		return (1);
 	}
@@ -317,7 +320,7 @@ void	op_zjmp(t_process *process)
 	op_tab = ft_get_op(8);
 	index = ft_reverse_bytes(&process->current[++process->index % MEM_SIZE], IND_SIZE);
 	if (process->carry)
-		process->index += ((index - 1) % MEM_SIZE) % IDX_MOD;
+		process->index += (index - 1) % MEM_SIZE;
 	process->duration += op_tab.cycles;
 }
 
@@ -330,12 +333,12 @@ int		get_first_value_ind(t_process *process, t_arg_type *args, unsigned int *val
 	&& process->current[(process->index + 1) % MEM_SIZE] < 16)
 	{
 		//dont need to reverse, just take the 2 bytes
-		*value1 = ft_reverse_bytes(&process->reg[process->current[++process->index % MEM_SIZE]], IND_SIZE);
+		*value1 = ft_get_bytes(&process->reg[process->current[++process->index % MEM_SIZE]], IND_SIZE);
 		return (1);
 	}
 	else if (args[0] == DIR_CODE)
 	{
-		*value1 = ft_reverse_bytes(&process->current[((process->index + 1) % MEM_SIZE) % IDX_MOD], IND_SIZE);
+		*value1 = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], IND_SIZE);
 		process->index += IND_SIZE;
 		return (1);
 	}
@@ -361,7 +364,7 @@ int		get_second_value_ind(t_process *process, t_arg_type *args, unsigned int *va
 	&& process->current[(process->index + 1) % MEM_SIZE] < 16)
 	{
 		// dont need to reverse, just take 2 bytes
-		*value2 = ft_reverse_bytes(&process->reg[process->current[++process->index % MEM_SIZE]], IND_SIZE);
+		*value2 = ft_get_bytes(&process->reg[process->current[++process->index % MEM_SIZE]], IND_SIZE);
 		return (1);
 	}
 	else if (args[1] == DIR_CODE)
@@ -431,8 +434,8 @@ void	op_sti(t_process *process)
 		// reverse incrementation if second does not succeed or do not increment the first?? everywhere
 		if (!get_second_value_ind(process, args, &value2))
 			return ;
-		total_value = ft_reverse_bytes(&process->current[((process->index - size1 - size2 - 1 + value1 + value2) % MEM_SIZE) % IDX_MOD], REG_SIZE);
-		process->current[((process->index - size1 - size2 - 1 + total_value) % MEM_SIZE) % IDX_MOD] = process->reg[(process->index - size1 - size2) % MEM_SIZE];
+		total_value = ft_reverse_bytes(&process->current[((process->index - size1 - size2 - 1 + value1 + value2) % MEM_SIZE) % IDX_MOD], IND_SIZE);
+		process->current[((process->index - size1 - size2 - 1 + total_value) % MEM_SIZE) % IDX_MOD] = ft_get_bytes(&process->reg[(process->index - size1 - size2) % MEM_SIZE], DIR_SIZE);
 		process->duration += op_tab.cycles;
 		if (!total_value && op_tab.carry)
 			process->carry = 1;

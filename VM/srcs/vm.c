@@ -216,7 +216,7 @@ void	init_game(t_game *game)
 	ft_bzero(game, sizeof(*game));
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->cycle = CYCLE_TO_DIE;
-	game->frame_rate = 10;
+	game->frame_rate = 1;
 }
 
 int main(int argc, char **argv)
@@ -225,6 +225,9 @@ int main(int argc, char **argv)
 
 	init_game(&game);
 	read_args(argc, argv, &game);
+	ft_printf("\033[2J");
+	print_arena(game.arena);
+	usleep(500000);
 	ft_printf("\033[2J");
 	ft_game(&game);
 	// if (game.dump)//change to deal with cycles
