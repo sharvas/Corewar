@@ -12,6 +12,10 @@
 # define GREEN		"\x1B[32m"
 # define YELLOW		"\x1b[33m"
 # define BLUE		"\x1b[34m"
+# define BRED		"\x1B[41m"
+# define BGREEN		"\x1B[42m"
+# define BYELLOW	"\x1b[43m"
+# define BBLUE		"\x1b[44m"
 # define RESET		"\x1B[0m"
 
 typedef struct			s_process
@@ -46,6 +50,7 @@ typedef struct			s_game
 	struct s_champ		champ[4];
 	int					champ_count;
 	struct s_process	*process;
+	int					flag_cp;
 }						t_game;
 
 /*

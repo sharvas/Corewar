@@ -28,17 +28,89 @@ void    print_arena_color(t_game *game)
 		{
 			if (i == process->index)
 			{
-				ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
-				printed++;
-				break;
+				if (!game->flag_cp)
+				{
+					if (game->arena_data[i] == game->champ[0].nbr)
+					{
+						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else if (game->arena_data[i] == game->champ[1].nbr)
+					{
+						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else if (game->arena_data[i] == game->champ[2].nbr)
+					{
+						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else if (game->arena_data[i] == game->champ[3].nbr)
+					{
+						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else
+					{
+						ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+				}
+				else//
+				{
+					if (process->champ == game->champ[0].nbr)
+					{
+						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else if (process->champ == game->champ[1].nbr)
+					{
+						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else if (process->champ == game->champ[2].nbr)
+					{
+						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+					else if (process->champ == game->champ[3].nbr)
+					{
+						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
+						printed++;
+						break;
+					}
+				}	
 			}
-			if (printed == game->champ_count)//??
-				break ;//??
+			// if (printed == game->champ_count)//??
+			// 	break ;//??
 			process = process->next;
 		}
-		if (!printed && game->arena_data[i])//== game->champ[champ_count].nbr
+		if (!printed && game->arena_data[i] == game->champ[0].nbr)
+		{
+			ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);//
+			printed++;
+		}
+		else if (!printed && game->arena_data[i] == game->champ[1].nbr)
 		{
 			ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
+			printed++;
+		}
+		else if (!printed && game->arena_data[i] == game->champ[2].nbr)
+		{
+			ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);//
+			printed++;
+		}
+		else if (!printed && game->arena_data[i] == game->champ[3].nbr)
+		{
+			ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);//
 			printed++;
 		}
 		if (!printed)
@@ -112,14 +184,9 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			print_usage();
-	game->champ[champ_count].nbr = ft_atoi(nbr);//correct atoi?
+	game->champ[champ_count - 1].nbr = ft_atoi(nbr);//correct atoi?
 	// ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
-
-// void	fill_memory(t_game *game, int index, int champ)
-// {
-// 	while 
-// } //set champ no where it belongs and then print in color
 
 void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 {
@@ -140,31 +207,33 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("weight: %u\n", weight);//
 	ft_printf("actual weight?: %u\n", weight - PROG_NAME_LENGTH - COMMENT_LENGTH);//
 	close(fd);
-	if (!game->champ[champ_count].nbr)
-		game->champ[champ_count].nbr = champ_count;
-	ft_printf("nbr: %d\n", game->champ[champ_count].nbr);//
+	if (!game->champ[champ_count - 1].nbr)
+		game->champ[champ_count - 1].nbr = champ_count;
+	ft_printf("nbr: %d\n", game->champ[champ_count - 1].nbr);//
 
-	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
-	ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3));
+	ft_memcpy(&game->champ[champ_count - 1].header.magic, (binary + 1), 3);
+	ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count - 1].header.magic, 3));
+	// game->champ[champ_count].header.magic = (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3);
+	// ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3));
 
-	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
-	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
+	ft_strncat(game->champ[champ_count - 1].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
+	ft_printf("name: %s\n", game->champ[champ_count - 1].header.prog_name);//
 
-	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
-	ft_printf("prog_size: %b\n", game->champ[champ_count].header.prog_size);
-	// game->champ[champ_count].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)game->champ[champ_count].header.prog_size, 2);
+	ft_memcpy(&game->champ[champ_count - 1].header.prog_size, (binary + 138), 2);
+	ft_printf("prog_size: %x\n", game->champ[champ_count - 1].header.prog_size);
+	game->champ[champ_count - 1].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count - 1].header.prog_size, 2);
+	ft_printf("prog_size: %x\n", game->champ[champ_count - 1].header.prog_size);
 
-	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
-	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
+	ft_strncat(game->champ[champ_count - 1].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
+	ft_printf("comment: %s\n\n", game->champ[champ_count - 1].header.comment);//
 	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
-	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
-	game->champ[champ_count].start_index = (MEM_SIZE / champ_total) * (champ_count);
-	while (i < 12)//game->champ[champ_count].header.prog_size)
+	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
+	game->champ[champ_count - 1].start_index = (MEM_SIZE / champ_total) * (champ_count - 1);
+	while (i < game->champ[champ_count - 1].header.prog_size)
 	{
-		ft_memcpy(game->arena_data + ((MEM_SIZE / champ_total) * (champ_count)) + i, &game->champ[champ_count].nbr, 12);//CHAMP_MAX_SIZE - 16);correct number?
+		ft_memcpy(game->arena_data + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i, &game->champ[champ_count - 1].nbr, 1);
 		i++;
 	}
-	// fill_memory(game, (MEM_SIZE / champ_total) * (champ_count), champ_count);
 }
 
 int		find_champ_total(int argc, char **argv)
@@ -190,12 +259,14 @@ void	read_args(int argc, char **argv, t_game *game)
 	game->champ_count = find_champ_total(argc, argv);
 	ft_printf("champ_total: %d\n", game->champ_count);
 	i = 1;
-	champ_count = 0;
+	champ_count = 1;
 	if (argc == 1)
 		print_usage();
 	while (i < argc)
 	{
-		if (ft_strcmp((argv[i]), "-dump") == 0)
+		if (ft_strcmp((argv[i]), "-cp") == 0)
+			game->flag_cp = 1;
+		else if (ft_strcmp((argv[i]), "-dump") == 0)
 		{
 			if (argv[i + 1])
 				read_dump(argv[++i], game);
@@ -206,7 +277,7 @@ void	read_args(int argc, char **argv, t_game *game)
 		{
 			if (argv[i + 1])
 			{
-				game->champ[champ_count].nbr = 0;
+				game->champ[champ_count - 1].nbr = 0;
 				read_nbr(argv[++i], game, champ_count);
 			}
 			else
@@ -218,7 +289,7 @@ void	read_args(int argc, char **argv, t_game *game)
 		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
-			game->champ[champ_count].nbr = 0;
+			game->champ[champ_count - 1].nbr = 0;
 			read_champion(argv[i], game, champ_count++, game->champ_count);
 		}
 		else
