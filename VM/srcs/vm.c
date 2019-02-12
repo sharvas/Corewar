@@ -151,7 +151,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
 
 	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
-	ft_printf("prog_size: %x\n", game->champ[champ_count].header.prog_size);
+	ft_printf("prog_size: %b\n", game->champ[champ_count].header.prog_size);
 	// game->champ[champ_count].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)game->champ[champ_count].header.prog_size, 2);
 
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
