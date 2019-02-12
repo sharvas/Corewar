@@ -134,7 +134,7 @@ void	read_dump(char *nbr, t_game *game)
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			print_usage();
-	game->dump = ft_atoi(nbr);//correct atoi?
+	game->dump = ft_atoi(nbr);
 	ft_printf("dump: %d\n", game->dump);//
 }
 
@@ -146,7 +146,11 @@ void	read_nbr(char *nbr, t_game *game, int champ_count)
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			print_usage();
-	game->champ[champ_count - 1].nbr = ft_atoi(nbr);//correct atoi?
+	game->champ[champ_count - 1].nbr = ft_atoi(nbr);
+	i = -1;
+	while (++i < champ_count - 1)
+		if (game->champ[champ_count - 1].nbr == game->champ[i].nbr)
+			error_exit("-n number duplicate, try another number");
 	// ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
@@ -154,23 +158,32 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 {
 	int				fd;
 	unsigned char	binary[FILE_SIZE + 1];
-	int				i;
+	unsigned int	i;
+	int				j;
+	int				champ_tmp;
 	size_t			weight;
 
 	i = 0;
+	j = -1;
+	champ_tmp = champ_count;
 	ft_bzero(binary, sizeof(binary));
 	if ((fd = open(cor, O_RDONLY)) < 0)
-		print_usage();//replace with error message
+		error_exit("failed to open .cor file");
 	weight = read(fd, binary, FILE_SIZE + 1);//integrate
 	if (weight > FILE_SIZE)
 		error_exit("champion size too big");
 	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
 		error_exit("champion size too small");
 	ft_printf("weight: %u\n", weight);//
-	ft_printf("actual weight?: %u\n", weight - PROG_NAME_LENGTH - COMMENT_LENGTH);//
+	// ft_printf("actual weight?: %u\n", weight - PROG_NAME_LENGTH - COMMENT_LENGTH);//
 	close(fd);
 	if (!game->champ[champ_count - 1].nbr)
-		game->champ[champ_count - 1].nbr = champ_count;
+	{
+		while (++j < champ_count)// check for duplicate numbers
+			if (champ_tmp == game->champ[j].nbr)
+				champ_tmp++;
+		game->champ[champ_count - 1].nbr = champ_tmp;
+	}
 	ft_printf("nbr: %d\n", game->champ[champ_count - 1].nbr);//
 
 	ft_memcpy(&game->champ[champ_count - 1].header.magic, (binary + 1), 3);
@@ -182,9 +195,8 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("name: %s\n", game->champ[champ_count - 1].header.prog_name);//
 
 	ft_memcpy(&game->champ[champ_count - 1].header.prog_size, (binary + 138), 2);
-	ft_printf("prog_size: %x\n", game->champ[champ_count - 1].header.prog_size);
 	game->champ[champ_count - 1].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count - 1].header.prog_size, 2);
-	ft_printf("prog_size: %x\n", game->champ[champ_count - 1].header.prog_size);
+	ft_printf("prog_size (in hex): %x\n", game->champ[champ_count - 1].header.prog_size);
 
 	ft_strncat(game->champ[champ_count - 1].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
 	ft_printf("comment: %s\n\n", game->champ[champ_count - 1].header.comment);//
@@ -192,10 +204,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 	game->champ[champ_count - 1].start_index = (MEM_SIZE / champ_total) * (champ_count - 1);
 	while (i < game->champ[champ_count - 1].header.prog_size)
-	{
-		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i, &game->champ[champ_count - 1].nbr, 1);
-		i++;
-	}
+		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i++, &game->champ[champ_count - 1].nbr, 1);
 }
 
 int		find_champ_total(int argc, char **argv)

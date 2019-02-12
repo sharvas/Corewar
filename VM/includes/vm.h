@@ -26,7 +26,7 @@ typedef struct			s_process
 	int					duration;
 	int					carry;
 	int					alive;
-	int					champ;
+	unsigned char		champ;
 	struct s_process	*next;
 }						t_process;
 
@@ -67,7 +67,7 @@ void					print_arena_color(t_game *game);
 
 void					op_live(t_game *game, t_process *process);
 void					op_ld(t_process *process);
-void					op_st(t_process *process);
+void					op_st(t_process *process, t_game *game);
 void					op_add(t_process *process);
 void					op_sub(t_process *process);
 void					op_and(t_process *process);
@@ -75,6 +75,11 @@ void					op_or(t_process *process);
 void					op_xor(t_process *process);
 void					op_zjmp(t_process *process);
 void					op_ldi(t_process *process);
-void					op_sti(t_process *process);
+void					op_sti(t_process *process, t_game *game);
+// void					op_fork(t_process *process, t_game *game);
+void					op_lld(t_process *process);
+void					op_lldi(t_process *process);
+void					op_lfork(t_process *process);
+void					op_aff(t_process *process);
  
 #endif

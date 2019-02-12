@@ -59,7 +59,16 @@ void	op_ld(t_process *process)
 	}
 }
 
-void	op_st(t_process *process)
+void	spread_color(int index, t_game *game, t_process *process)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		ft_memcpy(game->arena_champs + index + i++, &process->champ, 1);
+}
+
+void	op_st(t_process *process, t_game *game)
 {
 	unsigned char	reg;
 	unsigned int	index;
@@ -77,6 +86,7 @@ void	op_st(t_process *process)
 		ft_printf("champ(%u) - store(%u, %u)\n", process->champ, index, reg);
 		process->current[((process->index + index - 2) % MEM_SIZE) % IDX_MOD] = ft_reverse_bytes(&process->reg[reg], DIR_SIZE);
 		process->duration += op_tab.cycles;
+		spread_color(((process->index + index - 2) % MEM_SIZE) % IDX_MOD, game, process);//////////////////////////////////////////
 		process->index += IND_SIZE - 1;
 	}
 	else if (args[0] == REG_CODE && args[1] == REG_CODE
@@ -410,7 +420,7 @@ void	op_ldi(t_process *process)
 	}
 }
 
-void	op_sti(t_process *process)
+void	op_sti(t_process *process, t_game *game)
 {
 	unsigned int	size1;
 	unsigned int	size2;
@@ -437,9 +447,69 @@ void	op_sti(t_process *process)
 		total_value = ft_reverse_bytes(&process->current[((process->index - size1 - size2 - 1 + value1 + value2) % MEM_SIZE) % IDX_MOD], IND_SIZE);
 		process->current[((process->index - size1 - size2 - 1 + total_value) % MEM_SIZE) % IDX_MOD] = ft_get_bytes(&process->reg[(process->index - size1 - size2) % MEM_SIZE], DIR_SIZE);
 		process->duration += op_tab.cycles;
+		spread_color((((process->index - size1 - size2 - 1 + value1 + value2) % MEM_SIZE) % IDX_MOD), game, process);
 		if (!total_value && op_tab.carry)
 			process->carry = 1;
 		else if (op_tab.carry)
 			process->carry = 0;
 	}
+}
+
+// void	op_fork(t_process *process, t_game *game)
+// {
+// 	t_op			op_tab;
+
+// 	t_process *new;
+// 	t_process *last;
+// 	// int			i;
+
+// 	op_tab = ft_get_op(11);
+// 	// i = 0;
+// 	// if (!(new = (t_process *)malloc(sizeof(t_process))))
+// 	// 	exit(1); //ft_error
+// 	// ft_bzero(new, sizeof(*new));
+// 	// new->current = process->current;//?
+// 	// new->index = process->index;// + (index % IDX_MOD) % MEM_SIZE
+// 	// new->champ = process->champ;
+// 	// new->alive = process->alive;
+// 	// while (++i <= 16)
+// 	// 	new->reg[i] = process->reg[i];
+// 	new->duration += op_tab.cycles;//??
+
+// 	last = game->process;//add to end like this?
+// 	// while (last->next)//add to end like this?
+// 	// 	last = last->next;//add to end like this?
+// 	// last->next = new;//add to end like this?
+// }
+
+void	op_lld(t_process *process)
+{
+	t_op			op_tab;
+
+	op_tab = ft_get_op(12);
+	process->duration += op_tab.cycles;//
+}
+
+void	op_lldi(t_process *process)
+{
+	t_op			op_tab;
+
+	op_tab = ft_get_op(13);
+	process->duration += op_tab.cycles;//
+}
+
+void	op_lfork(t_process *process)
+{
+	t_op			op_tab;
+
+	op_tab = ft_get_op(14);
+	process->duration += op_tab.cycles;//
+}
+
+void	op_aff(t_process *process)
+{
+	t_op			op_tab;
+
+	op_tab = ft_get_op(15);
+	process->duration += op_tab.cycles;//
 }
