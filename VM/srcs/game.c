@@ -42,7 +42,7 @@ void	ft_add_process(t_game *game, int champ)
 	ft_bzero(new, sizeof(*new));
 	new->current = game->arena;
 	new->index = game->champ[champ].start_index;
-	new->champ = champ;
+	new->champ = champ + 1;
 	new->alive = 1;
 	if (!game->process)
 		game->process = new;
