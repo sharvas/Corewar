@@ -118,7 +118,7 @@ void	ft_game(t_game *game)
 			ft_printf("\033[H\033[?25l");
 			print_arena_color(game);
 			ft_printf("\n\033[?12;25h");
-			usleep(500000);
+			usleep(50000);
 			if (game->cycle % game->frame_rate == 0)
 				ft_printf("\033[2J");
 			game->cycle--;

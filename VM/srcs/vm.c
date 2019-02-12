@@ -31,86 +31,47 @@ void    print_arena_color(t_game *game)
 				if (!game->flag_cp)
 				{
 					if (game->arena_champs[i] == game->champ[0].nbr)
-					{
 						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else if (game->arena_champs[i] == game->champ[1].nbr)
-					{
 						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else if (game->arena_champs[i] == game->champ[2].nbr)
-					{
 						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else if (game->arena_champs[i] == game->champ[3].nbr)
-					{
 						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else
-					{
 						ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 				}
 				else
 				{
 					if (process->champ == game->champ[0].nbr)
-					{
 						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else if (process->champ == game->champ[1].nbr)
-					{
 						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else if (process->champ == game->champ[2].nbr)
-					{
 						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
 					else if (process->champ == game->champ[3].nbr)
-					{
 						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
-						printed++;
-						break;
-					}
-				}	
+				}
+				printed++;
+				break;
 			}
 			// if (printed == game->champ_count)//??
 			// 	break ;//??
 			process = process->next;
 		}
-		if (!printed && game->arena_champs[i] == game->champ[0].nbr)
+		if (!printed && (game->arena_champs[i] == game->champ[0].nbr
+		|| game->arena_champs[i] == game->champ[1].nbr
+		|| game->arena_champs[i] == game->champ[2].nbr
+		|| game->arena_champs[i] == game->champ[3].nbr))
 		{
-			ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);//
-			printed++;
-		}
-		else if (!printed && game->arena_champs[i] == game->champ[1].nbr)
-		{
-			ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
-			printed++;
-		}
-		else if (!printed && game->arena_champs[i] == game->champ[2].nbr)
-		{
-			ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);//
-			printed++;
-		}
-		else if (!printed && game->arena_champs[i] == game->champ[3].nbr)
-		{
-			ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);//
+			if (!printed && game->arena_champs[i] == game->champ[0].nbr)
+				ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);//
+			else if (!printed && game->arena_champs[i] == game->champ[1].nbr)
+				ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
+			else if (!printed && game->arena_champs[i] == game->champ[2].nbr)
+				ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);//
+			else if (!printed && game->arena_champs[i] == game->champ[3].nbr)
+				ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);//
 			printed++;
 		}
 		if (!printed)
@@ -316,7 +277,7 @@ int main(int argc, char **argv)
 	read_args(argc, argv, &game);
 	ft_printf("\033[2J");
 	print_arena(game.arena);
-	usleep(500000);
+	// usleep(500000);
 	ft_printf("\033[2J");
 	ft_game(&game);
 	// if (game.dump)//change to deal with cycles
