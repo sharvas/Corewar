@@ -89,7 +89,7 @@ typedef struct				s_op
 	int						cycles;
 	char					*long_name;
 	int						carry;
-	int						addr_rest;
+	int						dir_size;
 }							t_op;
 
 #endif

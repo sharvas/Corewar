@@ -20,7 +20,7 @@
 
 typedef struct			s_process
 {
-	unsigned char		*current;
+	// unsigned char		*current;
 	int					index;
 	unsigned int		reg[16];
 	int					duration;
@@ -66,15 +66,15 @@ unsigned int			ft_get_bytes(void *ptr, int size);
 void					print_arena_color(t_game *game);
 
 void					op_live(t_game *game, t_process *process);
-void					op_ld(t_process *process);
-void					op_st(t_process *process);
-void					op_add(t_process *process);
-void					op_sub(t_process *process);
-void					op_and(t_process *process);
-void					op_or(t_process *process);
-void					op_xor(t_process *process);
-void					op_zjmp(t_process *process);
-void					op_ldi(t_process *process);
-void					op_sti(t_process *process);
+void					op_ld(t_game *game, t_process *process);
+void					op_st(t_game *game, t_process *process);
+void					op_add(t_game *game, t_process *process);
+void					op_sub(t_game *game, t_process *process);
+void					op_and(t_game *game, t_process *process);
+void					op_or(t_game *game, t_process *process);
+void					op_xor(t_game *game, t_process *process);
+void					op_zjmp(t_game *game, t_process *process);
+void					op_ldi(t_game *game, t_process *process);
+void					op_sti(t_game *game, t_process *process);
  
 #endif
