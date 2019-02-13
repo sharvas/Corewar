@@ -20,9 +20,8 @@
 
 typedef struct			s_process
 {
-	// unsigned char		*current;
 	int					index;
-	unsigned int		reg[16];
+	int					reg[17];
 	int					duration;
 	int					carry;
 	int					alive;
@@ -47,7 +46,7 @@ typedef struct			s_game
 	int					cycle_to_die;
 	int					cycle;
 	int					alive;
-	struct s_champ		champ[4];
+	struct s_champ		champ[5];
 	int					champ_count;
 	struct s_process	*process;
 	int					flag_cp;
