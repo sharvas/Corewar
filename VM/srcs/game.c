@@ -36,7 +36,7 @@ void	op_live(t_game *game, t_process *process)
 	t_op	op_tab;
 
 	op_tab = ft_get_op(0);
-	id = ft_reverse_bytes(&process->current[(process->index + 1) % MEM_SIZE], DIR_SIZE);
+	id = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], DIR_SIZE);
 	process->alive = 1;
 	process->duration += op_tab.cycles;
 	if (id >= 0 && id < game->champ_count)
@@ -70,7 +70,7 @@ void	op_live(t_game *game, t_process *process)
 // 	last->next = new;//add to end like this?
 // }
 
-void	ft_add_process(t_game *game, int champ, int champ_nbr)
+void	ft_add_process(t_game *game, int champ)
 {
 	t_process *new;
 	t_process *last;
@@ -78,11 +78,11 @@ void	ft_add_process(t_game *game, int champ, int champ_nbr)
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		exit(1); //ft_error
 	ft_bzero(new, sizeof(*new));
-	new->current = game->arena;
+	// new->current = game->arena;
 	new->index = game->champ[champ].start_index;
-	new->champ = champ_nbr;
-	new->alive = 1;
-	new->reg[1] = game->champ[champ].nbr;
+	new->champ = champ + 1;
+	new->alive = 0;
+	new->reg[0] = champ;
 	if (!game->process)
 		game->process = new;
 	else
@@ -96,16 +96,14 @@ void	ft_add_process(t_game *game, int champ, int champ_nbr)
 
 void	ft_game(t_game *game)
 {
-	int			i;
-	t_process	*process;
+	int				i;
+	unsigned char	champ;
+	t_process		*process;
 
 	i = 0;
-	while (i < 4 && game->champ[i].header.magic)
-	{
-		ft_add_process(game, i, game->champ[i].nbr);
-		i++;
-	}
-	i = 0;
+	champ = 0;
+	while (champ < 4 && game->champ[champ].header.magic)
+		ft_add_process(game, champ++);
 	while (game->cycle_to_die > 0)
 	{
 		i++;
@@ -115,37 +113,37 @@ void	ft_game(t_game *game)
 			process = game->process;
 			while (process)
 			{
-				if (process->current[process->index % MEM_SIZE] == 1)
+				if (game->arena[process->index % MEM_SIZE] == 1)
 					op_live(game, process);
-				else if (process->current[process->index % MEM_SIZE] == 2)
-					op_ld(process);
-				else if (process->current[process->index % MEM_SIZE] == 3)
-					op_st(process, game);
-				else if (process->current[process->index % MEM_SIZE] == 4)
-					op_add(process);
-				else if (process->current[process->index % MEM_SIZE] == 5)
-					op_sub(process);
-				else if (process->current[process->index % MEM_SIZE] == 6)
-					op_and(process);
-				else if (process->current[process->index % MEM_SIZE] == 7)
-					op_or(process);
-				else if (process->current[process->index % MEM_SIZE] == 8)
-					op_xor(process);
-				else if (process->current[process->index % MEM_SIZE] == 9)
-					op_zjmp(process);
-				else if (process->current[process->index % MEM_SIZE] == 10)
-					op_ldi(process);
-				else if (process->current[process->index % MEM_SIZE] == 11)
-					op_sti(process, game);
+				else if (game->arena[process->index % MEM_SIZE] == 2)
+					op_ld(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 3)
+					op_st(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 4)
+					op_add(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 5)
+					op_sub(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 6)
+					op_and(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 7)
+					op_or(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 8)
+					op_xor(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 9)
+					op_zjmp(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 10)
+					op_ldi(game, process);
+				else if (game->arena[process->index % MEM_SIZE] == 11)
+					op_sti(game, process);
 				// else if (process->current[process->index % MEM_SIZE] == 12)
 				// 	op_fork(process, game);
-				else if (process->current[process->index % MEM_SIZE] == 13)
+				else if (game->arena[process->index % MEM_SIZE] == 13)
 					op_lld(process);
-				else if (process->current[process->index % MEM_SIZE] == 14)
+				else if (game->arena[process->index % MEM_SIZE] == 14)
 					op_lldi(process);
-				else if (process->current[process->index % MEM_SIZE] == 15)
+				else if (game->arena[process->index % MEM_SIZE] == 15)
 					op_lfork(process);
-				else if (process->current[process->index % MEM_SIZE] == 16)
+				else if (game->arena[process->index % MEM_SIZE] == 16)
 					op_aff(process);
 				process->index = process->index % MEM_SIZE + 1;
 				process = process->next;
@@ -153,7 +151,7 @@ void	ft_game(t_game *game)
 			ft_printf("\033[H\033[?25l");
 			print_arena_color(game);
 			ft_printf("\n\033[?12;25h");
-			usleep(50000);
+			usleep(2000000);
 			if (game->cycle % game->frame_rate == 0)
 				ft_printf("\033[2J");
 			game->cycle--;

@@ -20,9 +20,8 @@
 
 typedef struct			s_process
 {
-	unsigned char		*current;
 	int					index;
-	unsigned int		reg[16];
+	int					reg[17];
 	int					duration;
 	int					carry;
 	int					alive;
@@ -47,7 +46,7 @@ typedef struct			s_game
 	int					cycle_to_die;
 	int					cycle;
 	int					alive;
-	struct s_champ		champ[4];
+	struct s_champ		champ[5];
 	int					champ_count;
 	struct s_process	*process;
 	int					flag_cp;
@@ -66,17 +65,17 @@ unsigned int			ft_get_bytes(void *ptr, int size);
 void					print_arena_color(t_game *game);
 
 void					op_live(t_game *game, t_process *process);
-void					op_ld(t_process *process);
-void					op_st(t_process *process, t_game *game);
-void					op_add(t_process *process);
-void					op_sub(t_process *process);
-void					op_and(t_process *process);
-void					op_or(t_process *process);
-void					op_xor(t_process *process);
-void					op_zjmp(t_process *process);
-void					op_ldi(t_process *process);
-void					op_sti(t_process *process, t_game *game);
-// void					op_fork(t_process *process, t_game *game);
+void					op_ld(t_game *game, t_process *process);
+void					op_st(t_game *game, t_process *process);
+void					op_add(t_game *game, t_process *process);
+void					op_sub(t_game *game, t_process *process);
+void					op_and(t_game *game, t_process *process);
+void					op_or(t_game *game, t_process *process);
+void					op_xor(t_game *game, t_process *process);
+void					op_zjmp(t_game *game, t_process *process);
+void					op_ldi(t_game *game, t_process *process);
+void					op_sti(t_game *game, t_process *process);
+
 void					op_lld(t_process *process);
 void					op_lldi(t_process *process);
 void					op_lfork(t_process *process);

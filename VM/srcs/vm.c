@@ -284,8 +284,8 @@ int main(int argc, char **argv)
 
 	init_game(&game);
 	read_args(argc, argv, &game);
-	ft_printf("\033[2J");
-	print_arena(game.arena);
+	//ft_printf("\033[2J");
+	//print_arena(game.arena);
 	// usleep(500000);
 	ft_printf("\033[2J");
 	ft_game(&game);
