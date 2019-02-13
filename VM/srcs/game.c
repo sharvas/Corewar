@@ -80,7 +80,7 @@ void	ft_add_process(t_game *game, int champ)
 	ft_bzero(new, sizeof(*new));
 	// new->current = game->arena;
 	new->index = game->champ[champ].start_index;
-	new->champ = champ + 1;
+	new->champ = champ;
 	new->alive = 0;
 	new->reg[0] = champ;
 	if (!game->process)
@@ -101,8 +101,8 @@ void	ft_game(t_game *game)
 	t_process		*process;
 
 	i = 0;
-	champ = 0;
-	while (champ < 4 && game->champ[champ].header.magic)
+	champ = 1;
+	while (champ < 5 && game->champ[champ].header.magic)
 		ft_add_process(game, champ++);
 	while (game->cycle_to_die > 0)
 	{
@@ -151,7 +151,7 @@ void	ft_game(t_game *game)
 			ft_printf("\033[H\033[?25l");
 			print_arena_color(game);
 			ft_printf("\n\033[?12;25h");
-			usleep(2000000);
+			usleep(200000);
 			if (game->cycle % game->frame_rate == 0)
 				ft_printf("\033[2J");
 			game->cycle--;
