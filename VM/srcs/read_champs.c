@@ -33,7 +33,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
 		error_exit("champion size too small");
 	ft_printf("weight: %u\n", weight);//
-	// ft_printf("actual weight?: %u\n", weight - PROG_NAME_LENGTH - COMMENT_LENGTH);//
+	ft_printf("actual weight?: %u\n", weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16);//
 	close(fd);
 	if (!game->champ[champ_count].nbr)
 	{
@@ -54,11 +54,14 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 
 	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
 	game->champ[champ_count].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.prog_size, 2);
-	ft_printf("prog_size (in hex): %x\n", game->champ[champ_count].header.prog_size);
+	ft_printf("prog_size (in hex): %x\n", game->champ[champ_count].header.prog_size);//
+	ft_printf("prog_size (in decimal): %d\n", (int)game->champ[champ_count].header.prog_size);//
+	if (game->champ[champ_count].header.prog_size != (weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16))
+		error_exit("prog_size doesn't match read size");
 
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
-	ft_printf("comment: %s\n\n", game->champ[champ_count].header.comment);//
-	ft_printf("champ_total: %d, champ_count: %d, index: %d\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
+	ft_printf("comment: %s\n", game->champ[champ_count].header.comment);//
+	ft_printf("champ_total: %d, champ_count: %d, index: %d\n\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 	game->champ[champ_count].start_index = (MEM_SIZE / champ_total) * (champ_count - 1);
 	while (i < game->champ[champ_count].header.prog_size)
