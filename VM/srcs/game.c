@@ -99,7 +99,7 @@ void	ft_game(t_game *game)
 	while (i <= game->champ_count)
 		ft_add_process(game, i++);
 	i = 0;
-	ft_add_first_duration(game);
+	// ft_add_first_duration(game);
 	while (game->cycle_to_die > 0 || !game->process)
 	{
 		i++;
@@ -111,10 +111,10 @@ void	ft_game(t_game *game)
 			{
 				if (game->arena[process->index % MEM_SIZE] == 1)
 				{
-					if (process->duration == 0)
+					// if (process->duration == 0)
 						op_live(game, process);
-					else
-						process->duration--;
+					// else
+					// 	process->duration--;
 				}
 				else if (game->arena[process->index % MEM_SIZE] == 2)
 					op_ld(game, process);
@@ -159,7 +159,7 @@ void	ft_game(t_game *game)
 		}
 		if (i > MAX_CHECKS || game->alive >= NBR_LIVE)
 		{
-			ft_kill_process(game);
+			// ft_kill_process(game);
 			game->cycle_to_die -= CYCLE_TO_DIE;
 			i = 1;
 		}
