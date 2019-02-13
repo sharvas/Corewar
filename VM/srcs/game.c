@@ -45,24 +45,6 @@ unsigned int	ft_get_bytes(void *ptr, int size)
 	return (ret);
 }
 
-void	op_live(t_game *game, t_process *process)
-{
-	int		id;
-	t_op	op_tab;
-
-	op_tab = ft_get_op(0);
-	id = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], DIR_SIZE);
-	process->alive = 1;
-	process->duration += op_tab.cycles;
-	if (id > 0 && id <= game->champ_count)
-	{
-		game->alive++;
-		game->champ[id].alive++;
-		ft_printf("Player %i (%s) is alive!\n", game->champ[id].nbr, game->champ[id].header.prog_name);
-	}
-	process->index += DIR_SIZE;
-}
-
 // void	ft_fork_process(t_game *game, t_process *parent)
 // {
 // 	t_process *new;
@@ -85,7 +67,7 @@ void	op_live(t_game *game, t_process *process)
 // 	last->next = new;//add to end like this?
 // }
 
-void	ft_add_process(t_game *game, int champ)
+static void	ft_add_process(t_game *game, int champ)
 {
 	t_process *new;
 	t_process *last;

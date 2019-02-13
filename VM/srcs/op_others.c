@@ -1,16 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op.c                                               :+:      :+:    :+:   */
+/*   op_others.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:44:35 by zaz              ###   ########.fr       */
+/*   Created: 2019/02/13 13:09:57 by dfinnis           #+#    #+#             */
+/*   Updated: 2019/02/13 13:09:58 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+void	op_live(t_game *game, t_process *process)
+{
+	int		id;
+	t_op	op_tab;
+
+	op_tab = ft_get_op(0);
+	id = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], DIR_SIZE);
+	process->alive = 1;
+	process->duration += op_tab.cycles;
+	if (id > 0 && id <= game->champ_count)
+	{
+		game->alive++;
+		game->champ[id].alive++;
+		ft_printf("Player %i (%s) is alive!\n", game->champ[id].nbr, game->champ[id].header.prog_name);
+	}
+	process->index += DIR_SIZE;
+}
 
 void	op_zjmp(t_game *game, t_process *process)
 {

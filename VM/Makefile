@@ -27,7 +27,8 @@ LIBFT_A = $(LIBFT)/libftprintf.a
 
 SRCS_FILES = vm.c game.c ../../op.c \
 	read_args.c read_champs.c \
-	operations.c op_and_or.c op_arg_value.c op_args.c op_fork.c op_load.c op_math.c op_store.c \
+	op_and_or.c op_arg_value.c op_args.c op_fork.c \
+	op_load.c op_math.c op_store.c op_others.c \
 	print.c print_colors.c
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)

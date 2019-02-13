@@ -30,7 +30,7 @@ void	init_game(t_game *game)
 	game->frame_rate = 1;
 }
 
-int main(int argc, char **argv)
+int 	main(int argc, char **argv)
 {
 	t_game	game;
 

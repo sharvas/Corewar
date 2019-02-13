@@ -73,22 +73,12 @@ int						find_champ_total(int argc, char **argv);
 /*
 **		game.c
 */
+int						ft_reverse_bytes(void *ptr, int size);
+unsigned int			ft_get_bytes(void *ptr, int size);
 void					ft_game(t_game *game);
 
 t_op					ft_get_op(int index);
 
-int						ft_reverse_bytes(void *ptr, int size);
-unsigned int			ft_get_bytes(void *ptr, int size);
-
-void					print_arena_color(t_game *game);
-
-void					op_live(t_game *game, t_process *process);
-
-/*
-**		operations.c
-*/
-void					op_zjmp(t_game *game, t_process *process);
-void					op_aff(t_process *process);
 
 /*
 **		op_and_or.c
@@ -137,6 +127,13 @@ void					op_sub(t_game *game, t_process *process);
 */
 void					op_st(t_game *game, t_process *process);
 void					op_sti(t_game *game, t_process *process);
+
+/*
+**		op_others.c
+*/
+void					op_live(t_game *game, t_process *process);
+void					op_zjmp(t_game *game, t_process *process);
+void					op_aff(t_process *process);
 
 /*
 **		print.c
