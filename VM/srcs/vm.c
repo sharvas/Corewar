@@ -182,7 +182,7 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	unsigned char	binary[FILE_SIZE + 1];
 	unsigned int	i;
 	int				j;
-	int				champ_tmp;
+	unsigned int	champ_tmp;
 	size_t			weight;
 
 	i = 0;

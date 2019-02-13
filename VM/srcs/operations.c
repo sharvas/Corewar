@@ -389,7 +389,7 @@ int		get_first_value_ind(t_game *game, t_process *process, t_arg_type args, shor
 
 int		get_second_value_ind(t_game *game, t_process *process, t_arg_type args, short *value2)
 {
-	short index;
+	// short index;
 
 	if (args == REG_CODE
 	&& game->arena[(process->index + 1) % MEM_SIZE] >= 1
