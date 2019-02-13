@@ -78,9 +78,11 @@ void	op_st(t_game *game, t_process *process)
 {
 	short			index;
 	unsigned char	reg_index;
+	int				sign;
 	t_op			op_tab;
 	t_arg_type		args[4];
 
+	sign = 1;
 	op_tab = ft_get_op(2);
 	find_args(&game->arena[++process->index % MEM_SIZE], args);
 	if (args[0] == REG_CODE && args[1] == IND_CODE
@@ -88,11 +90,17 @@ void	op_st(t_game *game, t_process *process)
 	&& game->arena[(process->index + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
 		reg_index = game->arena[++process->index % MEM_SIZE];
-		index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE) % IDX_MOD;
+		index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE);
+		if (index < 0)
+		{
+			index = -index;
+			sign = -1;
+		}
+		index = index % IDX_MOD;
 		
-		ft_printf("champ(%u): store (T_REG %u, T_IND %u)\n", process->champ, reg_index, index);
+		ft_printf("champ(%u): store (T_REG %u, T_IND %i)\n", process->champ, reg_index, index * sign);
 		
-		game->arena[(process->index + index - 2) % MEM_SIZE] = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
+		*(int *)(game->arena + (process->index + index - 2) % MEM_SIZE) = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
 		process->duration += op_tab.cycles;
 		spread_color((process->index + index - 2) % MEM_SIZE, game, process);/////////
 		process->index += IND_SIZE - 1;
