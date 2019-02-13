@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-int		print_condition(t_game *game, int i)
+int		print_champ_condition(t_game *game, int i)
 {
 	int	j;
 
@@ -24,10 +24,44 @@ int		print_condition(t_game *game, int i)
 		j++;
 	}
 	return (0);
-	// return (game->arena_champs[i] == game->champ[1].nbr
-	// 	|| game->arena_champs[i] == game->champ[2].nbr
-	// 	|| game->arena_champs[i] == game->champ[3].nbr
-	// 	|| game->arena_champs[i] == game->champ[4].nbr);///////////delete
+}
+
+void	print_process(t_game *game, int i)
+{
+	if (game->arena_champs[i] == game->champ[1].nbr)
+		ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
+	else if (game->arena_champs[i] == game->champ[2].nbr && game->champ_count > 1)
+		ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
+	else if (game->arena_champs[i] == game->champ[3].nbr && game->champ_count > 2)
+		ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
+	else if (game->arena_champs[i] == game->champ[4].nbr && game->champ_count > 3)
+		ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
+	else
+		ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
+}
+
+void	print_process_cp(t_game *game, int i, t_process *process)
+{
+	if (process->champ == game->champ[1].nbr)
+		ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
+	else if (process->champ == game->champ[2].nbr)
+		ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
+	else if (process->champ == game->champ[3].nbr)
+		ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
+	else if (process->champ == game->champ[4].nbr)
+		ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
+}
+
+void	print_champ(t_game *game, int i)
+{
+	if (game->arena_champs[i] == game->champ[1].nbr)
+		ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);
+	else if (game->arena_champs[i] == game->champ[2].nbr)
+		ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);
+	else if (game->arena_champs[i] == game->champ[3].nbr)
+		ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);
+	else if (game->arena_champs[i] == game->champ[4].nbr)
+		ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);
 }
 
 void    print_arena_color(t_game *game)
@@ -47,29 +81,9 @@ void    print_arena_color(t_game *game)
 			if (i == process->index)
 			{
 				if (!game->flag_cp)
-				{
-					if (game->arena_champs[i] == game->champ[1].nbr)
-						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
-					else if (game->arena_champs[i] == game->champ[2].nbr)
-						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
-					else if (game->arena_champs[i] == game->champ[3].nbr)
-						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
-					else if (game->arena_champs[i] == game->champ[4].nbr)
-						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
-					else
-						ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
-				}
+					print_process(game, i);
 				else
-				{
-					if (process->champ == game->champ[1].nbr)
-						ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
-					else if (process->champ == game->champ[2].nbr)
-						ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
-					else if (process->champ == game->champ[3].nbr)
-						ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
-					else if (process->champ == game->champ[4].nbr)
-						ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
-				}
+					print_process_cp(game, i, process);
 				printed++;
 				break;
 			}
@@ -77,16 +91,9 @@ void    print_arena_color(t_game *game)
 			// 	break ;//??
 			process = process->next;
 		}
-		if (!printed && print_condition(game, i))
+		if (!printed && print_champ_condition(game, i))
 		{
-			if (!printed && game->arena_champs[i] == game->champ[1].nbr)
-				ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);//
-			else if (!printed && game->arena_champs[i] == game->champ[2].nbr)
-				ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);//
-			else if (!printed && game->arena_champs[i] == game->champ[3].nbr)
-				ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);//
-			else if (!printed && game->arena_champs[i] == game->champ[4].nbr)
-				ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);//
+			print_champ(game, i);
 			printed++;
 		}
 		if (!printed)
