@@ -23,6 +23,7 @@ typedef struct			s_process
 	int					index;
 	int					reg[17];
 	int					duration;
+	int					duration_set;
 	int					carry;
 	int					alive;
 	unsigned char		champ;

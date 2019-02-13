@@ -39,9 +39,9 @@ void	    op_st(t_game *game, t_process *process)
 		
 		// ft_printf("champ(%u): store (T_REG %u, T_IND %i)\n", process->champ, reg_index, index * sign);
 		
-		*(int *)(game->arena + (process->index + index - 2) % MEM_SIZE) = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
+		*(int *)(game->arena + (process->index + index - 3) % MEM_SIZE) = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
 		process->duration += op_tab.cycles;
-		spread_color((process->index + index - 2) % MEM_SIZE, game, process);
+		spread_color((process->index + index - 3) % MEM_SIZE, game, process);
 		process->index += IND_SIZE - 1;
 	}
 	else if (args[0] == REG_CODE && args[1] == REG_CODE

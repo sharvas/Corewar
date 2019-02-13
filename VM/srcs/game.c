@@ -67,6 +67,21 @@ t_process	*ft_fork_process(t_game *game, t_process *parent)
 	return (last->next);
 }
 
+int		ft_add_duration(t_game *game, t_process *process)
+{
+	t_op			op_tab;
+	unsigned char	index;
+
+	index = game->arena[process->index];
+	if (index > 0 && index < 17)
+	{
+		op_tab = ft_get_op(index - 1);
+		process->duration = op_tab.cycles;
+		return (op_tab.cycles);
+	}
+	return (0);
+}
+
 static void	ft_add_process(t_game *game, int champ)
 {
 	t_process *new;
@@ -78,6 +93,7 @@ static void	ft_add_process(t_game *game, int champ)
 	new->index = game->champ[champ].start_index;
 	new->champ = champ;
 	new->reg[1] = champ;
+	new->duration_set = ft_add_duration(game, new);
 	new->alive = 0;
 	if (!game->process)
 		game->process = new;
@@ -90,16 +106,75 @@ static void	ft_add_process(t_game *game, int champ)
 	}
 }
 
+void		ft_delete_process(t_process *process, t_game *game)
+{
+	t_process *tmp;
+
+	tmp = game->process;
+	game->process = game->process->next;
+	free (tmp);
+	tmp = NULL;
+}
+
+void		ft_delete_next_process(t_process *process)
+{
+	t_process	*tmp;
+
+	tmp = process->next;
+	process->next = process->next->next;
+	free (tmp);
+	tmp = NULL;
+}
+
+void		ft_kill_process(t_game *game)
+{
+	t_process	*process;
+
+	process = game->process;
+	if (process && !process->alive)
+	{
+		ft_delete_process(process, game);
+		process = game->process;
+	}
+	while (process && process->next)
+	{
+		if (!process->next->alive)
+			ft_delete_next_process(process);
+		process = process->next;
+	}
+	process = game->process;
+	while (process)
+	{
+		process->alive = 0;
+		process = process->next;
+	}
+}
+
+int		ft_count_process(t_game *game)
+{
+	t_process 	*process;
+	int			count;
+
+	count = 0;
+	process = game->process;
+	while (process)
+	{
+		count++;
+		process = process->next;
+	}
+	return (count);
+}
+
 void	ft_game(t_game *game)
 {
 	int				i;
+	int				duration;
 	t_process		*process;
 
 	i = 1;
 	while (i <= game->champ_count)
 		ft_add_process(game, i++);
 	i = 0;
-	// ft_add_first_duration(game);
 	while (game->cycle_to_die > 0 || !game->process)
 	{
 		i++;
@@ -109,58 +184,66 @@ void	ft_game(t_game *game)
 			process = game->process;
 			while (process)
 			{
-				if (game->arena[process->index % MEM_SIZE] == 1)
+				if (!process->duration_set)
 				{
-					// if (process->duration == 0)
-						op_live(game, process);
-					// else
-					// 	process->duration--;
+					process->index = (process->index % MEM_SIZE) + 1;
+					process->duration_set = ft_add_duration(game, process);
 				}
-				else if (game->arena[process->index % MEM_SIZE] == 2)
-					op_ld(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 3)
-					op_st(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 4)
-					op_add(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 5)
-					op_sub(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 6)
-					op_and(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 7)
-					op_or(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 8)
-					op_xor(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 9)
-					op_zjmp(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 10)
-					op_ldi(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 11)
-					op_sti(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 12)
-				 	op_fork(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 13)
-					op_lld(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 14)
-					op_lldi(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 15)
-					op_lfork(game, process);
-				else if (game->arena[process->index % MEM_SIZE] == 16)
-					op_aff(game, process);
-				process->index = process->index % MEM_SIZE + 1;
+				if (process->duration)
+					process->duration--;
+				else if (process->duration_set)
+				{
+					if (game->arena[process->index % MEM_SIZE] == 1)
+						op_live(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 2)
+						op_ld(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 3)
+						op_st(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 4)
+						op_add(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 5)
+						op_sub(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 6)
+						op_and(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 7)
+						op_or(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 8)
+						op_xor(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 9)
+						op_zjmp(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 10)
+						op_ldi(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 11)
+						op_sti(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 12)
+						op_fork(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 13)
+						op_lld(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 14)
+						op_lldi(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 15)
+						op_lfork(game, process);
+					else if (game->arena[process->index % MEM_SIZE] == 16)
+						op_aff(game, process);
+					process->index = process->index % MEM_SIZE + 1;
+					process->duration_set = ft_add_duration(game, process);
+				}
 				process = process->next;
 			}
-			ft_printf("\033[H\033[?25l");
-			print_arena_color(game);
-			ft_printf("\n\033[?12;25h");
-			usleep(100000);
 			if (game->cycle % game->frame_rate == 0)
 				ft_printf("\033[2J");
+			ft_printf("\033[H\033[?25l");
+			print_arena_color(game);
+			ft_printf("\nCycle to die: %.4i, Cycle %.4i, Checks %.2i\n", game->cycle_to_die, game->cycle, i);
+			ft_printf("Process count: %.2i\n", ft_count_process(game));
+			ft_printf("\n\033[?12;25h");
+			usleep(1000);
 			game->cycle--;
 		}
-		if (i > MAX_CHECKS || game->alive >= NBR_LIVE)
+		if (i >= MAX_CHECKS || game->alive >= NBR_LIVE)
 		{
-			// ft_kill_process(game);
-			game->cycle_to_die -= CYCLE_TO_DIE;
+			ft_kill_process(game);
+			game->cycle_to_die -= CYCLE_DELTA;
 			i = 1;
 		}
 	}
