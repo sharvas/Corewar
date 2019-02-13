@@ -53,6 +53,24 @@ typedef struct			s_game
 }						t_game;
 
 /*
+**		vm.c
+*/
+void					error_exit(char *err_message);
+void					init_game(t_game *game);
+int 					main(int argc, char **argv);
+
+/*
+**		read_args.c
+*/
+void					read_args(int argc, char **argv, t_game *game);
+
+/*
+**		read_champs.c
+*/
+void					read_champion(char *cor, t_game *game, int champ_count, int champ_total);
+int						find_champ_total(int argc, char **argv);
+
+/*
 **		game.c
 */
 void					ft_game(t_game *game);
@@ -65,20 +83,72 @@ unsigned int			ft_get_bytes(void *ptr, int size);
 void					print_arena_color(t_game *game);
 
 void					op_live(t_game *game, t_process *process);
-void					op_ld(t_game *game, t_process *process);
-void					op_st(t_game *game, t_process *process);
-void					op_add(t_game *game, t_process *process);
-void					op_sub(t_game *game, t_process *process);
+
+/*
+**		operations.c
+*/
+void					op_zjmp(t_game *game, t_process *process);
+void					op_aff(t_process *process);
+
+/*
+**		op_and_or.c
+*/
+
 void					op_and(t_game *game, t_process *process);
 void					op_or(t_game *game, t_process *process);
 void					op_xor(t_game *game, t_process *process);
-void					op_zjmp(t_game *game, t_process *process);
-void					op_ldi(t_game *game, t_process *process);
-void					op_sti(t_game *game, t_process *process);
 
+/*
+**		op_arg_value.c
+*/
+int						get_first_value(t_game *game, t_process *process, t_arg_type *args, int *value1);
+int						get_second_value(t_game *game, t_process *process, t_arg_type *args, int *value2);
+int						get_first_value_ind(t_game *game, t_process *process, t_arg_type args, short *value1);
+int						get_second_value_ind(t_game *game, t_process *process, t_arg_type args, short *value2);
+
+/*
+**		op_args.c
+*/
+void					find_args(unsigned char *ptr, t_arg_type arg[]);
+void					ft_get_size(unsigned int *size, t_arg_type args, int i);
+
+/*
+**		op_fork.c
+*/
+void					op_fork(t_game *game, t_process *process);
+void					op_lfork(t_process *process);
+
+/*
+**		op_load.c
+*/
+void					op_ld(t_game *game, t_process *process);
+void					op_ldi(t_game *game, t_process *process);
 void					op_lld(t_process *process);
 void					op_lldi(t_process *process);
-void					op_lfork(t_process *process);
-void					op_aff(t_process *process);
- 
+
+/*
+**		op_math.c
+*/
+void					op_add(t_game *game, t_process *process);
+void					op_sub(t_game *game, t_process *process);
+
+/*
+**		op_store.c
+*/
+void					op_st(t_game *game, t_process *process);
+void					op_sti(t_game *game, t_process *process);
+
+/*
+**		print.c
+*/
+void    				print_arena(unsigned char *arena);
+void					print_usage(/*t_game *game*/);
+
+/*
+**		print_colors.c
+*/
+void        			print_arena_color(t_game *game);
+
 #endif
+
+
