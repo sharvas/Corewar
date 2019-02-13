@@ -9,7 +9,7 @@ int		ft_reverse_bytes(void *ptr, int size)
 	ret_two = 0;
 	ret_four = 0;
 	i = 0;
-	if (size == 2)
+	if (size <= 2)
 	{
 		while (size-- > 0)
 		{
@@ -18,7 +18,7 @@ int		ft_reverse_bytes(void *ptr, int size)
 		}
 		return (ret_two);
 	}
-	else if (size == 4)
+	else if (size <= 4)
 	{
 		while (size-- > 0)
 		{

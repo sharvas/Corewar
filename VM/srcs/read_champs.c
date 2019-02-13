@@ -45,9 +45,9 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("nbr: %d\n", game->champ[champ_count].nbr);//
 
 	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
-	ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3));
-	// game->champ[champ_count].header.magic = (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3);
-	// ft_printf("magic: %x\n", (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3));
+	game->champ[champ_count].header.magic = ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3);
+	if (game->champ[champ_count].header.magic != COREWAR_EXEC_MAGIC)
+		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC");
 
 	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
 	ft_printf("name: %s\n", game->champ[champ_count].header.prog_name);//
