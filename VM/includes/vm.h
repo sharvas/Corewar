@@ -59,7 +59,7 @@ void					ft_game(t_game *game);
 
 t_op					ft_get_op(int index);
 
-unsigned int			ft_reverse_bytes(void *ptr, int size);
+int						ft_reverse_bytes(void *ptr, int size);
 unsigned int			ft_get_bytes(void *ptr, int size);
 
 void					print_arena_color(t_game *game);

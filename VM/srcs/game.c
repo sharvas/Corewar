@@ -1,18 +1,33 @@
 #include "vm.h"
 
-unsigned int	ft_reverse_bytes(void *ptr, int size)
+int		ft_reverse_bytes(void *ptr, int size)
 {
-	unsigned int	ret;
-	int				i;
+	short		ret_two;
+	int			ret_four;
+	int			i;
 
-	ret = 0;
+	ret_two = 0;
+	ret_four = 0;
 	i = 0;
-	while (size-- > 0)
+	if (size == 2)
 	{
-		ret |= *((unsigned char *)ptr + i) << (size * 8);
-		i++;
+		while (size-- > 0)
+		{
+			ret_two |= *((unsigned char *)ptr + i) << (size * 8);
+			i++;
+		}
+		return (ret_two);
 	}
-	return (ret);
+	else if (size == 4)
+	{
+		while (size-- > 0)
+		{
+			ret_four |= *((unsigned char *)ptr + i) << (size * 8);
+			i++;
+		}
+		return (ret_four);
+	}
+	return (0);
 }
 
 unsigned int	ft_get_bytes(void *ptr, int size)
@@ -39,7 +54,7 @@ void	op_live(t_game *game, t_process *process)
 	id = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], DIR_SIZE);
 	process->alive = 1;
 	process->duration += op_tab.cycles;
-	if (id >= 0 && id < game->champ_count)
+	if (id > 0 && id <= game->champ_count)
 	{
 		game->alive++;
 		game->champ[id].alive++;
@@ -78,11 +93,10 @@ void	ft_add_process(t_game *game, int champ)
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		exit(1); //ft_error
 	ft_bzero(new, sizeof(*new));
-	// new->current = game->arena;
 	new->index = game->champ[champ].start_index;
-	new->champ = champ + 1;
+	new->champ = champ;
+	new->reg[1] = champ;
 	new->alive = 0;
-	new->reg[0] = champ;
 	if (!game->process)
 		game->process = new;
 	else
@@ -97,13 +111,12 @@ void	ft_add_process(t_game *game, int champ)
 void	ft_game(t_game *game)
 {
 	int				i;
-	unsigned char	champ;
 	t_process		*process;
 
+	i = 1;
+	while (i <= game->champ_count)
+		ft_add_process(game, i++);
 	i = 0;
-	champ = 0;
-	while (champ < 4 && game->champ[champ].header.magic)
-		ft_add_process(game, champ++);
 	while (game->cycle_to_die > 0)
 	{
 		i++;
