@@ -87,8 +87,6 @@ void        print_arena_color(t_game *game)
 				printed++;
 				break;
 			}
-			// if (printed == game->champ_count)//??
-			// 	break ;//??
 			process = process->next;
 		}
 		if (!printed && print_champ_condition(game, i))

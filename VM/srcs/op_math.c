@@ -38,10 +38,10 @@ void	op_add(t_game *game, t_process *process)
 		else if (op_tab.carry)
 			process->carry = 0;
 
-		ft_printf("champ (%i): add (T_REG %i, T_REG %i, T_REG %i) [carry - %i]\n", process->champ, 
-			game->arena[(process->index - 3) % MEM_SIZE],
-			game->arena[(process->index - 2) % MEM_SIZE],
-			game->arena[(process->index - 1) % MEM_SIZE], process->carry);
+		// ft_printf("champ (%i): add (T_REG %i, T_REG %i, T_REG %i) [carry - %i]\n", process->champ, 
+		// 	game->arena[(process->index - 3) % MEM_SIZE],
+		// 	game->arena[(process->index - 2) % MEM_SIZE],
+		// 	game->arena[(process->index - 1) % MEM_SIZE], process->carry);
 	}
 }
 
@@ -72,9 +72,9 @@ void	op_sub(t_game *game, t_process *process)
 		else if (op_tab.carry)
 			process->carry = 0;
 
-		ft_printf("champ (%i): add (T_REG %i, T_REG %i, T_REG %i) [carry - %i]\n", process->champ,
-			game->arena[(process->index - 3) % MEM_SIZE],
-			game->arena[(process->index - 2) % MEM_SIZE],
-			game->arena[(process->index - 1) % MEM_SIZE], process->carry);
+		// ft_printf("champ (%i): add (T_REG %i, T_REG %i, T_REG %i) [carry - %i]\n", process->champ,
+		// 	game->arena[(process->index - 3) % MEM_SIZE],
+		// 	game->arena[(process->index - 2) % MEM_SIZE],
+		// 	game->arena[(process->index - 1) % MEM_SIZE], process->carry);
 	}
 }

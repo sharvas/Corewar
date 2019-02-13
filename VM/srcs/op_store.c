@@ -25,11 +25,9 @@ void	    op_st(t_game *game, t_process *process)
 {
 	short			index;
 	unsigned char	reg_index;
-	int				sign;
 	t_op			op_tab;
 	t_arg_type		args[4];
 
-	sign = 1;
 	op_tab = ft_get_op(2);
 	find_args(&game->arena[++process->index % MEM_SIZE], args);
 	if (args[0] == REG_CODE && args[1] == IND_CODE
@@ -37,19 +35,13 @@ void	    op_st(t_game *game, t_process *process)
 	&& game->arena[(process->index + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
 		reg_index = game->arena[++process->index % MEM_SIZE];
-		index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE);
-		if (index < 0)
-		{
-			index = -index;
-			sign = -1;
-		}
-		index = index % IDX_MOD;
+		ft_get_index(&game->arena[++process->index % MEM_SIZE], IND_SIZE, &index);
 		
-		ft_printf("champ(%u): store (T_REG %u, T_IND %i)\n", process->champ, reg_index, index * sign);
+		// ft_printf("champ(%u): store (T_REG %u, T_IND %i)\n", process->champ, reg_index, index * sign);
 		
 		*(int *)(game->arena + (process->index + index - 2) % MEM_SIZE) = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
 		process->duration += op_tab.cycles;
-		spread_color((process->index + index - 2) % MEM_SIZE, game, process);/////////
+		spread_color((process->index + index - 2) % MEM_SIZE, game, process);
 		process->index += IND_SIZE - 1;
 	}
 	else if (args[0] == REG_CODE && args[1] == REG_CODE
@@ -60,8 +52,8 @@ void	    op_st(t_game *game, t_process *process)
 	{
 		reg_index = game->arena[++process->index % MEM_SIZE];
 
-		ft_printf("champ(%u): store (T_REG %u, T_REG %u)\n", process->champ, reg_index,
-			game->arena[(process->index + 1) % MEM_SIZE]);
+		// ft_printf("champ(%u): store (T_REG %u, T_REG %u)\n", process->champ, reg_index,
+		// 	game->arena[(process->index + 1) % MEM_SIZE]);
 		
 		process->reg[game->arena[++process->index % MEM_SIZE]] = process->reg[reg_index];
 		process->duration += op_tab.cycles;
@@ -92,14 +84,14 @@ void	    op_sti(t_game *game, t_process *process)
 			return ;
 		if (!get_second_value_ind(game, process, args[2], &value2))
 			return ;
-		total_index = (value1 + value2) % IDX_MOD;
+		ft_index_sum(value1, value2, &total_index);
 		*(int *)(game->arena + ((process->index - size1 - size2 - 2 + total_index) % MEM_SIZE))
 		= ft_reverse_bytes(&process->reg[*(game->arena + (process->index - size1 - size2) % MEM_SIZE)], REG_SIZE);
 		
-		ft_printf("champ (%u): store index (T_REG %u -> %u) // index - %i value1 - %u value2 - %u rev - %u\n",
-		process->champ, *(game->arena + (process->index - size1 - size2) % MEM_SIZE), total_index,
-		process->index, value1, value2, *(int *)(process->reg + *(game->arena + (process->index - size1 - size2)
-			% MEM_SIZE)));
+		// ft_printf("champ (%u): store index (T_REG %u -> %u) // index - %i value1 - %u value2 - %u rev - %u\n",
+		// process->champ, *(game->arena + (process->index - size1 - size2) % MEM_SIZE), total_index,
+		// process->index, value1, value2, *(int *)(process->reg + *(game->arena + (process->index - size1 - size2)
+		// 	% MEM_SIZE)));
 		
 		process->duration += op_tab.cycles;
 		spread_color(((process->index - size1 - size2 - 2 + total_index) % MEM_SIZE), game, process);

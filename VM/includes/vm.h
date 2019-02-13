@@ -7,16 +7,16 @@
 
 # define FILE_SIZE 		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
-# define LIGHT		"\x1B[47;1;31m"
-# define RED		"\x1B[31m"
-# define GREEN		"\x1B[32m"
-# define YELLOW		"\x1b[33m"
-# define BLUE		"\x1b[34m"
-# define BRED		"\x1B[41m"
-# define BGREEN		"\x1B[42m"
-# define BYELLOW	"\x1b[43m"
-# define BBLUE		"\x1b[44m"
-# define RESET		"\x1B[0m"
+# define LIGHT			"\x1B[47;1;31m"
+# define RED			"\x1B[31m"
+# define GREEN			"\x1B[32m"
+# define YELLOW			"\x1b[33m"
+# define BLUE			"\x1b[34m"
+# define BRED			"\x1B[41m"
+# define BGREEN			"\x1B[42m"
+# define BYELLOW		"\x1b[43m"
+# define BBLUE			"\x1b[44m"
+# define RESET			"\x1B[0m"
 
 typedef struct			s_process
 {
@@ -73,9 +73,10 @@ int						find_champ_total(int argc, char **argv);
 /*
 **		game.c
 */
-int						ft_reverse_bytes(void *ptr, int size);
+int						ft_reverse_bytes(void *ptr, unsigned int size);
 unsigned int			ft_get_bytes(void *ptr, int size);
 void					ft_game(t_game *game);
+t_process				*ft_fork_process(t_game *game, t_process *parent);
 
 t_op					ft_get_op(int index);
 
@@ -106,15 +107,15 @@ void					ft_get_size(unsigned int *size, t_arg_type args, int i);
 **		op_fork.c
 */
 void					op_fork(t_game *game, t_process *process);
-void					op_lfork(t_process *process);
+void					op_lfork(t_game *game, t_process *process);
 
 /*
 **		op_load.c
 */
 void					op_ld(t_game *game, t_process *process);
 void					op_ldi(t_game *game, t_process *process);
-void					op_lld(t_process *process);
-void					op_lldi(t_process *process);
+void					op_lld(t_game *game, t_process *process);
+void					op_lldi(t_game *game, t_process *process);
 
 /*
 **		op_math.c
@@ -133,7 +134,7 @@ void					op_sti(t_game *game, t_process *process);
 */
 void					op_live(t_game *game, t_process *process);
 void					op_zjmp(t_game *game, t_process *process);
-void					op_aff(t_process *process);
+void					op_aff(t_game *game, t_process *process);
 
 /*
 **		print.c
@@ -146,6 +147,10 @@ void					print_usage(/*t_game *game*/);
 */
 void        			print_arena_color(t_game *game);
 
+/*
+**		idx.c
+*/
+void					ft_get_index(unsigned char	*process, int size, short *index);
+void					ft_index_sum(short index1, short index2, short *total);
+
 #endif
-
-

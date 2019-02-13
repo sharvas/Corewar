@@ -12,37 +12,28 @@
 
 #include "vm.h"
 
-// void	op_fork(t_game *game, t_process *process)
-// {
-// 	t_op			op_tab;
-
-// 	t_process *new;
-// 	t_process *last;
-// 	// int			i;
-
-// 	op_tab = ft_get_op(11);
-// 	// i = 0;
-// 	// if (!(new = (t_process *)malloc(sizeof(t_process))))
-// 	// 	exit(1); //ft_error
-// 	// ft_bzero(new, sizeof(*new));
-// 	// new->current = process->current;//?
-// 	// new->index = process->index;// + (index % IDX_MOD) % MEM_SIZE
-// 	// new->champ = process->champ;
-// 	// new->alive = process->alive;
-// 	// while (++i <= 16)
-// 	// 	new->reg[i] = process->reg[i];
-// 	new->duration += op_tab.cycles;//??
-
-// 	last = game->process;//add to end like this?
-// 	// while (last->next)//add to end like this?
-// 	// 	last = last->next;//add to end like this?
-// 	// last->next = new;//add to end like this?
-// }
-
-void	op_lfork(t_process *process)
+void	op_fork(t_game *game, t_process *process)
 {
-	t_op			op_tab;
+	t_op		op_tab;
+	t_process	*fork;
+	short		index;
+
+	op_tab = ft_get_op(11);
+	fork = ft_fork_process(game, process);
+	ft_get_index(&game->arena[++process->index], IND_SIZE, &index);
+	fork->index += index;
+	process->duration += op_tab.cycles;
+}
+
+void	op_lfork(t_game *game ,t_process *process)
+{
+	t_op		op_tab;
+	t_process	*fork;
+	short		index;
 
 	op_tab = ft_get_op(14);
-	process->duration += op_tab.cycles;//
+	fork = ft_fork_process(game, process);
+	index = ft_reverse_bytes(&game->arena[++process->index], IND_SIZE);
+	fork->index += index;
+	process->duration += op_tab.cycles;
 }

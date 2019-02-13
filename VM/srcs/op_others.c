@@ -34,22 +34,15 @@ void	op_zjmp(t_game *game, t_process *process)
 {
 	t_op	op_tab;
 	short	index;
-	short	sign;
 
 	op_tab = ft_get_op(8);
-	sign = 1;
-	index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE);
-	if (index < 0)
-	{
-		sign = -1;
-		index = -index;
-	}
+	ft_get_index(&game->arena[++process->index % MEM_SIZE], IND_SIZE, &index);
 	if (process->carry)
-		process->index += sign * ((index % IDX_MOD) % MEM_SIZE) - 2;
+		process->index += (index % MEM_SIZE) - 2;
 	process->duration += op_tab.cycles;
 }
 
-void	op_aff(t_process *process)
+void	op_aff(t_game *game, t_process *process)
 {
 	t_op			op_tab;
 
