@@ -37,7 +37,7 @@ void	op_ld(t_game *game, t_process *process)
 	&& game->arena[(process->index + DIR_SIZE + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
 		value = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], DIR_SIZE);
-		process->reg[*(game->arena + ((process->index + DIR_SIZE) % MEM_SIZE))] = value;
+		process->reg[game->arena[(process->index + DIR_SIZE) % MEM_SIZE]] = value;
 
 		ft_printf("champ(%u): load (T_DIR %u, T_REG %u)\n", process->champ, value,
 			game->arena[(process->index + DIR_SIZE) % MEM_SIZE]);
@@ -51,7 +51,7 @@ void	op_ld(t_game *game, t_process *process)
 	&& game->arena[(process->index + IND_SIZE + 1) % MEM_SIZE] >= 1
 	&& game->arena[(process->index + IND_SIZE + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
-		index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE) % IDX_MOD;
+		ft_get_index(&game->arena[++process->index % MEM_SIZE], IND_SIZE, &index);
 		value = ft_reverse_bytes(&game->arena[(process->index - 2 + index) % MEM_SIZE], DIR_SIZE);
 
 		ft_printf("champ(%u): load (T_IND %% IDX_MOD %u, T_REG %u)\n", process->champ, value,
@@ -90,13 +90,7 @@ void	op_st(t_game *game, t_process *process)
 	&& game->arena[(process->index + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
 		reg_index = game->arena[++process->index % MEM_SIZE];
-		index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE);
-		if (index < 0)
-		{
-			index = -index;
-			sign = -1;
-		}
-		index = index % IDX_MOD;
+		ft_get_index(&game->arena[++process->index % MEM_SIZE], IND_SIZE, &index);
 		
 		ft_printf("champ(%u): store (T_REG %u, T_IND %i)\n", process->champ, reg_index, index * sign);
 		
@@ -219,7 +213,7 @@ int		get_first_value(t_game *game, t_process *process, t_arg_type *args, int *va
 	}
 	else if (args[0] == IND_CODE)
 	{
-		index = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE) % IDX_MOD;
+		ft_get_index(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE, &index);
 		*value1 = ft_reverse_bytes(&game->arena[(process->index + index - 1) % MEM_SIZE], DIR_SIZE);
 		process->index += IND_SIZE;
 		return (1);
@@ -249,7 +243,7 @@ int		get_second_value(t_game *game, t_process *process, t_arg_type *args, int *v
 	}
 	else if (args[1] == IND_CODE)
 	{
-		index = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE) % IDX_MOD;
+		ft_get_index(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE, &index);
 		*value2 = ft_reverse_bytes(&game->arena[(process->index + index - size - 1) % MEM_SIZE], DIR_SIZE);
 		process->index += IND_SIZE;
 		return (1);
@@ -356,12 +350,7 @@ void	op_zjmp(t_game *game, t_process *process)
 
 	op_tab = ft_get_op(8);
 	sign = 1;
-	index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE);
-	if (index < 0)
-	{
-		sign = -1;
-		index = -index;
-	}
+	ft_get_index(&game->arena[++process->index % MEM_SIZE], IND_SIZE, &index);
 	if (process->carry)
 		process->index += sign * ((index % IDX_MOD) % MEM_SIZE) - 2;
 	process->duration += op_tab.cycles;
@@ -386,7 +375,7 @@ int		get_first_value_ind(t_game *game, t_process *process, t_arg_type args, shor
 	}
 	else if (args == IND_CODE)
 	{
-		index = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE) % IDX_MOD;
+		ft_get_index(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE, &index);
 		*value1 = ft_reverse_bytes(&game->arena[(process->index - 1 + index ) % MEM_SIZE], IND_SIZE);
 		process->index += IND_SIZE;
 		return (1);
@@ -397,8 +386,6 @@ int		get_first_value_ind(t_game *game, t_process *process, t_arg_type args, shor
 
 int		get_second_value_ind(t_game *game, t_process *process, t_arg_type args, short *value2)
 {
-	short index;
-
 	if (args == REG_CODE
 	&& game->arena[(process->index + 1) % MEM_SIZE] >= 1
 	&& game->arena[(process->index + 1) % MEM_SIZE] <= REG_NUMBER)
@@ -422,10 +409,13 @@ void	op_ldi(t_game *game, t_process *process)
 	unsigned int	size2;
 	short			value1;
 	short			value2;
+	short			total_index;
 	int				total_value;
+	int				sign;
 	t_op			op_tab;
 	t_arg_type		args[4];
 
+	sign = 1;
 	op_tab = ft_get_op(9);
 	find_args(&game->arena[++process->index % MEM_SIZE], args);
 	ft_get_size(&size1, args[0], 1);
@@ -439,8 +429,15 @@ void	op_ldi(t_game *game, t_process *process)
 			return ;
 		if (!get_second_value_ind(game, process, args[1], &value2))
 			return ;
-		total_value = ft_reverse_bytes(&game->arena[(process->index - size1
-			- size2 - 1 + ((value1 + value2) % IDX_MOD)) % MEM_SIZE], REG_SIZE);
+		total_index = value1 + value2;
+		if (total_index < 0)
+		{
+			sign = -1;
+			total_index = -total_index;
+		}
+		total_index = (total_index % IDX_MOD) * sign;
+		total_value = ft_reverse_bytes(&game->arena[(process->index - size1 - size2 - 1
+			+ total_index) % MEM_SIZE], REG_SIZE);
 		process->reg[game->arena[(process->index + 1) % MEM_SIZE]] = total_value;
 		process->duration += op_tab.cycles;
 		if (total_value == 0 && op_tab.carry)
@@ -457,9 +454,11 @@ void	op_sti(t_game *game, t_process *process)
 	short			value1;
 	short			value2;
 	short			total_index;
+	int				sign;
 	t_op			op_tab;
 	t_arg_type		args[4];
 
+	sign = 1;
 	op_tab = ft_get_op(10);
 	find_args(game->arena + (++process->index % MEM_SIZE), args);
 	ft_get_size(&size1, args[1], 2);
@@ -474,7 +473,13 @@ void	op_sti(t_game *game, t_process *process)
 			return ;
 		if (!get_second_value_ind(game, process, args[2], &value2))
 			return ;
-		total_index = (value1 + value2) % IDX_MOD;
+		total_index = value1 + value2;
+		if (total_index < 0)
+		{
+			sign = -1;
+			total_index = -total_index;
+		}
+		total_index = (total_index % IDX_MOD) * sign;
 		*(int *)(game->arena + ((process->index - size1 - size2 - 2 + total_index) % MEM_SIZE))
 		= ft_reverse_bytes(&process->reg[*(game->arena + (process->index - size1 - size2) % MEM_SIZE)], REG_SIZE);
 		

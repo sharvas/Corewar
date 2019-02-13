@@ -80,5 +80,7 @@ void					op_lld(t_process *process);
 void					op_lldi(t_process *process);
 void					op_lfork(t_process *process);
 void					op_aff(t_process *process);
- 
+
+void					ft_get_index(unsigned char	*process, int size, short *index);
+
 #endif
