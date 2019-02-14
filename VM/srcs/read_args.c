@@ -53,7 +53,9 @@ void	    read_args(int argc, char **argv, t_game *game)
 		print_usage();
 	while (i < argc)
 	{
-		if (ft_strcmp((argv[i]), "-cp") == 0)
+		if (ft_strcmp((argv[i]), "-v") == 0)
+			game->flag_v = 1;
+		else if (ft_strcmp((argv[i]), "-cp") == 0)
 			game->flag_cp = 1;
 		else if (ft_strcmp((argv[i]), "-dump") == 0)
 		{

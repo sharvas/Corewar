@@ -42,7 +42,7 @@ void		ft_delete_process(t_process *process, t_game *game)
 
 	tmp = game->process;
 	game->process = game->process->next;
-    ft_printf("\a\n");//custom sound?
+    ft_printf("\a");//custom sound?
 	free (tmp);
 	tmp = NULL;
 }
@@ -53,7 +53,7 @@ void		ft_delete_next_process(t_process *process)
 
 	tmp = process->next;
 	process->next = process->next->next;
-    ft_printf("\a\n");//custom sound?
+    ft_printf("\a");//custom sound?
 	free (tmp);
 	tmp = NULL;
 }
@@ -81,9 +81,6 @@ void		ft_check_process(t_game *game)
 		process->alive = 0;
 		process = process->next;
 	}
-	i = 0;
-	while (++i <= game->champ_count)
-		game->champ[i].alive_count = 0;
 }
 
 int		ft_count_process(t_game *game)
