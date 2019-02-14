@@ -106,7 +106,7 @@ void	print_visualizer(t_game *game, int i)
 	if (game->champ_count >= 4)
 		ft_printf("\t%sPlayer %i (%s)\tlives in current period: %s%-21d%s \tlast alive: %s%-21d", YELLOW, game->champ[4].nbr, game->champ[4].header.prog_name, RESET, game->champ[4].alive_count, YELLOW, RESET, game->champ[4].last_alive);
 	ft_printf("\n\033[?12;25h");
-	// usleep(1000);
+	// usleep(400000);
 }
 
 int		ft_add_duration(t_game *game, t_process *process)
@@ -140,6 +140,8 @@ void	ft_game(t_game *game)
 		game->cycle = game->cycle_to_die;
 		while (game->cycle > 0)
 		{
+			// usleep(500000);
+			// ft_printf("\033[2J");
 			process = game->process;
 			while (process)
 			{
