@@ -31,6 +31,7 @@ void	op_add(t_game *game, t_process *process)
 		reg1 = process->reg[game->arena[++process->seek_index % MEM_SIZE]];
 		reg2 = process->reg[game->arena[++process->seek_index % MEM_SIZE]];
 		process->reg[game->arena[++process->seek_index % MEM_SIZE]] = reg1 + reg2;
+		ft_printf("ADD reg1: %i, reg2: %i, sum: %i\n", reg1, reg2, reg1 + reg2);
 		if (reg1 + reg2 == 0)
 			process->carry = 1;
 		else
@@ -58,6 +59,7 @@ void	op_sub(t_game *game, t_process *process)
 		reg1 = process->reg[game->arena[++process->seek_index % MEM_SIZE]];
 		reg2 = process->reg[game->arena[++process->seek_index % MEM_SIZE]];
 		process->reg[game->arena[++process->seek_index % MEM_SIZE]] = reg1 - reg2;
+		ft_printf("SUB reg1: %i, reg2: %i, sum: %i\n", reg1, reg2, reg1 - reg2);
 		if (reg1 - reg2 == 0)
 			process->carry = 1;
 		else
