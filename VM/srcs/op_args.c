@@ -26,7 +26,7 @@ void	find_args(unsigned char *ptr, t_arg_type arg[])
 void	ft_get_size(unsigned int *size, t_arg_type args, int i)
 {
 	if (args == REG_CODE)
-		*size = T_REG;
+		*size = 1;
 	else if (args == IND_CODE)
 		*size = IND_SIZE;
 	else if (args == DIR_CODE)
