@@ -20,9 +20,12 @@ void	op_live(t_game *game, t_process *process)
 	process->alive = 1;
 	if (id > 0 && id <= game->champ_count)
 	{
-		game->alive_count++;
+		if (game->alive_count < 21)
+			game->alive_count++;
 		game->champ[id].alive_count++;
-		ft_printf("Player %i (%s) is alive!\n", game->champ[id].nbr, game->champ[id].header.prog_name); //if visu flag is off
+		game->champ[id].last_alive = game->cycle_count;
+		if (!game->flag_v)
+			ft_printf("A process shows that player %i (%s) is alive\n", game->champ[id].nbr, game->champ[id].header.prog_name);
 	}
 	process->index += DIR_SIZE;
 }

@@ -8,6 +8,7 @@
 # define FILE_SIZE 		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
 # define LIGHT			"\x1B[47;1;31m"
+# define GREY			"\x1B[1;30m"
 # define RED			"\x1B[31m"
 # define GREEN			"\x1B[32m"
 # define YELLOW			"\x1b[33m"
@@ -37,6 +38,7 @@ typedef struct			s_champ
 	int					start_index;
 	unsigned int		nbr;
 	int			    	alive_count;
+	long long			last_alive;
 }						t_champ;
 
 typedef struct			s_game
@@ -48,9 +50,11 @@ typedef struct			s_game
 	int					cycle_to_die;
 	int					cycle;
 	int					alive_count;
+	long long			cycle_count;
 	struct s_champ		champ[5];
 	int					champ_count;
 	struct s_process	*process;
+	int					flag_v;
 	int					flag_cp;
 }						t_game;
 

@@ -57,6 +57,16 @@ unsigned int	ft_get_bytes(void *ptr, int size)
 	return (ret);
 }
 
+void		reset_live(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (++i <= game->champ_count)
+		game->champ[i].alive_count = 0;
+	game->alive_count = 0;
+}
+
 t_process	*ft_fork_process(t_game *game, t_process *parent)
 {
 	t_process	*new;
@@ -77,6 +87,26 @@ t_process	*ft_fork_process(t_game *game, t_process *parent)
 		last = last->next;
 	last->next = new;
 	return (last->next);
+}
+
+void	print_visualizer(t_game *game, int i)
+{
+	short	champ_nbr;
+	
+	champ_nbr = 0;
+	ft_printf("\033[H\033[?25l");
+	print_arena_color(game);
+	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i \tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
+	ft_printf("\tProcess count: %-21i\n\n", ft_count_process(game));
+	ft_printf("\t%sPlayer %i (%s)\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", RED, game->champ[1].nbr, game->champ[1].header.prog_name, RESET, game->champ[1].alive_count, RED, RESET, game->champ[1].last_alive);
+	if (game->champ_count >= 2)
+		ft_printf("\t%sPlayer %i (%s)\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", GREEN, game->champ[2].nbr, game->champ[2].header.prog_name, RESET, game->champ[2].alive_count, GREEN, RESET, game->champ[2].last_alive);
+	if (game->champ_count >= 3)
+		ft_printf("\t%sPlayer %i (%s)\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", BLUE, game->champ[3].nbr, game->champ[3].header.prog_name, RESET, game->champ[3].alive_count, BLUE, RESET, game->champ[3].last_alive);
+	if (game->champ_count >= 4)
+		ft_printf("\t%sPlayer %i (%s)\tlives in current period: %s%-21d%s \tlast alive: %s%-21d", YELLOW, game->champ[4].nbr, game->champ[4].header.prog_name, RESET, game->champ[4].alive_count, YELLOW, RESET, game->champ[4].last_alive);
+	ft_printf("\n\033[?12;25h");
+	// usleep(1000);
 }
 
 int		ft_add_duration(t_game *game, t_process *process)
@@ -159,15 +189,10 @@ void	ft_game(t_game *game)
 				}
 				process = process->next;
 			}
-			if (game->cycle % game->frame_rate == 0)
-				ft_printf("\033[2J");
-			ft_printf("\033[H\033[?25l");
-			print_arena_color(game);
-			ft_printf("\nCycle to die: %.4i, Cycle %.4i, Checks %.2i\n", game->cycle_to_die, game->cycle, i);
-			ft_printf("Process count: %.2i\n", ft_count_process(game));
-			ft_printf("\n\033[?12;25h");
-			usleep(1000);
+			if (game->flag_v)
+				print_visualizer(game, i);
 			game->cycle--;
+			game->cycle_count++;
 		}
 		if (i >= MAX_CHECKS || game->alive_count >= NBR_LIVE)
 		{
@@ -175,5 +200,8 @@ void	ft_game(t_game *game)
 			i = 1;
 		}
 		ft_check_process(game);
+		reset_live(game);
 	}
+	// who_wins(game);
+	ft_printf("Player X (champion_name) won");//find champion declared alive last
 }
