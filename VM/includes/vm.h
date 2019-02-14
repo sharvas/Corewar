@@ -20,7 +20,8 @@
 
 typedef struct			s_process
 {
-	int					index;
+	int					index;// PC
+	int					seek_index; // PC_seek
 	int					reg[17];
 	int					duration;
 	int					duration_set;
@@ -35,18 +36,18 @@ typedef struct			s_champ
 	struct header_s		header;
 	int					start_index;
 	unsigned int		nbr;
-	int			    	alive;
+	int			    	alive_count;
 }						t_champ;
 
 typedef struct			s_game
 {
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		arena_champs[MEM_SIZE];
-	int					dump;//cycle_to_dump;
+	int					cycle_to_dump;
 	int					frame_rate;
 	int					cycle_to_die;
 	int					cycle;
-	int					alive;
+	int					alive_count;
 	struct s_champ		champ[5];
 	int					champ_count;
 	struct s_process	*process;
@@ -88,7 +89,7 @@ t_op					ft_get_op(int index);
 void					ft_add_process(t_game *game, int champ);
 void					ft_delete_process(t_process *process, t_game *game);
 void					ft_delete_next_process(t_process *process);
-void					ft_kill_process(t_game *game);
+void					ft_check_process(t_game *game);
 int						ft_count_process(t_game *game);
 
 /*

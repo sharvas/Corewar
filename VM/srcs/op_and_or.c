@@ -22,7 +22,8 @@ void	op_and(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	op_tab = ft_get_op(5);
-	find_args(&game->arena[++process->index % MEM_SIZE], args);
+	process->seek_index = process->index;
+	find_args(&game->arena[++process->seek_index % MEM_SIZE], args);
 	ft_get_size(&size1, args[0], 1);
 	ft_get_size(&size2, args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE

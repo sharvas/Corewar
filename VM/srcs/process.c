@@ -58,7 +58,7 @@ void		ft_delete_next_process(t_process *process)
 	tmp = NULL;
 }
 
-void		ft_kill_process(t_game *game)
+void		ft_check_process(t_game *game)
 {
 	t_process	*process;
 

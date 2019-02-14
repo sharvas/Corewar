@@ -38,7 +38,7 @@ int 	main(int argc, char **argv)
 	read_args(argc, argv, &game);
 	ft_printf("\033[2J");
 	ft_game(&game);
-	// if (game.dump)//change to deal with cycles
+	// if (game.cycle_to_dump)//change to deal with cycles
 	//	print_arena(game.arena);
 	return (0);
 }

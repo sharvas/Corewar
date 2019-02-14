@@ -169,11 +169,11 @@ void	ft_game(t_game *game)
 			usleep(1000);
 			game->cycle--;
 		}
-		if (i >= MAX_CHECKS || game->alive >= NBR_LIVE)
+		if (i >= MAX_CHECKS || game->alive_count >= NBR_LIVE)
 		{
-			ft_kill_process(game);
 			game->cycle_to_die -= CYCLE_DELTA;
 			i = 1;
 		}
+		ft_check_process(game);
 	}
 }
