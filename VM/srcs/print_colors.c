@@ -19,7 +19,7 @@ static int	print_champ_condition(t_game *game, int i)
 	j = 1;
 	while (j < 5 && j <= game->champ_count)
 	{
-		if (game->arena_champs[i] == game->champ[j].nbr)
+		if (game->arena_champs[i] == j)
 			return (1);
 		j++;
 	}
@@ -54,13 +54,13 @@ static void	print_process_cp(t_game *game, int i, t_process *process)
 
 static void	print_champ(t_game *game, int i)
 {
-	if (game->arena_champs[i] == game->champ[1].nbr)
+	if (game->arena_champs[i] == 1)
 		ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);
-	else if (game->arena_champs[i] == game->champ[2].nbr)
+	else if (game->arena_champs[i] == 2)
 		ft_printf("%s%.2x%s", GREEN, (unsigned int)game->arena[i], RESET);
-	else if (game->arena_champs[i] == game->champ[3].nbr)
+	else if (game->arena_champs[i] == 3)
 		ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);
-	else if (game->arena_champs[i] == game->champ[4].nbr)
+	else if (game->arena_champs[i] == 4)
 		ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);
 }
 

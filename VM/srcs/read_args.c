@@ -43,7 +43,7 @@ static void	read_nbr(char *nbr, t_game *game, int champ_count)
 void	    read_args(int argc, char **argv, t_game *game)
 {
 	int	i;
-	int	champ_count;
+	unsigned char	champ_count;
 
 	game->champ_count = find_champ_total(argc, argv);
 	ft_printf("champ_total: %d\n", game->champ_count);

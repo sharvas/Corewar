@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
+void	read_champion(char *cor, t_game *game, unsigned char champ_count, int champ_total)
 {
 	int				fd;
 	unsigned char	binary[FILE_SIZE + 1];
@@ -64,8 +64,9 @@ void	read_champion(char *cor, t_game *game, int champ_count, int champ_total)
 	ft_printf("champ_total: %d, champ_count: %d, index: %d\n\n", champ_total, champ_count, (MEM_SIZE / champ_total) * (champ_count));//
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
 	game->champ[champ_count].start_index = (MEM_SIZE / champ_total) * (champ_count - 1);
+	ft_printf("champ_count: %d\n", champ_count);
 	while (i < game->champ[champ_count].header.prog_size)
-		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i++, &game->champ[champ_count].nbr, 1);
+		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total) * (champ_count - 1)) + i++, &champ_count, 1);
 }
 
 int		find_champ_total(int argc, char **argv)

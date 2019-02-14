@@ -26,7 +26,7 @@ typedef struct			s_process
 	int					duration_set;
 	int					carry;
 	int					alive;
-	unsigned char		champ;
+	short				champ;
 	struct s_process	*next;
 }						t_process;
 
@@ -68,7 +68,7 @@ void					read_args(int argc, char **argv, t_game *game);
 /*
 **		read_champs.c
 */
-void					read_champion(char *cor, t_game *game, int champ_count, int champ_total);
+void					read_champion(char *cor, t_game *game, unsigned char champ_count, int champ_total);
 int						find_champ_total(int argc, char **argv);
 
 /*
