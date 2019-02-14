@@ -126,10 +126,12 @@ void		ft_delete_next_process(t_process *process)
 	tmp = NULL;
 }
 
-void		ft_kill_process(t_game *game)
+void		ft_check_process(t_game *game)
 {
 	t_process	*process;
+	int			i;
 
+	i = 0;
 	process = game->process;
 	if (process && !process->alive)
 	{
@@ -148,6 +150,9 @@ void		ft_kill_process(t_game *game)
 		process->alive = 0;
 		process = process->next;
 	}
+	game->alive_count = 0;
+	while (game->champ[++i].alive_count && i < game->champ_count)
+		game->champ[i].alive_count = 0;
 }
 
 int		ft_count_process(t_game *game)
@@ -240,11 +245,11 @@ void	ft_game(t_game *game)
 			usleep(1000);
 			game->cycle--;
 		}
-		if (i >= MAX_CHECKS || game->alive >= NBR_LIVE)
+		if (i >= MAX_CHECKS || game->alive_count >= NBR_LIVE)
 		{
-			ft_kill_process(game);
 			game->cycle_to_die -= CYCLE_DELTA;
 			i = 1;
 		}
+		ft_check_process(game);
 	}
 }

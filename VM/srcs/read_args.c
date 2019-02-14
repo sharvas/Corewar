@@ -20,8 +20,8 @@ static void	read_dump(char *nbr, t_game *game)
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			print_usage();
-	game->dump = ft_atoi(nbr);
-	ft_printf("dump: %d\n", game->dump);//
+	game->cycle_to_dump = ft_atoi(nbr);
+	ft_printf("dump: %d\n", game->cycle_to_dump);//
 }
 
 static void	read_nbr(char *nbr, t_game *game, int champ_count)
