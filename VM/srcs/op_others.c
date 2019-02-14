@@ -23,9 +23,12 @@ void	op_live(t_game *game, t_process *process)
 	process->duration += op_tab.cycles;
 	if (id > 0 && id <= game->champ_count)
 	{
-		game->alive++;
+		if (game->alive < 21)
+			game->alive++;
 		game->champ[id].alive++;
-		ft_printf("Player %i (%s) is alive!\n", game->champ[id].nbr, game->champ[id].header.prog_name);
+		game->champ[id].last_alive = game->cycle_count;
+		if (!game->flag_v)
+			ft_printf("A process shows that player %i (%s) is alive\n", game->champ[id].nbr, game->champ[id].header.prog_name);
 	}
 	process->index += DIR_SIZE;
 }

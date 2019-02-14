@@ -95,7 +95,7 @@ void        print_arena_color(t_game *game)
 			printed++;
 		}
 		if (!printed)
-			ft_printf("%.2x", (unsigned int)game->arena[i]);
+			ft_printf("%s%.2x%s", GREY, (unsigned int)game->arena[i], RESET);
 		if (i == MEM_SIZE - 1)
 			ft_printf("\n");
 		else if (i && (i + 1) % 64 == 0)
