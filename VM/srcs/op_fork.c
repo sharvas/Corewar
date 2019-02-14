@@ -14,26 +14,22 @@
 
 void	op_fork(t_game *game, t_process *process)
 {
-	t_op		op_tab;
 	t_process	*fork;
 	short		index;
 
-	op_tab = ft_get_op(11);
 	fork = ft_fork_process(game, process);
 	ft_get_index(&game->arena[++process->index], IND_SIZE, &index);
+	process->index++;
 	fork->index += index;
-	process->duration += op_tab.cycles;
 }
 
 void	op_lfork(t_game *game ,t_process *process)
 {
-	t_op		op_tab;
 	t_process	*fork;
 	short		index;
 
-	op_tab = ft_get_op(14);
 	fork = ft_fork_process(game, process);
 	index = ft_reverse_bytes(&game->arena[++process->index], IND_SIZE);
+	process->index++;
 	fork->index += index;
-	process->duration += op_tab.cycles;
 }

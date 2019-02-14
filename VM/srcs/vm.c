@@ -27,7 +27,7 @@ void	init_game(t_game *game)
 	ft_bzero(game->arena_champs, sizeof(MEM_SIZE));
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->cycle = CYCLE_TO_DIE;
-	game->frame_rate = 25;
+	game->frame_rate = 25;//define in .h
 }
 
 int 	main(int argc, char **argv)

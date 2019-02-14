@@ -61,6 +61,7 @@ void		ft_delete_next_process(t_process *process)
 void		ft_check_process(t_game *game)
 {
 	t_process	*process;
+	int			i;
 
 	process = game->process;
 	if (process && !process->alive)
@@ -80,6 +81,9 @@ void		ft_check_process(t_game *game)
 		process->alive = 0;
 		process = process->next;
 	}
+	i = 0;
+	while (++i <= game->champ_count)
+		game->champ[i].alive_count = 0;
 }
 
 int		ft_count_process(t_game *game)
