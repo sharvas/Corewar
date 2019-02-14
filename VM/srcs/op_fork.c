@@ -14,24 +14,20 @@
 
 void	op_fork(t_game *game, t_process *process)
 {
-	t_process	*fork;
 	short		index;
 
-	fork = ft_fork_process(game, process);
-	ft_get_index(&game->arena[++process->index], IND_SIZE, &index);
+	ft_get_index(&game->arena[process->index + 1], IND_SIZE, &index);
+	ft_fork_process(game, process, index);
 	ft_printf("FORK(%i) index: %i\n", process->champ, index);
-	process->index++;
-	fork->index += index;
+	process->index += IND_SIZE;
 }
 
 void	op_lfork(t_game *game ,t_process *process)
 {
-	t_process	*fork;
 	short		index;
 
-	fork = ft_fork_process(game, process);
-	index = ft_reverse_bytes(&game->arena[++process->index], IND_SIZE);
+	index = ft_reverse_bytes(&game->arena[process->index + 1], IND_SIZE);
+	ft_fork_process(game, process, index);
 	ft_printf("LFORK(%i) index: %i\n", process->champ, index);
-	process->index++;
-	fork->index += index;
+	process->index += IND_SIZE;
 }

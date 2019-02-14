@@ -67,7 +67,7 @@ void		reset_live(t_game *game)
 	game->alive_count = 0;
 }
 
-t_process	*ft_fork_process(t_game *game, t_process *parent)
+void	ft_fork_process(t_game *game, t_process *parent, short index)
 {
 	t_process	*new;
 	t_process	*last;
@@ -77,16 +77,18 @@ t_process	*ft_fork_process(t_game *game, t_process *parent)
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		exit(1); //ft_error
 	ft_bzero(new, sizeof(*new));
-	new->index = parent->index;
+	new->index = parent->index + index;
+	if (new->index < 0)
+		new->index = (MEM_SIZE + (new->index % MEM_SIZE)) % MEM_SIZE;
 	new->champ = parent->champ;
 	new->alive = parent->alive;
+	new->carry = parent->carry;
 	while (++i <= REG_NUMBER)
 		new->reg[i] = parent->reg[i];
 	last = game->process;
 	while (last->next)
 		last = last->next;
 	last->next = new;
-	return (last->next);
 }
 
 void	print_visualizer(t_game *game, int i)
@@ -140,8 +142,6 @@ void	ft_game(t_game *game)
 		game->cycle = game->cycle_to_die;
 		while (game->cycle > 0)
 		{
-			// usleep(500000);
-			// ft_printf("\033[2J");
 			process = game->process;
 			while (process)
 			{

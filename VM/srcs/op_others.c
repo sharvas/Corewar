@@ -43,10 +43,8 @@ void	op_zjmp(t_game *game, t_process *process)
 
 void	op_aff(t_game *game, t_process *process)
 {
-	t_op			op_tab;
 	t_arg_type		args[4];
 
-	op_tab = ft_get_op(15);
 	process->seek_index = process->index;
 	find_args(&game->arena[++process->seek_index % MEM_SIZE], args);
 	if (args[0] == REG_CODE

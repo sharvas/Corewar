@@ -83,7 +83,7 @@ int						ft_reverse_bytes(void *ptr, unsigned int size);
 unsigned int			ft_get_bytes(void *ptr, int size);
 int						ft_add_duration(t_game *game, t_process *process);
 void					ft_game(t_game *game);
-t_process				*ft_fork_process(t_game *game, t_process *parent);
+void					ft_fork_process(t_game *game, t_process *parent, short index);
 
 t_op					ft_get_op(int index);
 
