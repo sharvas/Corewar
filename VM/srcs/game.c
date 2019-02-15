@@ -72,7 +72,7 @@ void	print_visualizer(t_game *game, int i)
 	short	champ_nbr;
 	
 	champ_nbr = 0;
-	ft_printf("\033[2J");//
+	ft_printf("\033[2J");// to clear screen for debug mode
 	ft_printf("\033[H\033[?25l");
 	print_arena_color(game);
 	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i \tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
@@ -85,8 +85,8 @@ void	print_visualizer(t_game *game, int i)
 	if (game->champ_count >= 4)
 		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", YELLOW, game->champ[4].nbr, game->champ[4].header.prog_name, RESET, game->champ[4].alive_count, YELLOW, RESET, game->champ[4].last_alive);
 	ft_printf("\n\033[?12;25h");
-	// usleep(400000);
-	// ft_printf("\033[2J");
+	if (game->flag_s)
+		usleep(4200000 / game->flag_s);//////////////////
 }
 
 int		ft_add_duration(t_game *game, t_process *process)
