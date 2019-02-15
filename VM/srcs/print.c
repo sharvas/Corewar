@@ -41,6 +41,7 @@ void	print_usage(/*t_game *game*/)
 	ft_putstr("dump the memory on the standard output and quit\n");
 	ft_putstr("\t[-n number] sets the number of the next player\n");
 	ft_putstr("\t[-v] vizualizer\n");
+	ft_putstr("\t[-w nbr_cycles] wait for nbr_cycles before starting vizualizer\n");
 	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n\n");
 //	free_everything(/*t_game *game*/);
 	exit(1);
