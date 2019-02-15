@@ -77,7 +77,6 @@ void	    op_sti(t_game *game, t_process *process)
 		if (!get_second_value_ind(game, process, args[2], &value2))
 			return ;
 		ft_index_sum(value1, value2, &total_index);
-		// total_index = value1 + value2;
 		*(int *)(game->arena + ((process->seek_index - size1 - size2 - 2 + total_index) % MEM_SIZE))
 		= ft_reverse_bytes(&process->reg[reg_id], REG_SIZE);
 		ft_printf("STI(%i) reg_id: %i, value1: %i, value2: %i, sum: %i\n", process->champ, reg_id, value1, value2, value1 + value2);
