@@ -26,7 +26,7 @@ void	op_ld(t_game *game, t_process *process)
 	{
 		value = ft_reverse_bytes(&game->arena[++process->seek_index % MEM_SIZE], DIR_SIZE);
 		process->reg[game->arena[(process->seek_index + DIR_SIZE) % MEM_SIZE]] = value;
-		// ft_printf("LD(%i) value: %i, reg: %i\n", process->champ, value, game->arena[(process->seek_index + DIR_SIZE) % MEM_SIZE]);
+		ft_printf("LD(%i) value: %i, reg: %i\n", process->champ, value, game->arena[(process->seek_index + DIR_SIZE) % MEM_SIZE]);
 		process->seek_index += DIR_SIZE;
 		process->carry = 1;
 		process->index = process->seek_index;
