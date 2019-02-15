@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void    print_arena(unsigned char *arena)
+void    print_dump(unsigned char *arena)
 {
 	int	i;
 	
@@ -29,6 +29,8 @@ void    print_arena(unsigned char *arena)
 			ft_printf(" ");
 		i++;
 	}
+	//free everything?
+	exit(1);
 }
 
 void	print_usage(/*t_game *game*/)
@@ -38,6 +40,7 @@ void	print_usage(/*t_game *game*/)
 	ft_putstr("\t[-dump nbr_cycles] at the end of nbr_cycles of executions, ");
 	ft_putstr("dump the memory on the standard output and quit\n");
 	ft_putstr("\t[-n number] sets the number of the next player\n");
+	ft_putstr("\t[-v] vizualizer\n");
 	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n\n");
 //	free_everything(/*t_game *game*/);
 	exit(1);

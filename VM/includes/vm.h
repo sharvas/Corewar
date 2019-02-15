@@ -45,7 +45,6 @@ typedef struct			s_game
 {
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		arena_champs[MEM_SIZE];
-	int					cycle_to_dump;
 	int					frame_rate;
 	int					cycle_to_die;
 	int					cycle;
@@ -54,6 +53,7 @@ typedef struct			s_game
 	struct s_champ		champ[5];
 	int					champ_count;
 	struct s_process	*process;
+	int					flag_dump;
 	int					flag_v;
 	int					flag_cp;
 }						t_game;
@@ -154,7 +154,7 @@ void					op_aff(t_game *game, t_process *process);
 /*
 **		print.c
 */
-void    				print_arena(unsigned char *arena);
+void    				print_dump(unsigned char *arena);
 void					print_usage(/*t_game *game*/);
 
 /*

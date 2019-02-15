@@ -19,9 +19,9 @@ static void	read_dump(char *nbr, t_game *game)
 	i = -1;
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
-			print_usage();
-	game->cycle_to_dump = ft_atoi(nbr);
-	ft_printf("dump: %d\n", game->cycle_to_dump);//
+			error_exit("argument following -d not a valid number");
+	game->flag_dump = ft_atoi(nbr);
+	ft_printf("dump: %d\n", game->flag_dump);//
 }
 
 static void	read_nbr(char *nbr, t_game *game, int champ_count)
