@@ -79,7 +79,7 @@ void	ft_fork_process(t_game *game, t_process *parent, short index)
 	ft_bzero(new, sizeof(*new));
 	new->index = parent->index + index;
 	if (new->index < 0)
-		new->index = (MEM_SIZE + (new->index % MEM_SIZE)) % MEM_SIZE;
+		new->index = (MEM_SIZE + new->index) % MEM_SIZE;
 	new->champ = parent->champ;
 	new->alive = parent->alive;
 	new->carry = parent->carry;
@@ -109,6 +109,7 @@ void	print_visualizer(t_game *game, int i)
 		ft_printf("\t%sPlayer %i (%s)\tlives in current period: %s%-21d%s \tlast alive: %s%-21d", YELLOW, game->champ[4].nbr, game->champ[4].header.prog_name, RESET, game->champ[4].alive_count, YELLOW, RESET, game->champ[4].last_alive);
 	ft_printf("\n\033[?12;25h");
 	// usleep(400000);
+	// ft_printf("\033[2J");
 }
 
 int		ft_add_duration(t_game *game, t_process *process)
@@ -150,7 +151,7 @@ void	ft_game(t_game *game)
 					process->index = (process->index % MEM_SIZE) + 1;
 					process->duration_set = ft_add_duration(game, process);
 				}
-				if (process->duration)
+				else if (process->duration)
 					process->duration--;
 				else if (process->duration_set)
 				{

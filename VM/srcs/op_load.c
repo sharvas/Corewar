@@ -131,9 +131,9 @@ void	op_lldi(t_game *game, t_process *process)
 	&& game->arena[(process->seek_index + size1 + size2 + 1) % MEM_SIZE] >= 1
 	&& game->arena[(process->seek_index + size1 + size2 + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
-		if (!get_first_value_ind(game, process, args[0], &value1))
+		if (!get_first_value_ind(game, process, args[0], &value1))// remove IDX_MOD
 			return ;
-		if (!get_second_value_ind(game, process, args[1], &value2))
+		if (!get_second_value_ind(game, process, args[1], &value2))// remove IDX_MOD
 			return ;
 		total_index = value1 + value2;
 		total_value = ft_reverse_bytes(&game->arena[(process->seek_index - 1 - size1
