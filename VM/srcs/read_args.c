@@ -62,7 +62,7 @@ static void	read_speed(char *nbr, t_game *game)
 			return ;
 	game->speed = ft_atoi(nbr);
 	if (game->speed < 1 || game->speed > 100)
-		error_exit("argument following -s outside acceptable range (1-100)");
+		error_exit("argument following -v outside acceptable range (1-100)");
 	// ft_printf("speed: %d\n", game->speed);//
 }
 

@@ -127,6 +127,22 @@ int		ft_add_duration(t_game *game, t_process *process)
 	return (0);
 }
 
+int		who_won(t_game *game)
+{
+	int	champ;
+	int	i;
+
+	i = game->champ_count;
+	champ = game->champ_count;
+	while (i > 0)
+	{
+		if (game->champ[i].last_alive >= game->champ[champ].last_alive)
+			champ = i;
+		i--;
+	}
+	return (champ);
+}
+
 void	ft_game(t_game *game)
 {
 	int				i;
@@ -137,7 +153,7 @@ void	ft_game(t_game *game)
 	while (i <= game->champ_count)
 		ft_add_process(game, i++);
 	i = 0;
-	while (game->cycle_to_die > 0 || !game->process)
+	while (game->cycle_to_die > 0 && game->process)
 	{
 		i++;
 		game->cycle = game->cycle_to_die;
@@ -211,6 +227,5 @@ void	ft_game(t_game *game)
 		ft_check_process(game);
 		reset_live(game);
 	}
-	// who_wins(game);
-	ft_printf("Player X (champion_name) won");//find champion declared alive last
+	ft_printf("Player %d (%s) won\n", game->champ[who_won(game)].nbr, game->champ[who_won(game)].header.prog_name);//find champion declared alive last
 }
