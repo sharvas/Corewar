@@ -1,2 +1,30 @@
-valgrind ./corewar ../../dlaurent/appendix/champions/unitests/ld_test.cor
-segfault for the second to last function call...
+MUST DO
+1. fix all the opeartions (add, etc.)
+2. add processes to the front
+3. negative with -n flag
+	- error if over maxint?
+4. introducing contestants
+5. custom audio to kill
+6. proper default output ???
+
+OPTIONAL TO DO
+1. print back the asm code
+2. debud flag
+3. script to check if no && or || at the end
+6. aff buffer (champ with big message)
+
+GLOBAL TO DO
+1. main makefile
+2. script for diff on op.c and op.h in makefile
+
+BONUS:
+1. visualiser:
+	- start at specified cycle
+	- speed
+	- cp
+2. (not yet) sound (need a custom sound)
+3. (not yet) asm error messages
+4. (not yet) asm custom output location
+5. (not yet) championship
+6. (not yet) statistics
+7. (not yet) debug mode/modes
