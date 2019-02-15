@@ -11,3 +11,10 @@ void	ft_index_sum(short index1, short index2, short *total)
 	*total = index1 + index2;
 	*total = *total % IDX_MOD;
 }
+
+int		ft_index_mod(int index)
+{
+	if (index < 0)
+		index = MEM_SIZE + index;
+	return (index);
+}

@@ -169,5 +169,6 @@ void        			print_arena_color(t_game *game);
 */
 void					ft_get_index(unsigned char	*process, int size, short *index);
 void					ft_index_sum(short index1, short index2, short *total);
+int						ft_index_mod(int index);
 
 #endif

@@ -64,7 +64,7 @@ void		ft_check_process(t_game *game)
 	int			i;
 
 	process = game->process;
-	if (process && !process->alive)
+	while (process && !process->alive)
 	{
 		ft_delete_process(process, game);
 		process = game->process;

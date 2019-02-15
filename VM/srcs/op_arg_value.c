@@ -32,7 +32,7 @@ int		get_first_value(t_game *game, t_process *process, t_arg_type *args, int *va
 	else if (args[0] == IND_CODE)
 	{
 		ft_get_index(&game->arena[(process->seek_index + 1) % MEM_SIZE], IND_SIZE, &index);
-		*value1 = ft_reverse_bytes(&game->arena[(process->seek_index - 1 + index) % MEM_SIZE], DIR_SIZE);
+		*value1 = ft_reverse_bytes(&game->arena[ft_index_mod(process->seek_index - 1 + index) % MEM_SIZE], DIR_SIZE);
 		process->seek_index += IND_SIZE;
 		return (1);
 	}
@@ -62,7 +62,7 @@ int		get_second_value(t_game *game, t_process *process, t_arg_type *args, int *v
 	else if (args[1] == IND_CODE)
 	{
 		ft_get_index(&game->arena[(process->seek_index + 1) % MEM_SIZE], IND_SIZE, &index);
-		*value2 = ft_reverse_bytes(&game->arena[(process->seek_index - size - 1 + index) % MEM_SIZE], DIR_SIZE);
+		*value2 = ft_reverse_bytes(&game->arena[ft_index_mod(process->seek_index - size - 1 + index) % MEM_SIZE], DIR_SIZE);
 		process->seek_index += IND_SIZE;
 		return (1);
 	}
@@ -89,8 +89,9 @@ int		get_first_value_ind(t_game *game, t_process *process, t_arg_type args, shor
 	}
 	else if (args == IND_CODE)
 	{
-		ft_get_index(&game->arena[(process->seek_index + 1) % MEM_SIZE], IND_SIZE, &index);
-		*value1 = ft_reverse_bytes(&game->arena[(process->seek_index - 2 + index) % MEM_SIZE], IND_SIZE);
+		index = ft_reverse_bytes(&game->arena[(process->seek_index + 1) % MEM_SIZE], IND_SIZE);
+		// ft_get_index(&game->arena[(process->seek_index + 1) % MEM_SIZE], IND_SIZE, &index);
+		*value1 = ft_reverse_bytes(&game->arena[ft_index_mod(process->seek_index - 2 + index) % MEM_SIZE], DIR_SIZE);
 		process->seek_index += IND_SIZE;
 		return (1);
 	}

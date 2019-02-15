@@ -72,7 +72,7 @@ void	print_visualizer(t_game *game, int i)
 	short	champ_nbr;
 	
 	champ_nbr = 0;
-	ft_printf("\033[2J");// to clear screen for debug mode
+	// ft_printf("\033[2J");// to clear screen for debug mode
 	ft_printf("\033[H\033[?25l");
 	print_arena_color(game);
 	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i \tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
@@ -114,7 +114,7 @@ void	ft_game(t_game *game)
 	while (i <= game->champ_count)
 		ft_add_process(game, i++);
 	i = 0;
-	while (game->cycle_to_die > 0 || !game->process)
+	while (game->cycle_to_die > 0 && game->process)
 	{
 		i++;
 		game->cycle = game->cycle_to_die;
