@@ -52,18 +52,18 @@ static void	read_nbr(char *nbr, t_game *game, int champ_count)
 	// ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
-static void	read_s(char *nbr, t_game *game)
+static void	read_speed(char *nbr, t_game *game)
 {
 	int	i;
 
 	i = -1;
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
-			error_exit("argument following -s not a valid number");
-	game->flag_s = ft_atoi(nbr);
-	if (game->flag_s < 1 || game->flag_s > 100)
-		error_exit("argument following -s outside acceptable range (1-100)");
-	ft_printf("flag_s: %d\n", game->flag_s);//
+			return ;
+	game->speed = ft_atoi(nbr);
+	if (game->speed < 1 || game->speed > 100)
+		error_exit("argument following -v outside acceptable range (1-100)");
+	// ft_printf("speed: %d\n", game->speed);//
 }
 
 
@@ -81,13 +81,14 @@ void	    read_args(int argc, char **argv, t_game *game)
 	while (i < argc)
 	{
 		if (ft_strcmp((argv[i]), "-v") == 0)
-			game->flag_v = 1;
-		else if (ft_strcmp((argv[i]), "-s") == 0)
 		{
+			game->flag_v = 1;
 			if (argv[i + 1])
-				read_s(argv[++i], game);
-			else
-				error_exit("no speed (1-100) argument after -s");
+			{
+				read_speed(argv[i + 1], game);
+				if (game->speed)
+					i++;
+			}
 		}
 		else if (ft_strcmp((argv[i]), "-w") == 0)
 		{
