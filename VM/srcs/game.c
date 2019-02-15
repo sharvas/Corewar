@@ -191,7 +191,7 @@ void	ft_game(t_game *game)
 				}
 				process = process->next;
 			}
-			if (game->flag_v)
+			if (game->flag_v && game->cycle_count >= game->flag_w)
 				print_visualizer(game, i);
 			if (game->cycle_count && game->cycle_count == game->flag_dump)
 			{

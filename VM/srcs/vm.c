@@ -36,7 +36,7 @@ int 	main(int argc, char **argv)
 
 	init_game(&game);
 	read_args(argc, argv, &game);
-	// ft_printf("\033[2J");//////////////////////////////////////////////////////////////////////////////////////
+	ft_printf("\033[2J");//if just dump?
 	ft_game(&game);
 	// if (game.cycle_to_dump)//change to deal with cycles
 	//	print_arena(game.arena);
