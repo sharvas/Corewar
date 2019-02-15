@@ -55,6 +55,7 @@ typedef struct			s_game
 	struct s_process	*process;
 	int					flag_dump;
 	int					flag_v;
+	int					flag_s;
 	int					flag_w;
 	int					flag_cp;
 }						t_game;
