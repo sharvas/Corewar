@@ -24,7 +24,7 @@ void	ft_fork_process(t_game *game, t_process *parent, short index)
 	ft_bzero(new, sizeof(*new));
 	new->index = parent->index + index;
 	if (new->index < 0)
-		new->index = (MEM_SIZE + new->index) % MEM_SIZE;
+		new->index = MEM_SIZE + new->index;
 	new->champ = parent->champ;
 	new->alive = parent->alive;
 	new->carry = parent->carry;

@@ -72,6 +72,7 @@ void	print_visualizer(t_game *game, int i)
 	short	champ_nbr;
 	
 	champ_nbr = 0;
+	ft_printf("\033[2J");//
 	ft_printf("\033[H\033[?25l");
 	print_arena_color(game);
 	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i \tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
@@ -122,9 +123,10 @@ void	ft_game(t_game *game)
 			process = game->process;
 			while (process)
 			{
+				// ft_printf("PC(champ - %i) - %i\n", process->champ, process->index);
 				if (!process->duration_set)
 				{
-					process->index = (process->index % MEM_SIZE) + 1;
+					process->index = (process->index + 1) % MEM_SIZE;
 					process->duration_set = ft_add_duration(game, process);
 				}
 				else if (process->duration)
@@ -163,7 +165,7 @@ void	ft_game(t_game *game)
 						op_lfork(game, process);
 					else if (game->arena[process->index % MEM_SIZE] == 16)
 						op_aff(game, process);
-					process->index = process->index % MEM_SIZE + 1;
+					process->index = (process->index + 1) % MEM_SIZE;
 					process->duration_set = ft_add_duration(game, process);
 				}
 				process = process->next;

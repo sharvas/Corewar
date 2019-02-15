@@ -39,9 +39,11 @@ void	op_zjmp(t_game *game, t_process *process)
 	index = ft_reverse_bytes(&game->arena[++process->index % MEM_SIZE], IND_SIZE);
 	ft_printf("ZJMP(%i) index: %i\n", process->champ, index);
 	if (process->carry)
-		process->index += (index % MEM_SIZE) - 2; //why -2 and not -1??
-	if (process->index < 0)
-		process->index = (MEM_SIZE + process->index) % MEM_SIZE;
+	{
+		process->index += ((index % MEM_SIZE) - 2); //why -2 and not -1??
+		if (process->index < 0)
+			process->index = MEM_SIZE + process->index;
+	}
 }
 
 void	op_aff(t_game *game, t_process *process)
