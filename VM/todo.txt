@@ -1,11 +1,12 @@
+DONE
+1. negative with -n flag + error handling
+
 MUST DO
 1. fix all the opeartions (add, etc.)
 2. add processes to the front
-3. negative with -n flag
-	- error if over maxint?
-4. introducing contestants
-5. custom audio to kill
-6. proper default output ???
+3. introducing contestants
+4. custom audio to kill
+5. proper default output ???
 
 OPTIONAL TO DO
 1. print back the asm code

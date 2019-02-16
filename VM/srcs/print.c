@@ -17,6 +17,7 @@ void    print_dump(unsigned char *arena)
 	int	i;
 	
 	i = 0;
+	ft_printf("%s%s%s", CLEAR, MOVE_CURSOR, HIDE_CURSOR);
 	ft_printf("0x%.4x : ", i);
 	while(i < MEM_SIZE)
 	{
@@ -35,10 +36,11 @@ void    print_dump(unsigned char *arena)
 
 void	print_usage(/*t_game *game*/)
 {
-	ft_putstr("\nusage:\t./corewar [-dump nbr_cycles] [-w nbr_cycles] ");
+	ft_putstr("\nusage:\t./corewar [-dump nbr_cycles] [-i] [-w nbr_cycles] ");
 	ft_putstr("[-v [speed (1-100)]] [-cp] [[-n number] champion1.cor] ...\n\n");
 	ft_putstr("\t[-dump nbr_cycles] at the end of nbr_cycles of executions, ");
 	ft_putstr("dump the memory on the standard output and quit\n");
+	ft_putstr("\t[-i] print introduction of contestants\n");
 	ft_putstr("\t[-n number] sets the number of the next player\n");
 	ft_putstr("\t[-v [speed (1-100)]] vizualizer, optional speed ");
 	ft_putstr("between 1 (slow) and 100 (fast)\n");
@@ -46,4 +48,14 @@ void	print_usage(/*t_game *game*/)
 	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n\n");
 //	free_everything(/*t_game *game*/);
 	exit(1);
+}
+
+void	print_intro(t_game *game)
+{
+	int	champ;
+
+	champ = 0;
+	ft_printf("Introducing contestants...\n");
+	while (++champ <= game->champ_count)
+		ft_printf("Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", game->champ[champ].nbr, game->champ[champ].header.prog_size, game->champ[champ].header.prog_name, game->champ[champ].header.comment);
 }
