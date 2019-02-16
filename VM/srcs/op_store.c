@@ -65,7 +65,7 @@ void	    op_sti(t_game *game, t_process *process)
 	unsigned char	reg_id;
 	int				value1;
 	int				value2;
-	int				total_index;
+	short			total_index;
 	t_arg_type		args[4];
 
 	process->seek = process->index;
