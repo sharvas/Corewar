@@ -29,9 +29,8 @@ void	ft_fork_process(t_game *game, t_process *parent, short index)
 	while (++i <= REG_NUMBER)
 		new->reg[i] = parent->reg[i];
 	last = game->process;
-	while (last->next)
-		last = last->next;
-	last->next = new;
+	game->process = new;
+	game->process->next = last;
 }
 
 void	op_fork(t_game *game, t_process *process)

@@ -42,20 +42,20 @@ int		ft_reverse_bytes(void *ptr, unsigned int size)
 	return (0);
 }
 
-unsigned int	ft_get_bytes(void *ptr, int size)
-{
-	unsigned int	ret;
-	int				i;
+// unsigned int	ft_get_bytes(void *ptr, int size)
+// {
+// 	unsigned int	ret;
+// 	int				i;
 
-	ret = 0;
-	i = 0;
-	while (size-- > 0)
-	{
-		ret |= *((unsigned char *)ptr + i) >> (i * 8);
-		i++;
-	}
-	return (ret);
-}
+// 	ret = 0;
+// 	i = 0;
+// 	while (size-- > 0)
+// 	{
+// 		ret |= *((unsigned char *)ptr + i) >> (i * 8);
+// 		i++;
+// 	}
+// 	return (ret);
+// }
 
 void		reset_live(t_game *game)
 {
@@ -139,7 +139,6 @@ void	ft_game(t_game *game)
 			process = game->process;
 			while (process)
 			{
-				// ft_printf("PC(champ - %i) - %i\n", process->champ, process->index);
 				if (!process->duration_set)
 				{
 					process->index = (process->index + 1) % MEM_SIZE;

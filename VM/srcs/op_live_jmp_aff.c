@@ -39,19 +39,23 @@ void	op_zjmp(t_game *game, t_process *process)
 	// ft_printf("ZJMP(%i) index: %i\n", process->champ, index);
 	if (process->carry)
 		process->index = ft_index_mod(process->index - 1 + index);
+	else
+		process->index += DIR_SIZE / 2;
 }
 
 void	op_aff(t_game *game, t_process *process)
 {
 	t_arg_type		args[4];
 
-	process->seek_index = process->index;
-	find_args(&game->arena[++process->seek_index % MEM_SIZE], args);
+	process->seek = process->index;
+	find_args(&game->arena[++process->seek % MEM_SIZE], args);
 	if (args[0] == REG_CODE
-	&& game->arena[(process->seek_index + 1) % MEM_SIZE] >= 1
-	&& game->arena[(process->seek_index + 1) % MEM_SIZE] <= REG_NUMBER)
+	&& game->arena[(process->seek + 1) % MEM_SIZE] >= 1
+	&& game->arena[(process->seek + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
-		ft_printf("AFF(%i) %c", process->champ, process->reg[game->arena[++process->seek_index % MEM_SIZE]] % 256);//debug mode
-		process->index = process->seek_index;
+		ft_printf("AFF(%i) %c", process->champ, process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);//debug mode
+		process->index = process->seek;
 	}
+	else
+		process->index = ft_move_index(process->index, args, 16);
 }

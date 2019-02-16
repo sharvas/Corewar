@@ -30,9 +30,8 @@ void	ft_add_process(t_game *game, int champ)
 	else
 	{
 		last = game->process;
-		while (last->next)
-			last = last->next;
-		last->next = new;
+		game->process = new;
+		game->process->next = last;
 	}
 }
 
