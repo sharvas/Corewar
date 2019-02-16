@@ -42,7 +42,7 @@ void		ft_delete_process(t_process *process, t_game *game)
 	tmp = game->process;
 	game->process = game->process->next;
 	if (game->flag_v)
-		system("say death");
+		system("say kill");
 	free (tmp);
 	tmp = NULL;
 }
@@ -54,7 +54,7 @@ void		ft_delete_next_process(t_process *process, t_game *game)
 	tmp = process->next;
 	process->next = process->next->next;
     if (game->flag_v)
-		system("say death");
+		system("say kill");
 	free (tmp);
 	tmp = NULL;
 }
