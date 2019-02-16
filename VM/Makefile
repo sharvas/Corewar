@@ -59,14 +59,14 @@ fsanitize:
 
 $(COREWAR): $(LIBFT_A) $(OBJS_DIR) $(OBJS_PATH)
 	@echo "Compiling:" $(GREEN) $(COREWAR) $(DEFAULT)
-	gcc $(G) $(OBJS_PATH) $(LIBFT_A) -o $(COREWAR) -I $(LIBFT) -I $(INC)
+	gcc $(G) $(FLAGS) $(OBJS_PATH) $(LIBFT_A) -o $(COREWAR) -I $(LIBFT) -I $(INC)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADER)
 	@echo "Compiling:" $(GREEN) $< $(DEFAULT)
-	gcc $(G) -c $< -o $@ -I $(INC)
+	gcc $(G) $(FLAGS) -c $< -o $@ -I $(INC)
 
 clean:
 	@make -C $(LIBFT)/ clean
