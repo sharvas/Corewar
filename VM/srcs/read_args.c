@@ -107,6 +107,8 @@ void	    read_args(int argc, char **argv, t_game *game)
 			game->flag_cp = 1;
 		else if (ft_strcmp((argv[i]), "-a") == 0)
 			game->flag_a = 1;
+		else if (ft_strcmp((argv[i]), "-op") == 0)
+			game->flag_op = 1;
 		else if (ft_strcmp((argv[i]), "-dump") == 0)
 		{
 			if (argv[i + 1])
