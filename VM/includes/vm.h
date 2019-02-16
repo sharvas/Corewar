@@ -7,6 +7,11 @@
 
 # define FILE_SIZE 		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
 
+# define CLEAR			"\x1B[2J"
+# define MOVE_CURSOR	"\x1B[H"
+# define HIDE_CURSOR	"\x1B[?25l"
+# define RESET_CURSOR	"\x1B[?12;25h"
+
 # define LIGHT			"\x1B[47;1;31m"
 # define GREY			"\x1B[1;30m"
 # define RED			"\x1B[31m"
@@ -54,10 +59,15 @@ typedef struct			s_game
 	int					champ_count;
 	struct s_process	*process;
 	int					flag_dump;
+	short				dump_set;
 	int					flag_v;
 	int					speed;
+	int					flag_i;
 	int					flag_w;
 	int					flag_cp;
+	int					flag_a;
+	int					flag_op;
+	// int					flag_p;
 }						t_game;
 
 /*
@@ -157,7 +167,9 @@ void					op_aff(t_game *game, t_process *process);
 **		print.c
 */
 void    				print_dump(unsigned char *arena);
+void					print_visualizer(t_game *game, int i);
 void					print_usage(/*t_game *game*/);
+void					print_intro(t_game *game);
 
 /*
 **		print_colors.c

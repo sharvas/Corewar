@@ -36,7 +36,8 @@ void	    op_st(t_game *game, t_process *process)
 		reg_index = game->arena[++process->seek % MEM_SIZE];
 		ft_get_index(&game->arena[++process->seek % MEM_SIZE], IND_SIZE, &index);
 		*(int *)(game->arena + (ft_index_mod(process->seek - 3 + index) % MEM_SIZE)) = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
-		// ft_printf("ST(%i) reg_id: %i, index: %i\n", process->champ, reg_index, index);
+		if (game->flag_op)
+			ft_printf("ST(%i) reg_id: %i, index: %i\n", process->champ, reg_index, index);
 		spread_color(ft_index_mod(process->seek - 3 + index) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;
 	}
@@ -48,7 +49,8 @@ void	    op_st(t_game *game, t_process *process)
 	{
 		reg_index = game->arena[++process->seek % MEM_SIZE];
 		process->reg[game->arena[++process->seek % MEM_SIZE]] = process->reg[reg_index];
-		// ft_printf("ST(%i) reg_id: %i, reg_id: %i\n", process->champ, reg_index, game->arena[process->seek % MEM_SIZE]);
+		if (game->flag_op)
+			ft_printf("ST(%i) reg_id: %i, reg_id: %i\n", process->champ, reg_index, game->arena[process->seek % MEM_SIZE]);
 		process->index = process->seek;
 	}
 	else
@@ -57,6 +59,7 @@ void	    op_st(t_game *game, t_process *process)
 
 void	    op_sti(t_game *game, t_process *process)
 {
+	int				res[2];
 	unsigned int	size1;
 	unsigned int	size2;
 	unsigned char	reg_id;
@@ -74,20 +77,22 @@ void	    op_sti(t_game *game, t_process *process)
 	&& game->arena[(process->seek + 1) % MEM_SIZE] <= REG_NUMBER)
 	{
 		reg_id = game->arena[++process->seek % MEM_SIZE];
-		if (!get_first_value_ind(game, process, args[1], &value1))
-			return ;
-		if (!get_second_value_ind(game, process, args[2], &value2))
-			return ;
-		ft_index_sum(value1, value2, &total_index);
-		*(int *)(game->arena + (ft_index_mod(process->seek - size1 - size2 - 2 + total_index) % MEM_SIZE))
-		= ft_reverse_bytes(&process->reg[reg_id], REG_SIZE);
-		ft_printf("STI(%i) reg_id: %i, value1: %i, value2: %i, sum: %i\n", process->champ, reg_id, value1, value2, value1 + value2);
-		spread_color((ft_index_mod(process->seek - size1 - size2 - 2 + total_index) % MEM_SIZE), game, process);
-		// if (!total_index)
-		// 	process->carry = 1;
-		// else
-		// 	process->carry = 0;
-		process->index = process->seek;
+		res[0] = get_first_value_ind(game, process, args[1], &value1);
+		res[1] = get_second_value_ind(game, process, args[2], &value2);
+		if (res[0] && res[1])
+		{
+			ft_index_sum(value1, value2, &total_index);
+			*(int *)(game->arena + (ft_index_mod(process->seek - size1 - size2 - 2 + total_index) % MEM_SIZE))
+			= ft_reverse_bytes(&process->reg[reg_id], REG_SIZE);
+			if (game->flag_op)
+				ft_printf("STI(%i) reg_id: %i, value1: %i, value2: %i, sum: %i\n", process->champ, reg_id, value1, value2, value1 + value2);
+			spread_color((ft_index_mod(process->seek - size1 - size2 - 2 + total_index) % MEM_SIZE), game, process);
+			// if (!total_index)
+			// 	process->carry = 1;
+			// else
+			// 	process->carry = 0;
+			process->index = process->seek;
+		}
 	}
 	else
 		process->index = ft_move_index(process->index, args, 11);
