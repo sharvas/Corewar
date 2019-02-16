@@ -35,7 +35,7 @@ void	ft_add_process(t_game *game, int champ)
 	}
 }
 
-void		ft_delete_process(t_process *process, t_game *game)
+void		ft_delete_process(t_game *game)
 {
 	t_process *tmp;
 
@@ -45,7 +45,7 @@ void		ft_delete_process(t_process *process, t_game *game)
 	tmp = NULL;
 }
 
-void		ft_delete_next_process(t_process *process, t_game *game)
+void		ft_delete_next_process(t_process *process)
 {
 	t_process	*tmp;
 
@@ -58,22 +58,20 @@ void		ft_delete_next_process(t_process *process, t_game *game)
 void		ft_check_process(t_game *game)
 {
 	t_process	*process;
-	int			i;
 	int			killed;
 
 	killed = 0;
-	process = game->process;
-	while (process && !process->alive)
+	while (game->process && !game->process->alive)
 	{
-		ft_delete_process(process, game);
+		ft_delete_process(game);
 		killed++;
-		process = game->process;
 	}
+	process = game->process;
 	while (process && process->next)
 	{
 		if (!process->next->alive)
 		{
-			ft_delete_next_process(process, game);
+			ft_delete_next_process(process);
 			killed++;
 		}
 		process = process->next;

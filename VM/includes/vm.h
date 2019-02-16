@@ -104,8 +104,6 @@ t_op					ft_get_op(int index);
 **		process.c
 */
 void					ft_add_process(t_game *game, int champ);
-void					ft_delete_process(t_process *process, t_game *game);
-void					ft_delete_next_process(t_process *process, t_game *game);
 void					ft_check_process(t_game *game);
 int						ft_count_process(t_game *game);
 

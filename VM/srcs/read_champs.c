@@ -19,7 +19,7 @@ void	read_champion(char *cor, t_game *game, unsigned char champ_count, int champ
 	unsigned int	i;
 	int				j;
 	unsigned int	champ_tmp;
-	size_t			weight;
+	int				weight;
 
 	i = 0;
 	j = 0;
@@ -53,8 +53,8 @@ void	read_champion(char *cor, t_game *game, unsigned char champ_count, int champ
 	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
 
 	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
-	game->champ[champ_count].header.prog_size = (unsigned int)ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.prog_size, 2);
-	if (game->champ[champ_count].header.prog_size != (weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16))
+	game->champ[champ_count].header.prog_size = ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.prog_size, 2);
+	if (game->champ[champ_count].header.prog_size != (unsigned int)(weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16))
 		error_exit("prog_size doesn't match read size");
 
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
