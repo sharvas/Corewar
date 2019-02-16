@@ -90,8 +90,7 @@ int		get_first_value_ind(t_game *game, t_process *process, t_arg_type args, int 
 	else if (args == IND_CODE)
 	{
 		index = ft_reverse_bytes(&game->arena[(process->seek + 1) % MEM_SIZE], IND_SIZE);
-		// ft_get_index(&game->arena[(process->seek + 1) % MEM_SIZE], IND_SIZE, &index);
-		*value1 = ft_reverse_bytes(&game->arena[ft_index_mod(process->seek - 2 + index) % MEM_SIZE], DIR_SIZE);
+		*value1 = ft_reverse_bytes(&game->arena[ft_index_mod(process->seek - 1 + index) % MEM_SIZE], DIR_SIZE);
 		process->seek += IND_SIZE;
 		return (1);
 	}

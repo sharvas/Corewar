@@ -87,10 +87,6 @@ void	    op_sti(t_game *game, t_process *process)
 			if (game->flag_op)
 				ft_printf("STI(%i) reg_id: %i, value1: %i, value2: %i, sum: %i\n", process->champ, reg_id, value1, value2, value1 + value2);
 			spread_color((ft_index_mod(process->seek - size1 - size2 - 2 + total_index) % MEM_SIZE), game, process);
-			// if (!total_index)
-			// 	process->carry = 1;
-			// else
-			// 	process->carry = 0;
 			process->index = process->seek;
 		}
 	}

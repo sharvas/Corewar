@@ -62,8 +62,8 @@ void	op_ldi(t_game *game, t_process *process)
 
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args);
-	ft_get_size(&size1, args[0], 1);
-	ft_get_size(&size2, args[1], 1);
+	ft_get_size(&size1, args[0], 2);
+	ft_get_size(&size2, args[1], 2);
 	if (args[0] && (args[1] == DIR_CODE || args[1] == REG_CODE) && args[2] == REG_CODE
 	&& game->arena[(process->seek + size1 + size2 + 1) % MEM_SIZE] >= 1
 	&& game->arena[(process->seek + size1 + size2 + 1) % MEM_SIZE] <= REG_NUMBER)
@@ -77,7 +77,7 @@ void	op_ldi(t_game *game, t_process *process)
 				- size2 + total_index) % MEM_SIZE], REG_SIZE);
 			process->reg[game->arena[++process->seek % MEM_SIZE]] = total_value;
 			if (game->flag_op)
-				ft_printf("LDI(%i) value: %i, reg: %i\n", process->champ, total_value, game->arena[(process->seek - 1) % MEM_SIZE]);
+				ft_printf("LDI(%i) value: %i, reg: %i\n", process->champ, total_value, game->arena[(process->seek) % MEM_SIZE]);
 			if (total_value == 0)
 				process->carry = 1;
 			else
@@ -139,8 +139,8 @@ void	op_lldi(t_game *game, t_process *process)
 
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args);
-	ft_get_size(&size1, args[0], 1);
-	ft_get_size(&size2, args[1], 1);
+	ft_get_size(&size1, args[0], 2);
+	ft_get_size(&size2, args[1], 2);
 	if (args[0] && (args[1] == DIR_CODE || args[1] == REG_CODE) && args[2] == REG_CODE
 	&& game->arena[(process->seek + size1 + size2 + 1) % MEM_SIZE] >= 1
 	&& game->arena[(process->seek + size1 + size2 + 1) % MEM_SIZE] <= REG_NUMBER)
