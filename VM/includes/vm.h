@@ -67,6 +67,7 @@ typedef struct			s_game
 	int					flag_cp;
 	int					flag_a;
 	int					flag_op;
+	int					flag_arg;
 	// int					flag_p;
 }						t_game;
 
@@ -127,7 +128,7 @@ int						get_second_value_ind(t_game *game, t_process *process, t_arg_type args,
 /*
 **		op_args.c
 */
-void					find_args(unsigned char *ptr, t_arg_type arg[]);
+void					find_args(unsigned char *ptr, t_arg_type arg[], int flag_arg);
 void					ft_get_size(unsigned int *size, t_arg_type args, int i);
 
 /*

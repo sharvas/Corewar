@@ -48,7 +48,7 @@ void	op_aff(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek_index = process->index;
-	find_args(&game->arena[++process->seek_index % MEM_SIZE], args);
+	find_args(&game->arena[++process->seek_index % MEM_SIZE], args, game->flag_arg);
 	if (args[0] == REG_CODE
 	&& game->arena[(process->seek_index + 1) % MEM_SIZE] >= 1
 	&& game->arena[(process->seek_index + 1) % MEM_SIZE] <= REG_NUMBER)
