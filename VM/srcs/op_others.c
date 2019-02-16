@@ -25,7 +25,7 @@ void	op_live(t_game *game, t_process *process)
 			game->alive_count++;
 		game->champ[id].alive_count++;
 		game->champ[id].last_alive = game->cycle_count;
-		if (!game->flag_v)
+		if (!game->flag_v && !game->flag_a)
 			ft_printf("A process shows that player %i (%s) is alive\n", game->champ[id].nbr, game->champ[id].header.prog_name);
 	}
 	process->index += DIR_SIZE;

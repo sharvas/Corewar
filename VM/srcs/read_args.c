@@ -33,7 +33,8 @@ static void	read_w(char *nbr, t_game *game)
 		if (!ft_isdigit(nbr[i]))
 			error_exit("argument following -w not a valid number");
 	game->flag_w = ft_atoi(nbr);
-	// ft_printf("flag_w: %d\n", game->flag_dump);//
+	// if (game->flag_p)
+	// 	ft_printf("flag_w: %d\n", game->flag_w);//
 }
 
 static void	read_nbr(char *nbr, t_game *game, int champ_count)
@@ -104,6 +105,8 @@ void	    read_args(int argc, char **argv, t_game *game)
 		}
 		else if (ft_strcmp((argv[i]), "-cp") == 0)
 			game->flag_cp = 1;
+		else if (ft_strcmp((argv[i]), "-a") == 0)
+			game->flag_a = 1;
 		else if (ft_strcmp((argv[i]), "-dump") == 0)
 		{
 			if (argv[i + 1])

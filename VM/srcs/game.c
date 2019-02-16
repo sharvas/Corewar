@@ -67,27 +67,6 @@ void		reset_live(t_game *game)
 	game->alive_count = 0;
 }
 
-void	print_visualizer(t_game *game, int i)
-{
-	short	champ_nbr;
-	
-	champ_nbr = 0;
-	ft_printf("%s%s", MOVE_CURSOR, HIDE_CURSOR);
-	print_arena_color(game);
-	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i\tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
-	ft_printf("\tProcess count: %-21i\n\n", ft_count_process(game));
-	ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", RED, game->champ[1].nbr, game->champ[1].header.prog_name, RESET, game->champ[1].alive_count, RED, RESET, game->champ[1].last_alive);
-	if (game->champ_count >= 2)
-		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", GREEN, game->champ[2].nbr, game->champ[2].header.prog_name, RESET, game->champ[2].alive_count, GREEN, RESET, game->champ[2].last_alive);
-	if (game->champ_count >= 3)
-		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", BLUE, game->champ[3].nbr, game->champ[3].header.prog_name, RESET, game->champ[3].alive_count, BLUE, RESET, game->champ[3].last_alive);
-	if (game->champ_count >= 4)
-		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", YELLOW, game->champ[4].nbr, game->champ[4].header.prog_name, RESET, game->champ[4].alive_count, YELLOW, RESET, game->champ[4].last_alive);
-	ft_printf("\n%s", RESET_CURSOR);
-	if (game->speed)
-		usleep(4200000 / game->speed);//////////////////
-}
-
 int		ft_add_duration(t_game *game, t_process *process)
 {
 	t_op			op_tab;
@@ -117,6 +96,20 @@ int		who_won(t_game *game)
 		i--;
 	}
 	return (champ);
+}
+
+void	print_winner(t_game *game)
+{
+	short	winner;
+
+	winner = who_won(game);
+	if (!game->dump_set)
+	{
+		if (!game->champ[winner].last_alive)
+			ft_printf("No player won, no player lived\n");
+		else
+			ft_printf("Player %d (%s) won\n", game->champ[winner].nbr, game->champ[winner].header.prog_name);
+	}
 }
 
 void	ft_game(t_game *game)
@@ -204,6 +197,7 @@ void	ft_game(t_game *game)
 		ft_check_process(game);
 		reset_live(game);
 	}
-	if (!game->dump_set)
-		ft_printf("Player %d (%s) won\n", game->champ[who_won(game)].nbr, game->champ[who_won(game)].header.prog_name);//find champion declared alive last
+	print_winner(game);
+	// if (!game->dump_set)
+	// 	ft_printf("Player %d (%s) won\n", game->champ[who_won(game)].nbr, game->champ[who_won(game)].header.prog_name);//find champion declared alive last
 }

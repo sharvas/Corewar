@@ -65,6 +65,7 @@ typedef struct			s_game
 	int					flag_i;
 	int					flag_w;
 	int					flag_cp;
+	int					flag_a;
 	// int					flag_p;
 }						t_game;
 
@@ -165,6 +166,7 @@ void					op_aff(t_game *game, t_process *process);
 **		print.c
 */
 void    				print_dump(unsigned char *arena);
+void					print_visualizer(t_game *game, int i);
 void					print_usage(/*t_game *game*/);
 void					print_intro(t_game *game);
 
