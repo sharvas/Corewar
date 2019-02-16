@@ -25,11 +25,11 @@ HEADER = $(INC)vm.h
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = vm.c game.c process.c ../../op.c \
+SRCS_FILES = vm_main.c game.c process.c ../../op.c \
 	read_args.c read_champs.c \
-	op_and_or.c op_arg_value.c op_args.c op_fork.c \
-	op_load.c op_math.c op_store.c op_others.c \
-	print.c print_colors.c idx.c
+	op_and_or.c get_args.c get_index.c op_fork.c \
+	op_load.c op_add_sub.c op_store.c op_live_jmp_aff.c \
+	print.c print_colors.c get_ocp.c
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 

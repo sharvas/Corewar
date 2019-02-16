@@ -27,7 +27,7 @@
 typedef struct			s_process
 {
 	int					index;// PC
-	int					seek_index; // PC_seek
+	int					seek; // PC_seek
 	int					reg[17];
 	int					duration;
 	int					duration_set;
@@ -122,8 +122,8 @@ void					op_xor(t_game *game, t_process *process);
 */
 int						get_first_value(t_game *game, t_process *process, t_arg_type *args, int *value1);
 int						get_second_value(t_game *game, t_process *process, t_arg_type *args, int *value2);
-int						get_first_value_ind(t_game *game, t_process *process, t_arg_type args, short *value1);
-int						get_second_value_ind(t_game *game, t_process *process, t_arg_type args, short *value2);
+int						get_first_value_ind(t_game *game, t_process *process, t_arg_type args, int *value1);
+int						get_second_value_ind(t_game *game, t_process *process, t_arg_type args, int *value2);
 
 /*
 **		op_args.c
@@ -183,5 +183,6 @@ void        			print_arena_color(t_game *game);
 void					ft_get_index(unsigned char	*process, int size, short *index);
 void					ft_index_sum(short index1, short index2, short *total);
 int						ft_index_mod(int index);
+int						ft_move_index(int index, t_arg_type *args, int op_id);
 
 #endif
