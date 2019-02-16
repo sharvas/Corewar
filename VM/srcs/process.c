@@ -41,18 +41,16 @@ void		ft_delete_process(t_process *process, t_game *game)
 
 	tmp = game->process;
 	game->process = game->process->next;
-    ft_printf("\a");//custom sound?
 	free (tmp);
 	tmp = NULL;
 }
 
-void		ft_delete_next_process(t_process *process)
+void		ft_delete_next_process(t_process *process, t_game *game)
 {
 	t_process	*tmp;
 
 	tmp = process->next;
 	process->next = process->next->next;
-    ft_printf("\a");//custom sound?
 	free (tmp);
 	tmp = NULL;
 }
@@ -61,17 +59,23 @@ void		ft_check_process(t_game *game)
 {
 	t_process	*process;
 	int			i;
+	int			killed;
 
+	killed = 0;
 	process = game->process;
 	while (process && !process->alive)
 	{
 		ft_delete_process(process, game);
+		killed++;
 		process = game->process;
 	}
 	while (process && process->next)
 	{
 		if (!process->next->alive)
-			ft_delete_next_process(process);
+		{
+			ft_delete_next_process(process, game);
+			killed++;
+		}
 		process = process->next;
 	}
 	process = game->process;
@@ -80,6 +84,10 @@ void		ft_check_process(t_game *game)
 		process->alive = 0;
 		process = process->next;
 	}
+	if (game->flag_v && killed == 1 && game->flag_w < game->cycle_count)
+		system("say kill");
+	else if (game->flag_v && killed > 1 && game->flag_w < game->cycle_count)
+		system("say massacre");
 }
 
 int		ft_count_process(t_game *game)

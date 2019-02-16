@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void	find_args(unsigned char *ptr, t_arg_type arg[])
+void	find_args(unsigned char *ptr, t_arg_type arg[], int flag_arg)
 {
 	unsigned char	mask;
 
@@ -21,6 +21,13 @@ void	find_args(unsigned char *ptr, t_arg_type arg[])
 	arg[1] = ((mask >> 2) & *ptr) >> 4;
 	arg[2] = ((mask >> 4) & *ptr) >> 2;
 	arg[3] = (mask >> 6) & *ptr;
+	if (flag_arg)
+	{
+		ft_printf("arg1 - %i\n", arg[0]);
+		ft_printf("arg2 - %i\n", arg[1]);
+		ft_printf("arg3 - %i\n", arg[2]);
+		ft_printf("arg4 - %i\n", arg[3]);
+	}
 }
 
 void	ft_get_size(unsigned int *size, t_arg_type args, int i)

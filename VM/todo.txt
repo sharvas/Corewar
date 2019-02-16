@@ -1,18 +1,17 @@
 DONE
 1. negative with -n flag + error handling
+2. Introducing contestants...
+3. Debug flags -op and -arg
+4. custom audio to kill process
+5. proper default output ?
+6. added processes to front
 
 MUST DO
-1. fix all the opeartions (add, etc.)
-2. add processes to the front
-3. introducing contestants
-4. custom audio to kill
-5. proper default output ???
+1. fix all the operations (add, etc.)
 
 OPTIONAL TO DO
-1. print back the asm code
-2. debud flag
-3. script to check if no && or || at the end
-6. aff buffer (champ with big message)
+2. script to check if no && or || at the end
+3. aff buffer (champ with big message)
 
 GLOBAL TO DO
 1. main makefile
@@ -23,9 +22,9 @@ BONUS:
 	- start at specified cycle
 	- speed
 	- cp
-2. (not yet) sound (need a custom sound)
+2. kill process sound
 3. (not yet) asm error messages
 4. (not yet) asm custom output location
 5. (not yet) championship
 6. (not yet) statistics
-7. (not yet) debug mode/modes
+7. debug mode/modes

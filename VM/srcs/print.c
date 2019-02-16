@@ -57,12 +57,13 @@ void	print_visualizer(t_game *game, int i)
 
 void	print_usage(/*t_game *game*/)
 {
-	ft_putstr("\nusage:\t./corewar [-dump nbr_cycles] [-p] [-a] [-w nbr_cycles] ");
+	ft_putstr("\nusage:\t./corewar [-dump nbr_cycles] [-p] [-a] [-arg] [-w nbr_cycles] ");
 	ft_putstr("[-v [speed (1-100)]] [-cp] [[-n number] champion1.cor] ...\n\n");
 	ft_putstr("\t[-dump nbr_cycles] at the end of nbr_cycles of executions, ");
 	ft_putstr("dump the memory on the standard output and quit\n");
 	ft_putstr("\t[-a] don't print live operations\n");
 	ft_putstr("\t[-op] print operations excecuted, for debugging\n");
+	ft_putstr("\t[-arg] print argument sizes, for debugging\n");
 	ft_putstr("\t[-i] print introduction of contestants\n");
 	ft_putstr("\t[-n number] sets the number of the next player\n");
 	ft_putstr("\t[-v [speed (1-100)]] vizualizer, optional speed ");
