@@ -72,10 +72,9 @@ void	print_visualizer(t_game *game, int i)
 	short	champ_nbr;
 	
 	champ_nbr = 0;
-	// ft_printf("\033[2J");// to clear screen for debug mode
 	ft_printf("%s%s", MOVE_CURSOR, HIDE_CURSOR);
 	print_arena_color(game);
-	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i \tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
+	ft_printf("\n\tCycle delta: %2i\t\tNbr_live: %2i/%i\tChecks %.1i/%i\tCycle to die: %-4i\tCycles left in current period: %-4i\tCycle count: %i\n\n", CYCLE_DELTA, game->alive_count, NBR_LIVE, i, MAX_CHECKS, game->cycle_to_die, game->cycle, game->cycle_count);
 	ft_printf("\tProcess count: %-21i\n\n", ft_count_process(game));
 	ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", RED, game->champ[1].nbr, game->champ[1].header.prog_name, RESET, game->champ[1].alive_count, RED, RESET, game->champ[1].last_alive);
 	if (game->champ_count >= 2)

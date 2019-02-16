@@ -65,6 +65,7 @@ typedef struct			s_game
 	int					flag_i;
 	int					flag_w;
 	int					flag_cp;
+	// int					flag_p;
 }						t_game;
 
 /*
