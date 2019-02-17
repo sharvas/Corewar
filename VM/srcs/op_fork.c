@@ -22,7 +22,7 @@ void	ft_fork_process(t_game *game, t_process *parent, short index)
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		error_exit("malloc fail in ft_fork_process", game);
 	ft_bzero(new, sizeof(*new));
-	new->index = ft_index_mod(parent->index + index);
+	new->index = index_mod(parent->index + index);
 	new->champ = parent->champ;
 	new->alive = parent->alive;
 	new->carry = parent->carry;

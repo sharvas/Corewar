@@ -24,7 +24,7 @@ void	ft_index_sum(short index1, short index2, short *total)
 	*total = *total % IDX_MOD;
 }
 
-int		ft_index_mod(int index)
+int		index_mod(int index)
 {
 	if (index < 0)
 		index = MEM_SIZE + index;
@@ -55,7 +55,7 @@ int		ft_move_index(int index, t_arg_type *args, int op_id)
 	return (index);
 }
 
-int		ft_check_args(t_game *game, int index, t_arg_type *args, int op_id)
+int		check_args(t_game *game, int index, t_arg_type *args, int op_id)
 {
 	t_op			op_tab;
 	unsigned int	size[2];

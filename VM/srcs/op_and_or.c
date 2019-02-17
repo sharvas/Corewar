@@ -23,7 +23,7 @@ void	op_and(t_game *game, t_process *process)
 	ft_get_size(&size[0], args[0], 1);
 	ft_get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
-	&& ft_check_args(game, process->seek, args, 6))
+	&& check_args(game, process->seek, args, 6))
 	{
 		get_first_value(game, process, args, &val[0]);
 		get_second_value(game, process, args, &val[1]);
@@ -52,7 +52,7 @@ void	op_or(t_game *game, t_process *process)
 	ft_get_size(&size[0], args[0], 1);
 	ft_get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
-	&& ft_check_args(game, process->seek, args, 7))
+	&& check_args(game, process->seek, args, 7))
 	{
 		get_first_value(game, process, args, &val[0]);
 		get_second_value(game, process, args, &val[1]);
@@ -81,7 +81,7 @@ void	op_xor(t_game *game, t_process *process)
 	ft_get_size(&size[0], args[0], 1);
 	ft_get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
-	&& ft_check_args(game, process->seek, args, 8))
+	&& check_args(game, process->seek, args, 8))
 	{
 		get_first_value(game, process, args, &val[0]);
 		get_second_value(game, process, args, &val[1]);
