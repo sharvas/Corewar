@@ -57,7 +57,7 @@ static void	ft_init_op(void (*operations[])(t_game *, t_process *))
 }
 
 static void	do_process(t_game *game,
-void (*operations[17])(t_game *, t_process *))
+	void (*operations[17])(t_game *, t_process *))
 {
 	t_process	*process;
 
@@ -85,7 +85,7 @@ void (*operations[17])(t_game *, t_process *))
 }
 
 static void	do_cycle(t_game *game,
-void (*operations[17])(t_game *, t_process *), int i)
+	void (*operations[17])(t_game *, t_process *), int i)
 {
 	do_process(game, operations);
 	if (game->flag_v && game->cycle_count >= game->flag_w)

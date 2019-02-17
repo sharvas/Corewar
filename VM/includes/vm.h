@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/17 18:53:30 by svaskeli          #+#    #+#             */
+/*   Updated: 2019/02/17 18:53:32 by svaskeli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VM_H
 # define VM_H
 
@@ -45,7 +57,7 @@ typedef struct			s_champ
 	unsigned int		nbr;
 	short				nbr_set;
 	int					weight;
-	int			    	alive_count;
+	int					alive_count;
 	long long			last_alive;
 }						t_champ;
 
@@ -58,8 +70,7 @@ typedef struct			s_game
 	int					alive_count;
 	long long			cycle_count;
 	struct s_champ		champ[5];
-	// int					champ_count;
-	int					champ_total;//
+	int					champ_total;
 	struct s_process	*process;
 	int					flag_dump;
 	short				dump_set;
@@ -72,7 +83,6 @@ typedef struct			s_game
 	int					flag_op;
 	int					flag_arg;
 	int					flag_e;
-	// int					flag_p;
 }						t_game;
 
 /*
@@ -80,8 +90,6 @@ typedef struct			s_game
 */
 void					ft_free_game(t_game *game);
 void					error_exit(char *err_message, t_game *game);
-void					init_game(t_game *game);
-int 					main(int argc, char **argv);
 
 /*
 **		read_args.c
@@ -91,16 +99,17 @@ void					read_args(int argc, char **argv, t_game *game);
 /*
 **		read_champs.c
 */
-void					read_champion(char *cor, t_game *game, unsigned char champ_count, int champ_total);
+void					read_champion(char *cor, t_game *game,
+	unsigned char champ_count, int champ_total);
 int						find_champ_total(int argc, char **argv);
 
 /*
 **		read_nbrs.c
 */
 void					read_w_nbr(char *nbr, t_game *game);
-void	    			read_n_nbr(char *nbr, t_game *game, int champ_count);
-void	    			read_speed(char *nbr, t_game *game);
-void	    			read_dump(char **argv, t_game *game, int i);
+void					read_n_nbr(char *nbr, t_game *game, int champ_count);
+void					read_speed(char *nbr, t_game *game);
+void					read_dump(char **argv, t_game *game, int i);
 
 /*
 **		game.c
@@ -109,9 +118,8 @@ int						ft_reverse_bytes(void *ptr, unsigned int size);
 unsigned int			ft_get_bytes(void *ptr, int size);
 int						ft_add_duration(t_game *game, t_process *process);
 void					ft_game(t_game *game);
-void					ft_fork_process(t_game *game, t_process *parent, short index);
-
-t_op					ft_get_op(int index);
+void					ft_fork_process(t_game *game, t_process *parent,
+	short index);
 
 /*
 **		process.c
@@ -126,11 +134,9 @@ int						ft_count_process(t_game *game);
 void					reset_live(t_game *game);
 int						ft_add_duration(t_game *game, t_process *process);
 
-
 /*
 **		op_and_or.c
 */
-
 void					op_and(t_game *game, t_process *process);
 void					op_or(t_game *game, t_process *process);
 void					op_xor(t_game *game, t_process *process);
@@ -138,15 +144,20 @@ void					op_xor(t_game *game, t_process *process);
 /*
 **		op_arg_value.c
 */
-void					get_first_value(t_game *game, t_process *process, t_arg_type *args, int *value1);
-void					get_second_value(t_game *game, t_process *process, t_arg_type *args, int *value2);
-void					get_first_value_ind(t_game *game, t_process *process, t_arg_type args, int *value1);
-void					get_second_value_ind(t_game *game, t_process *process, t_arg_type args, int *value2);
+void					get_first_value(t_game *game, t_process *process,
+	t_arg_type *args, int *value1);
+void					get_second_value(t_game *game, t_process *process,
+	t_arg_type *args, int *value2);
+void					get_first_value_ind(t_game *game, t_process *process,
+	t_arg_type args, int *value1);
+void					get_second_value_ind(t_game *game, t_process *process,
+	t_arg_type args, int *value2);
 
 /*
 **		op_args.c
 */
-void					find_args(unsigned char *ptr, t_arg_type arg[], int flag_arg);
+void					find_args(unsigned char *ptr, t_arg_type arg[],
+	int flag_arg);
 void					ft_get_size(unsigned int *size, t_arg_type args, int i);
 
 /*
@@ -190,7 +201,7 @@ void					op_aff(t_game *game, t_process *process);
 /*
 **		print.c
 */
-void    				print_dump(unsigned char *arena, t_game *game);
+void					print_dump(unsigned char *arena, t_game *game);
 void					print_visualizer(t_game *game, int i);
 void					print_usage(t_game *game);
 void					print_intro(t_game *game);
@@ -198,7 +209,7 @@ void					print_intro(t_game *game);
 /*
 **		print_colors.c
 */
-void        			print_arena_color(t_game *game);
+void					print_arena_color(t_game *game);
 
 /*
 **		print_end.c
@@ -209,10 +220,17 @@ int						print_champ_condition(t_game *game, int i);
 /*
 **		idx.c
 */
-void					ft_get_index(unsigned char	*process, int size, short *index);
+void					ft_get_index(unsigned char	*process, int size,
+	short *index);
 void					ft_index_sum(short index1, short index2, short *total);
 int						index_mod(int index);
 int						ft_move_index(int index, t_arg_type *args, int op_id);
-int						check_args(t_game *game, int index, t_arg_type *args, int op_id);
+int						check_args(t_game *game, int index, t_arg_type *args,
+	int op_id);
+
+/*
+**		idx.c
+*/
+t_op					ft_get_op(int index);
 
 #endif
