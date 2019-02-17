@@ -14,7 +14,7 @@
 
 void	op_and(t_game *game, t_process *process)
 {
-	int				value[2];
+	int				val[2];
 	unsigned int	size[2];
 	t_arg_type		args[4];
 
@@ -25,12 +25,13 @@ void	op_and(t_game *game, t_process *process)
 	if (args[0] && args[1] && args[2] == REG_CODE
 	&& ft_check_args(game, process->seek, args, 6))
 	{
-		get_first_value(game, process, args, &value[0]);
-		get_second_value(game, process, args, &value[1]);
-		process->reg[game->arena[++process->seek % MEM_SIZE]] = value[0] & value[1];
+		get_first_value(game, process, args, &val[0]);
+		get_second_value(game, process, args, &val[1]);
+		process->reg[game->arena[++process->seek % MEM_SIZE]] = val[0] & val[1];
 		if (game->flag_op)
-			ft_printf("AND(%i) value1: %i, value2: %i\n", process->champ, value[0], value[1]);
-		if ((value[0] & value[1]) == 0)
+			ft_printf("AND(%i) value1: %i, value2: %i\n",
+			process->champ, val[0], val[1]);
+		if ((val[0] & val[1]) == 0)
 			process->carry = 1;
 		else
 			process->carry = 0;
@@ -42,7 +43,7 @@ void	op_and(t_game *game, t_process *process)
 
 void	op_or(t_game *game, t_process *process)
 {
-	int				value[2];
+	int				val[2];
 	unsigned int	size[2];
 	t_arg_type		args[4];
 
@@ -53,12 +54,13 @@ void	op_or(t_game *game, t_process *process)
 	if (args[0] && args[1] && args[2] == REG_CODE
 	&& ft_check_args(game, process->seek, args, 7))
 	{
-		get_first_value(game, process, args, &value[0]);
-		get_second_value(game, process, args, &value[1]);
-		process->reg[game->arena[++process->seek % MEM_SIZE]] = value[0] | value[1];
+		get_first_value(game, process, args, &val[0]);
+		get_second_value(game, process, args, &val[1]);
+		process->reg[game->arena[++process->seek % MEM_SIZE]] = val[0] | val[1];
 		if (game->flag_op)
-			ft_printf("OR(%i) value1: %i, value2: %i\n", process->champ, value[0], value[1]);
-		if ((value[0] | value[1]) == 0)
+			ft_printf("OR(%i) value1: %i, value2: %i\n",
+			process->champ, val[0], val[1]);
+		if ((val[0] | val[1]) == 0)
 			process->carry = 1;
 		else
 			process->carry = 0;
@@ -70,7 +72,7 @@ void	op_or(t_game *game, t_process *process)
 
 void	op_xor(t_game *game, t_process *process)
 {
-	int				value[2];
+	int				val[2];
 	unsigned int	size[2];
 	t_arg_type		args[4];
 
@@ -81,12 +83,13 @@ void	op_xor(t_game *game, t_process *process)
 	if (args[0] && args[1] && args[2] == REG_CODE
 	&& ft_check_args(game, process->seek, args, 8))
 	{
-		get_first_value(game, process, args, &value[0]);
-		get_second_value(game, process, args, &value[1]);
-		process->reg[game->arena[++process->seek % MEM_SIZE]] = value[0] ^ value[1];
+		get_first_value(game, process, args, &val[0]);
+		get_second_value(game, process, args, &val[1]);
+		process->reg[game->arena[++process->seek % MEM_SIZE]] = val[0] ^ val[1];
 		if (game->flag_op)
-			ft_printf("XOR(%i) value1: %i, value2: %i\n", process->champ, value[0], value[1]);
-		if ((value[0] ^ value[1]) == 0)
+			ft_printf("XOR(%i) value1: %i, value2: %i\n",
+			process->champ, val[0], val[1]);
+		if ((val[0] ^ val[1]) == 0)
 			process->carry = 1;
 		else
 			process->carry = 0;

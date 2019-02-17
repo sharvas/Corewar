@@ -44,7 +44,7 @@ void	op_fork(t_game *game, t_process *process)
 	process->index += IND_SIZE;
 }
 
-void	op_lfork(t_game *game ,t_process *process)
+void	op_lfork(t_game *game, t_process *process)
 {
 	short		index;
 

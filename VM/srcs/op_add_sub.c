@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_math.c                                          :+:      :+:    :+:   */
+/*   op_add_sub.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/13 11:48:06 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/13 11:48:15 by dfinnis          ###   ########.fr       */
+/*   Created: 2019/02/17 16:44:23 by dfinnis           #+#    #+#             */
+/*   Updated: 2019/02/17 16:44:27 by dfinnis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	op_add(t_game *game, t_process *process)
 		reg2 = process->reg[game->arena[++process->seek % MEM_SIZE]];
 		process->reg[game->arena[++process->seek % MEM_SIZE]] = reg1 + reg2;
 		if (game->flag_op)
-			ft_printf("ADD(%i) reg1: %i, reg2: %i\n", process->champ, reg1, reg2);
+			ft_printf("ADD(%i) reg1: %i, reg2: %i\n",
+			process->champ, reg1, reg2);
 		if (reg1 + reg2 == 0)
 			process->carry = 1;
 		else
@@ -53,7 +54,8 @@ void	op_sub(t_game *game, t_process *process)
 		reg2 = process->reg[game->arena[++process->seek % MEM_SIZE]];
 		process->reg[game->arena[++process->seek % MEM_SIZE]] = reg1 - reg2;
 		if (game->flag_op)
-			ft_printf("SUB(%i) reg1: %i, reg2: %i\n", process->champ, reg1, reg2);
+			ft_printf("SUB(%i) reg1: %i, reg2: %i\n",
+			process->champ, reg1, reg2);
 		if (reg1 - reg2 == 0)
 			process->carry = 1;
 		else

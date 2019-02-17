@@ -16,7 +16,8 @@ void	op_live(t_game *game, t_process *process)
 {
 	int		id;
 
-	id = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE], DIR_SIZE);
+	id = ft_reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE],
+	DIR_SIZE);
 	process->alive = 1;
 	if (game->flag_op)
 		ft_printf("LIVE(%i) number: %i\n", process->champ, id);
@@ -27,7 +28,8 @@ void	op_live(t_game *game, t_process *process)
 		game->champ[id].alive_count++;
 		game->champ[id].last_alive = game->cycle_count;
 		if (!game->flag_v && !game->flag_a && !game->flag_op)
-			ft_printf("A process shows that player %i (%s) is alive\n", game->champ[id].nbr, game->champ[id].header.prog_name);
+			ft_printf("A process shows that player %i (%s) is alive\n",
+			game->champ[id].nbr, game->champ[id].header.prog_name);
 	}
 	process->index += DIR_SIZE;
 }
@@ -36,7 +38,8 @@ void	op_zjmp(t_game *game, t_process *process)
 {
 	short	index;
 
-	ft_get_index(&game->arena[(process->index + 1) % MEM_SIZE], IND_SIZE, &index);
+	ft_get_index(&game->arena[(process->index + 1) % MEM_SIZE],
+	IND_SIZE, &index);
 	if (game->flag_op)
 		ft_printf("ZJMP(%i) index: %i\n", process->champ, index);
 	if (process->carry)
@@ -55,8 +58,10 @@ void	op_aff(t_game *game, t_process *process)
 	&& ft_check_args(game, process->seek, args, 16))
 	{
 		if (game->flag_op)
-			ft_printf("AFF(%i) %c", process->champ, process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);
-		ft_printf("%c", process->champ, process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);
+			ft_printf("AFF(%i) %c", process->champ,
+			process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);
+		ft_printf("%c", process->champ,
+		process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);
 		process->index = process->seek;
 	}
 	else
