@@ -37,7 +37,7 @@ void	read_champion(char *cor, t_game *game, unsigned char champ_count, int champ
 		error_exit("champion size too small");
 	close(fd);
 
-	if (!game->champ[champ_count].nbr)
+	if (!game->champ[champ_count].nbr_set)
 	{
 		while (++j < champ_count)
 			if (champ_tmp == game->champ[j].nbr)

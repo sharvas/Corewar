@@ -15,11 +15,16 @@
 static void	read_dump(char *nbr, t_game *game)
 {
 	int	i;
+	intmax_t	tmp;
 
 	i = -1;
+
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			error_exit("argument following -d not a valid number");
+	tmp = ft_atoi_intmax(nbr);
+	if (tmp > 2147483647 || tmp < 0)
+		error_exit("-dump number outside of acceptable range");
 	game->flag_dump = ft_atoi(nbr);
 	game->dump_set = 1;
 }
@@ -27,14 +32,16 @@ static void	read_dump(char *nbr, t_game *game)
 static void	read_w(char *nbr, t_game *game)
 {
 	int	i;
+	intmax_t	tmp;
 
 	i = -1;
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
 			error_exit("argument following -w not a valid number");
-	game->flag_w = ft_atoi(nbr);
-	// if (game->flag_p)
-	// 	ft_printf("flag_w: %d\n", game->flag_w);//
+	tmp = ft_atoi_intmax(nbr);
+	if (tmp > 2147483647 || tmp < 0)
+		error_exit("-w number outside of acceptable range");
+	game->flag_w = tmp;
 }
 
 static void	read_nbr(char *nbr, t_game *game, int champ_count)
@@ -52,6 +59,7 @@ static void	read_nbr(char *nbr, t_game *game, int champ_count)
 	if (tmp > 2147483647 || tmp < -2147483648)
 		error_exit("-n number outside of acceptable range");
 	game->champ[champ_count].nbr = tmp;
+	game->champ[champ_count].nbr_set = 1;
 	i = 0;
 	while (++i < champ_count)
 		if (game->champ[champ_count].nbr == game->champ[i].nbr)
@@ -111,6 +119,8 @@ void	    read_args(int argc, char **argv, t_game *game)
 			game->flag_op = 1;
 		else if (ft_strcmp((argv[i]), "-arg") == 0)
 			game->flag_arg = 1;
+		else if (ft_strcmp((argv[i]), "-e") == 0)
+			game->flag_e = 1;
 		else if (ft_strcmp((argv[i]), "-dump") == 0)
 		{
 			if (argv[i + 1])

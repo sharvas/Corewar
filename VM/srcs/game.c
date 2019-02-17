@@ -93,8 +93,10 @@ void	print_winner(t_game *game)
 		if (!game->champ[winner].last_alive)
 			ft_printf("No player won, no player lived\n");
 		else
-			ft_printf("Player %d (%s) won\n", game->champ[winner].nbr, game->champ[winner].header.prog_name);
+			ft_printf("%sPlayer %d (%s) won%s\n", BRIGHT, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
 	}
+	if (game->flag_e)
+		ft_printf("Game ended at cycle count: %d\n", game->cycle_count);//
 }
 
 void	ft_game(t_game *game)

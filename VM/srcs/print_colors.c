@@ -17,7 +17,7 @@ static int	print_champ_condition(t_game *game, int i)
 	int	j;
 
 	j = 1;
-	while (j < 5 && j <= game->champ_count)
+	while (j <= game->champ_count)
 	{
 		if (game->arena_champs[i] == j)
 			return (1);

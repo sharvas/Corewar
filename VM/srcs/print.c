@@ -17,7 +17,7 @@ void    print_dump(unsigned char *arena)
 	int	i;
 	
 	i = 0;
-	ft_printf("%s%s%s", CLEAR, MOVE_CURSOR, HIDE_CURSOR);
+	ft_printf("%s%s", CLEAR, MOVE_CURSOR);
 	ft_printf("0x%.4x : ", i);
 	while(i < MEM_SIZE)
 	{
@@ -69,7 +69,8 @@ void	print_usage(/*t_game *game*/)
 	ft_putstr("\t[-v [speed (1-100)]] vizualizer, optional speed ");
 	ft_putstr("between 1 (slow) and 100 (fast)\n");
 	ft_putstr("\t[-w nbr_cycles] wait for nbr_cycles before starting vizualizer\n");
-	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n\n");
+	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n");
+	ft_putstr("\t[-e] print \"Game ended at cycle count: (cycle_count)\"\n\n");
 //	free_everything(/*t_game *game*/);
 	exit(1);
 }

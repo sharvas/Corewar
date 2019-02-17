@@ -22,6 +22,7 @@
 # define BGREEN			"\x1B[42m"
 # define BYELLOW		"\x1b[43m"
 # define BBLUE			"\x1b[44m"
+# define BRIGHT			"\x1b[1m"
 # define RESET			"\x1B[0m"
 
 typedef struct			s_process
@@ -42,6 +43,7 @@ typedef struct			s_champ
 	struct header_s		header;
 	int					start_index;
 	unsigned int		nbr;
+	short				nbr_set;
 	int			    	alive_count;
 	long long			last_alive;
 }						t_champ;
@@ -68,6 +70,7 @@ typedef struct			s_game
 	int					flag_a;
 	int					flag_op;
 	int					flag_arg;
+	int					flag_e;
 	// int					flag_p;
 }						t_game;
 
