@@ -42,6 +42,21 @@ void	init_game(t_game *game)
 	game->cycle = CYCLE_TO_DIE;
 }
 
+int		find_champ_total(int argc, char **argv)
+{
+	int	champ_total;
+
+	champ_total = 0;
+	while (argc--)
+	{
+		if (ft_strstr(argv[argc], ".cor"))
+			champ_total++;
+	}
+	if (champ_total > 4)
+		error_exit("too many champions", NULL);
+	return (champ_total);
+}
+
 int		main(int argc, char **argv)
 {
 	t_game	game;

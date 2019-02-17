@@ -29,7 +29,7 @@ SRCS_FILES = vm_main.c game.c process.c process_more.c ../../op.c \
 	read_args.c read_champs.c read_nbrs.c \
 	get_args.c get_index.c get_ocp.c \
 	op_and_or.c op_fork.c \
-	op_load.c op_add_sub.c op_store.c op_live_jmp_aff.c \
+	op_load.c op_lload.c op_add_sub.c op_st.c op_sti.c op_live_jmp_aff.c \
 	print.c print_colors.c print_end.c 
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)

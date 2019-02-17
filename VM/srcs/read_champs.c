@@ -92,18 +92,3 @@ int champ_total)
 		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total)\
 		* (champ_count - 1)) + i++, &champ_count, 1);
 }
-
-int			find_champ_total(int argc, char **argv)
-{
-	int	champ_total;
-
-	champ_total = 0;
-	while (argc--)
-	{
-		if (ft_strstr(argv[argc], ".cor"))
-			champ_total++;
-	}
-	if (champ_total > 4)
-		error_exit("too many champions", NULL);
-	return (champ_total);
-}

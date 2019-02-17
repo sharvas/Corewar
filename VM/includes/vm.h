@@ -170,9 +170,14 @@ void					op_add(t_game *game, t_process *process);
 void					op_sub(t_game *game, t_process *process);
 
 /*
-**		op_store.c
+**		op_st.c
 */
 void					op_st(t_game *game, t_process *process);
+
+/*
+**		op_sti.c
+*/
+void					color(int index, t_game *game, t_process *process);
 void					op_sti(t_game *game, t_process *process);
 
 /*
@@ -199,6 +204,7 @@ void        			print_arena_color(t_game *game);
 **		print_end.c
 */
 void					print_winner(t_game *game);
+int						print_champ_condition(t_game *game, int i);
 
 /*
 **		idx.c

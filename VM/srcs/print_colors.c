@@ -61,20 +61,6 @@ static int	print_process(t_game *game, int i)
 	return (printed);
 }
 
-static int	print_champ_condition(t_game *game, int i)
-{
-	int	j;
-
-	j = 1;
-	while (j <= game->champ_total)
-	{
-		if (game->arena_champs[i] == j)
-			return (1);
-		j++;
-	}
-	return (0);
-}
-
 static void	print_champ(t_game *game, int i)
 {
 	if (game->arena_champs[i] == 1)
