@@ -8,6 +8,10 @@ DONE
 
 MUST DO
 1. fix all the operations (add, etc.)
+2. what if w is larger then dump
+	- w larger than the max cycle
+	- dump is larger than the max cycle
+3. leaks and stuff
 
 OPTIONAL TO DO
 2. script to check if no && or || at the end

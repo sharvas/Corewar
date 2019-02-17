@@ -154,7 +154,7 @@ void	op_lldi(t_game *game, t_process *process)
 				- size2 + total_index) % MEM_SIZE], REG_SIZE);
 			process->reg[game->arena[++process->seek % MEM_SIZE]] = total_value;
 			if (game->flag_op)
-				ft_printf("LLDI(%i) value: %i, reg: %i\n",process->champ, total_value, game->arena[(process->seek - 1) % MEM_SIZE]);
+				ft_printf("LLDI(%i) index: %i, reg: %i\n",process->champ, total_index, game->arena[(process->seek - 1) % MEM_SIZE]);
 			if (total_value == 0)
 				process->carry = 1;
 			else

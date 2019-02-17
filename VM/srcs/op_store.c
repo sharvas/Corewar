@@ -18,7 +18,7 @@ static void	spread_color(int index, t_game *game, t_process *process)
 
 	i = 0;
 	while (i < 4)
-		ft_memcpy(game->arena_champs + index + i++, &process->champ, 1);
+		ft_memcpy(game->arena_champs + ((index + i++) % MEM_SIZE), &process->champ, 1);
 }
 
 void	    op_st(t_game *game, t_process *process)
