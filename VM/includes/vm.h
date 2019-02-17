@@ -121,10 +121,10 @@ void					op_xor(t_game *game, t_process *process);
 /*
 **		op_arg_value.c
 */
-int						get_first_value(t_game *game, t_process *process, t_arg_type *args, int *value1);
-int						get_second_value(t_game *game, t_process *process, t_arg_type *args, int *value2);
-int						get_first_value_ind(t_game *game, t_process *process, t_arg_type args, int *value1);
-int						get_second_value_ind(t_game *game, t_process *process, t_arg_type args, int *value2);
+void					get_first_value(t_game *game, t_process *process, t_arg_type *args, int *value1);
+void					get_second_value(t_game *game, t_process *process, t_arg_type *args, int *value2);
+void					get_first_value_ind(t_game *game, t_process *process, t_arg_type args, int *value1);
+void					get_second_value_ind(t_game *game, t_process *process, t_arg_type args, int *value2);
 
 /*
 **		op_args.c
@@ -185,5 +185,6 @@ void					ft_get_index(unsigned char	*process, int size, short *index);
 void					ft_index_sum(short index1, short index2, short *total);
 int						ft_index_mod(int index);
 int						ft_move_index(int index, t_arg_type *args, int op_id);
+int						ft_check_args(t_game *game, int index, t_arg_type *args, int op_id);
 
 #endif
