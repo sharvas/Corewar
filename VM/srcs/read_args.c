@@ -122,7 +122,8 @@ static int	read_n(char **argv, t_game *game, int i, unsigned char champ_count)
 	return (i);
 }
 
-static int	read_arg(unsigned char *champ_count, char **argv, t_game *game, int i)
+static int	read_arg(unsigned char *champ_count, char **argv, t_game *game,
+int i)
 {
 	if (ft_strcmp((argv[i]), "-dump") == 0)
 		read_dump(argv, game, i++);
