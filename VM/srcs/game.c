@@ -36,87 +36,7 @@ int			ft_reverse_bytes(void *ptr, unsigned int size)
 	return (0);
 }
 
-void		reset_live(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (++i <= game->champ_total)
-		game->champ[i].alive_count = 0;
-	game->alive_count = 0;
-}
-
-int			ft_add_duration(t_game *game, t_process *process)
-{
-	t_op			op_tab;
-	unsigned char	index;
-
-	index = game->arena[process->index];
-	if (index > 0 && index < 17)
-	{
-		op_tab = ft_get_op(index - 1);
-		process->duration = op_tab.cycles;
-		return (op_tab.cycles);
-	}
-	return (0);
-}
-
-int			who_won(t_game *game)
-{
-	int	champ;
-	int	i;
-
-	i = game->champ_total;
-	champ = game->champ_total;
-	while (i > 0)
-	{
-		if (game->champ[i].last_alive >= game->champ[champ].last_alive)
-			champ = i;
-		i--;
-	}
-	return (champ);
-}
-
-static void	print_winner_color(t_game *game, short winner)
-{
-	if (winner == 1)
-		ft_printf("\t%sPlayer %d (%s) won%s\n", RED, game->champ[winner].nbr,
-		game->champ[winner].header.prog_name, RESET);
-	else if (winner == 2)
-		ft_printf("\t%sPlayer %d (%s) won%s\n", GREEN, game->champ[winner].nbr,
-		game->champ[winner].header.prog_name, RESET);
-	else if (winner == 3)
-		ft_printf("\t%sPlayer %d (%s) won%s\n", BLUE, game->champ[winner].nbr,
-		game->champ[winner].header.prog_name, RESET);
-	else if (winner == 4)
-		ft_printf("\t%sPlayer %d (%s) won%s\n", YELLOW, game->champ[winner].nbr,
-		game->champ[winner].header.prog_name, RESET);
-}
-
-void		print_winner(t_game *game)
-{
-	short	winner;
-
-	winner = who_won(game);
-	if (!game->dump_set)
-	{
-		if (!game->champ[winner].last_alive)
-			ft_printf("No player won, no player lived\n");
-		else
-		{
-			if (game->flag_v)
-				print_winner_color(game, winner);
-			else
-				ft_printf("%sPlayer %d (%s) won%s\n", BRIGHT,
-				game->champ[winner].nbr, game->champ[winner].header.prog_name,
-				RESET);
-		}
-	}
-	if (game->flag_e)
-		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);
-}
-
-void		ft_init_op(void (*operations[])(t_game *, t_process *))
+static void	ft_init_op(void (*operations[])(t_game *, t_process *))
 {
 	operations[1] = &op_live;
 	operations[2] = &op_ld;
@@ -136,7 +56,7 @@ void		ft_init_op(void (*operations[])(t_game *, t_process *))
 	operations[16] = &op_aff;
 }
 
-void		do_process(t_game *game,
+static void	do_process(t_game *game,
 void (*operations[17])(t_game *, t_process *))
 {
 	t_process	*process;
@@ -164,7 +84,7 @@ void (*operations[17])(t_game *, t_process *))
 	}
 }
 
-void		do_cycle(t_game *game,
+static void	do_cycle(t_game *game,
 void (*operations[17])(t_game *, t_process *), int i)
 {
 	do_process(game, operations);
