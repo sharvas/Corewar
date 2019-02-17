@@ -51,7 +51,7 @@ int 	main(int argc, char **argv)
 	if (game.flag_i)
 		print_intro(&game);
 	if (game.flag_v)
-		ft_printf("%s", CLEAR);
+		ft_printf("%s%s", CLEAR, MOVE_CURSOR);
 	if (game.dump_set && !game.flag_dump)
 		print_dump(game.arena, &game);
 	else
