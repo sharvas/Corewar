@@ -99,11 +99,33 @@ void	print_winner(t_game *game)
 		ft_printf("Game ended at cycle count: %d\n", game->cycle_count);//
 }
 
+// void	ft_init_op(t_op_type (*operations[]))
+// {
+// 	operations[1] = &op_live;
+// 	operations[2] = &op_ld;
+// 	operations[3] = &op_st;
+// 	operations[4] = &op_add;
+// 	operations[5] = &op_sub;
+// 	operations[6] = &op_and;
+// 	operations[7] = &op_or;
+// 	operations[8] = &op_xor;
+// 	operations[9] = &op_zjmp;
+// 	operations[10] = &op_ldi;
+// 	operations[11] = &op_sti;
+// 	operations[12] = &op_fork;
+// 	operations[13] = &op_lld;
+// 	operations[14] = &op_lldi;
+// 	operations[15] = &op_lfork;
+// 	operations[16] = &op_aff;
+// }
+
 void	ft_game(t_game *game)
 {
 	int				i;
 	t_process		*process;
+	// t_op_type		(*operations[17]);
 
+	// ft_init_op(*operations);
 	i = 1;
 	while (i <= game->champ_count)
 		ft_add_process(game, i++);
@@ -126,6 +148,9 @@ void	ft_game(t_game *game)
 					process->duration--;
 				else if (process->duration_set)
 				{
+					// if (game->arena[process->index % MEM_SIZE] >= 1
+					// && game->arena[process->index % MEM_SIZE] <= 16)
+					// 	(*operations[game->arena[process->index % MEM_SIZE]])(game, process);
 					if (game->arena[process->index % MEM_SIZE] == 1)
 						op_live(game, process);
 					else if (game->arena[process->index % MEM_SIZE] == 2)
