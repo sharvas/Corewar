@@ -52,7 +52,7 @@ typedef struct			s_process
 
 typedef struct			s_champ
 {
-	struct header_s		header;
+	struct s_header		header;
 	int					start_index;
 	unsigned int		nbr;
 	short				nbr_set;
@@ -100,7 +100,7 @@ void					read_args(int argc, char **argv, t_game *game);
 **		read_champs.c
 */
 void					read_champion(char *cor, t_game *game,
-	int champ_count, int champ_total);
+int champ_count, int champ_total);
 int						find_champ_total(int argc, char **argv);
 
 /*
@@ -118,8 +118,6 @@ int						ft_reverse_bytes(void *ptr, unsigned int size);
 unsigned int			ft_get_bytes(void *ptr, int size);
 int						ft_add_duration(t_game *game, t_process *process);
 void					ft_game(t_game *game);
-void					ft_fork_process(t_game *game, t_process *parent,
-	short index);
 
 /*
 **		process.c
@@ -145,19 +143,19 @@ void					op_xor(t_game *game, t_process *process);
 **		op_arg_value.c
 */
 void					get_first_value(t_game *game, t_process *process,
-	t_arg_type *args, int *value1);
+t_arg_type *args, int *value1);
 void					get_second_value(t_game *game, t_process *process,
-	t_arg_type *args, int *value2);
+t_arg_type *args, int *value2);
 void					get_first_value_ind(t_game *game, t_process *process,
-	t_arg_type args, int *value1);
+t_arg_type args, int *value1);
 void					get_second_value_ind(t_game *game, t_process *process,
-	t_arg_type args, int *value2);
+t_arg_type args, int *value2);
 
 /*
 **		op_args.c
 */
 void					find_args(unsigned char *ptr, t_arg_type arg[],
-	int flag_arg);
+int flag_arg);
 void					ft_get_size(unsigned int *size, t_arg_type args, int i);
 
 /*
@@ -221,7 +219,7 @@ int						print_champ_condition(t_game *game, int i);
 **		idx.c
 */
 void					ft_get_index(unsigned char	*process, int size,
-	short *index);
+short *index);
 void					ft_index_sum(short index1, short index2, short *total);
 int						index_mod(int index);
 int						ft_move_index(int index, t_arg_type *args, int op_id);

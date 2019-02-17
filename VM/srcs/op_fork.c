@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void	ft_fork_process(t_game *game, t_process *parent, short index)
+static void	ft_fork_process(t_game *game, t_process *parent, short index)
 {
 	t_process	*new;
 	t_process	*last;
@@ -33,7 +33,7 @@ void	ft_fork_process(t_game *game, t_process *parent, short index)
 	game->process->next = last;
 }
 
-void	op_fork(t_game *game, t_process *process)
+void		op_fork(t_game *game, t_process *process)
 {
 	short		index;
 
@@ -44,7 +44,7 @@ void	op_fork(t_game *game, t_process *process)
 	process->index += IND_SIZE;
 }
 
-void	op_lfork(t_game *game, t_process *process)
+void		op_lfork(t_game *game, t_process *process)
 {
 	short		index;
 

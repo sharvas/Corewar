@@ -40,7 +40,7 @@ static void	read_champ_nbr(t_game *game, int champ_count)
 }
 
 static void	read_magic(t_game *game, int champ_count,
-	unsigned char *binary)
+unsigned char *binary)
 {
 	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
 	game->champ[champ_count].header.magic =
@@ -48,11 +48,11 @@ static void	read_magic(t_game *game, int champ_count,
 		header.magic, 3);
 	if (game->champ[champ_count].header.magic != COREWAR_EXEC_MAGIC)
 		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC",
-			game);
+		game);
 }
 
 static void	read_prog_size(t_game *game, int champ_count,
-	unsigned char *binary, int weight)
+unsigned char *binary, int weight)
 {
 	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
 	game->champ[champ_count].header.prog_size =
@@ -64,7 +64,7 @@ static void	read_prog_size(t_game *game, int champ_count,
 }
 
 void		read_champion(char *cor, t_game *game, int champ_count,
-	int champ_total)
+int champ_total)
 {
 	int				fd;
 	unsigned char	binary[FILE_SIZE + 1];
@@ -90,5 +90,5 @@ void		read_champion(char *cor, t_game *game, int champ_count,
 		* (champ_count - 1);
 	while (i < game->champ[champ_count].header.prog_size)
 		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total)
-			* (champ_count - 1)) + i++, &champ_count, 1);
+		* (champ_count - 1)) + i++, &champ_count, 1);
 }

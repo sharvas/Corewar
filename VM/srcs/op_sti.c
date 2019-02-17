@@ -23,7 +23,7 @@ void		color(int index, t_game *game, t_process *process)
 }
 
 static void	print_op_sti(t_game *game, t_process *process, unsigned char reg_id,
-	int *value)
+int *value)
 {
 	if (game->flag_op)
 		ft_printf("STI(%i) reg_id: %i, value1: %i, value2: %i\n",
@@ -31,7 +31,7 @@ static void	print_op_sti(t_game *game, t_process *process, unsigned char reg_id,
 }
 
 static void	op_sti_args(t_game *game, t_process *process, t_arg_type *args,
-	unsigned int *size)
+unsigned int *size)
 {
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	ft_get_size(&size[0], args[1], 2);

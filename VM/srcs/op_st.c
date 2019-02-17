@@ -13,7 +13,7 @@
 #include "vm.h"
 
 static void	print_op_st_idx(t_game *game, t_process *process,
-	unsigned char reg_index, short idx)
+unsigned char reg_index, short idx)
 {
 	if (game->flag_op)
 		ft_printf("ST(%i) reg_id: %i, index: %i\n",
@@ -21,11 +21,11 @@ static void	print_op_st_idx(t_game *game, t_process *process,
 }
 
 static void	op_st_reg(t_game *game, t_process *process,
-	unsigned char *reg_index)
+unsigned char *reg_index)
 {
 	*reg_index = game->arena[++process->seek % MEM_SIZE];
 	process->reg[game->arena[++process->seek
-	% MEM_SIZE]] = process->reg[*reg_index];
+		% MEM_SIZE]] = process->reg[*reg_index];
 	if (game->flag_op)
 		ft_printf("ST(%i) reg_id: %i, reg_id: %i\n",
 		process->champ, reg_index, game->arena[process->seek % MEM_SIZE]);

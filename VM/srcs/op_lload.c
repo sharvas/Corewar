@@ -12,14 +12,14 @@
 
 #include "vm.h"
 
-void	op_lld_ind(t_game *game, t_process *process, short *index, int *value)
+static void	op_lld_ind(t_game *game, t_process *process, short *index, int *value)
 {
 	*index = ft_reverse_bytes(&game->arena[++process->seek % MEM_SIZE],
-	IND_SIZE);
+		IND_SIZE);
 	*value = ft_reverse_bytes(&game->arena[index_mod(process->seek
-	- 2 + *index) % MEM_SIZE], IND_SIZE);
+		- 2 + *index) % MEM_SIZE], IND_SIZE);
 	process->reg[game->arena[(process->seek + IND_SIZE)
-	% MEM_SIZE]] = *value;
+		% MEM_SIZE]] = *value;
 	if (game->flag_op)
 		ft_printf("LLD(%i) value: %i, reg: %i\n", process->champ, *value,
 		game->arena[(process->seek + IND_SIZE) % MEM_SIZE]);
@@ -28,7 +28,7 @@ void	op_lld_ind(t_game *game, t_process *process, short *index, int *value)
 	process->index = process->seek;
 }
 
-void	op_lld(t_game *game, t_process *process)
+void		op_lld(t_game *game, t_process *process)
 {
 	int			value;
 	short		index;
@@ -40,9 +40,9 @@ void	op_lld(t_game *game, t_process *process)
 	&& check_args(game, process->seek, args, 13))
 	{
 		value = ft_reverse_bytes(&game->arena[++process->seek % MEM_SIZE],
-		DIR_SIZE);
+			DIR_SIZE);
 		process->reg[game->arena[(process->seek + DIR_SIZE)
-		% MEM_SIZE]] = value;
+			% MEM_SIZE]] = value;
 		if (game->flag_op)
 			ft_printf("LLD(%i) value: %i, reg: %i\n", process->champ, value,
 			game->arena[(process->seek + DIR_SIZE) % MEM_SIZE]);
@@ -57,7 +57,7 @@ void	op_lld(t_game *game, t_process *process)
 		process->index = ft_move_index(process->index, args, 13);
 }
 
-void	op_lldi_print_carry(t_game *game, t_process *process, int *value)
+static void	op_lldi_print_carry(t_game *game, t_process *process, int *value)
 {
 	if (game->flag_op)
 		ft_printf("LLDI(%i) index: %i, reg: %i\n", process->champ,
@@ -69,7 +69,7 @@ void	op_lldi_print_carry(t_game *game, t_process *process, int *value)
 	process->index = process->seek;
 }
 
-void	op_lldi(t_game *game, t_process *process)
+void		op_lldi(t_game *game, t_process *process)
 {
 	unsigned int	size[2];
 	int				value[2];
@@ -86,8 +86,8 @@ void	op_lldi(t_game *game, t_process *process)
 	{
 		get_first_value_ind(game, process, args[0], &value[0]);
 		get_second_value_ind(game, process, args[1], &value[1]);
-		total_value = ft_reverse_bytes(&game->arena[index_mod(process->seek
-		- 1 - size[0] - size[1] + value[0] + value[1]) % MEM_SIZE], REG_SIZE);
+		total_value = ft_reverse_bytes(&game->arena[index_mod(process->seek - 1
+			- size[0] - size[1] + value[0] + value[1]) % MEM_SIZE], REG_SIZE);
 		process->reg[game->arena[++process->seek % MEM_SIZE]] = total_value;
 		op_lldi_print_carry(game, process, value);
 	}

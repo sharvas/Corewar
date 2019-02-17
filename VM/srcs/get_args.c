@@ -13,7 +13,7 @@
 #include "vm.h"
 
 void	get_first_value(t_game *game, t_process *process, t_arg_type *args,
-	int *value1)
+int *value1)
 {
 	short index;
 
@@ -36,7 +36,7 @@ void	get_first_value(t_game *game, t_process *process, t_arg_type *args,
 }
 
 void	get_second_value(t_game *game, t_process *process, t_arg_type *args,
-	int *value2)
+int *value2)
 {
 	short			index;
 	unsigned int	size;
@@ -61,13 +61,13 @@ void	get_second_value(t_game *game, t_process *process, t_arg_type *args,
 }
 
 void	get_first_value_ind(t_game *game, t_process *process, t_arg_type args,
-	int *value1)
+int *value1)
 {
 	short index;
 
 	if (args == REG_CODE)
 		*value1 = *(short *)(process->reg
-			+ game->arena[++process->seek % MEM_SIZE]);
+		+ game->arena[++process->seek % MEM_SIZE]);
 	else if (args == DIR_CODE)
 	{
 		*value1 = ft_reverse_bytes(&game->arena[++process->seek
@@ -89,7 +89,7 @@ t_arg_type args, int *value2)
 {
 	if (args == REG_CODE)
 		*value2 = *(short *)(process->reg
-			+ game->arena[++process->seek % MEM_SIZE]);
+		+ game->arena[++process->seek % MEM_SIZE]);
 	else if (args == DIR_CODE)
 	{
 		*value2 = ft_reverse_bytes(&game->arena[++process->seek
