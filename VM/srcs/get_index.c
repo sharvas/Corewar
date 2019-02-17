@@ -42,3 +42,30 @@ int		ft_move_index(int index, t_arg_type *args, int op_id)
 	}
 	return (index);
 }
+
+int		ft_check_args(t_game *game, int index, t_arg_type *args, int op_id)
+{
+	t_op			op_tab;
+	unsigned int	size[2];
+
+	op_tab = ft_get_op(op_id - 1);
+	if (args[0] == REG_CODE)
+	{
+		if (!(game->arena[index + 1] >= 1 && game->arena[index + 1] <= REG_NUMBER))
+			return (0);
+	}
+	if (args[1] == REG_CODE)
+	{
+		ft_get_size(&size[0], args[0], op_tab.dir_size + 1);
+		if (!(game->arena[index + size[0] + 1] >= 1 && game->arena[index + size[0] + 1] <= REG_NUMBER))
+			return (0);
+	}
+	if (args[2] == REG_CODE)
+	{
+		ft_get_size(&size[0], args[0], op_tab.dir_size + 1);
+		ft_get_size(&size[1], args[1], op_tab.dir_size + 1);
+		if (!(game->arena[index + size[0] + size[1] + 1] >= 1 && game->arena[index + size[0] + size[1] + 1] <= REG_NUMBER))
+			return (0);
+	}
+	return (1);
+}
