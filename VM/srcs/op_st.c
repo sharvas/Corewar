@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void		print_op_st_idx(t_game *game, t_process *process,
+static void	print_op_st_idx(t_game *game, t_process *process,
 	unsigned char reg_index, short idx)
 {
 	if (game->flag_op)
