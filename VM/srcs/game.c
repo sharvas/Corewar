@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-int		ft_reverse_bytes(void *ptr, unsigned int size)
+int			ft_reverse_bytes(void *ptr, unsigned int size)
 {
 	short		ret_two;
 	int			ret_four;
@@ -24,19 +24,13 @@ int		ft_reverse_bytes(void *ptr, unsigned int size)
 	if (size <= 2)
 	{
 		while (size-- > 0)
-		{
-			ret_two |= *((unsigned char *)ptr + i) << (size * 8);
-			i++;
-		}
+			ret_two |= *((unsigned char *)ptr + i++) << (size * 8);
 		return (ret_two);
 	}
 	else if (size <= 4)
 	{
 		while (size-- > 0)
-		{
-			ret_four |= *((unsigned char *)ptr + i) << (size * 8);
-			i++;
-		}
+			ret_four |= *((unsigned char *)ptr + i++) << (size * 8);
 		return (ret_four);
 	}
 	return (0);
@@ -52,7 +46,7 @@ void		reset_live(t_game *game)
 	game->alive_count = 0;
 }
 
-int		ft_add_duration(t_game *game, t_process *process)
+int			ft_add_duration(t_game *game, t_process *process)
 {
 	t_op			op_tab;
 	unsigned char	index;
@@ -67,7 +61,7 @@ int		ft_add_duration(t_game *game, t_process *process)
 	return (0);
 }
 
-int		who_won(t_game *game)
+int			who_won(t_game *game)
 {
 	int	champ;
 	int	i;
@@ -83,7 +77,23 @@ int		who_won(t_game *game)
 	return (champ);
 }
 
-void	print_winner(t_game *game)
+static void	print_winner_color(t_game *game, short winner)
+{
+	if (winner == 1)
+		ft_printf("\t%sPlayer %d (%s) won%s\n", RED, game->champ[winner].nbr,
+		game->champ[winner].header.prog_name, RESET);
+	else if (winner == 2)
+		ft_printf("\t%sPlayer %d (%s) won%s\n", GREEN, game->champ[winner].nbr,
+		game->champ[winner].header.prog_name, RESET);
+	else if (winner == 3)
+		ft_printf("\t%sPlayer %d (%s) won%s\n", BLUE, game->champ[winner].nbr,
+		game->champ[winner].header.prog_name, RESET);
+	else if (winner == 4)
+		ft_printf("\t%sPlayer %d (%s) won%s\n", YELLOW, game->champ[winner].nbr,
+		game->champ[winner].header.prog_name, RESET);
+}
+
+void		print_winner(t_game *game)
 {
 	short	winner;
 
@@ -95,26 +105,18 @@ void	print_winner(t_game *game)
 		else
 		{
 			if (game->flag_v)
-			{
-				if (winner == 1)
-					ft_printf("\t%sPlayer %d (%s) won%s\n", RED, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
-				else if (winner == 2)
-					ft_printf("\t%sPlayer %d (%s) won%s\n", GREEN, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
-				else if (winner == 3)
-					ft_printf("\t%sPlayer %d (%s) won%s\n", BLUE, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
-				else if (winner == 4)
-					ft_printf("\t%sPlayer %d (%s) won%s\n", YELLOW, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
-			}
+				print_winner_color(game, winner);
 			else
-				ft_printf("%sPlayer %d (%s) won%s\n", BRIGHT, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
-
+				ft_printf("%sPlayer %d (%s) won%s\n", BRIGHT,
+				game->champ[winner].nbr, game->champ[winner].header.prog_name,
+				RESET);
 		}
 	}
 	if (game->flag_e)
-		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);//
+		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);
 }
 
-void	ft_init_op(void (*operations[])(t_game *, t_process *))
+void		ft_init_op(void (*operations[])(t_game *, t_process *))
 {
 	operations[1] = &op_live;
 	operations[2] = &op_ld;
@@ -134,10 +136,53 @@ void	ft_init_op(void (*operations[])(t_game *, t_process *))
 	operations[16] = &op_aff;
 }
 
-void	ft_game(t_game *game)
+void		do_process(t_game *game,
+void (*operations[17])(t_game *, t_process *))
+{
+	t_process	*process;
+
+	process = game->process;
+	while (process)
+	{
+		if (!process->duration_set)
+		{
+			process->index = (process->index + 1) % MEM_SIZE;
+			process->duration_set = ft_add_duration(game, process);
+		}
+		else if (process->duration)
+			process->duration--;
+		else if (process->duration_set)
+		{
+			if (game->arena[process->index % MEM_SIZE] >= 1
+			&& game->arena[process->index % MEM_SIZE] <= 16)
+				(*operations[game->arena[process->index % MEM_SIZE]])(game,
+				process);
+			process->index = (process->index + 1) % MEM_SIZE;
+			process->duration_set = ft_add_duration(game, process);
+		}
+		process = process->next;
+	}
+}
+
+void		do_cycle(t_game *game,
+void (*operations[17])(t_game *, t_process *), int i)
+{
+	do_process(game, operations);
+	if (game->flag_v && game->cycle_count >= game->flag_w)
+		print_visualizer(game, i);
+	if (game->cycle_count && game->cycle_count == game->flag_dump)
+	{
+		if (game->flag_v)
+			error_exit("", game);
+		print_dump(game->arena, game);
+	}
+	game->cycle--;
+	game->cycle_count++;
+}
+
+void		ft_game(t_game *game)
 {
 	int			i;
-	t_process	*process;
 	void		(*operations[17])(t_game *, t_process *);
 
 	ft_init_op(operations);
@@ -150,38 +195,7 @@ void	ft_game(t_game *game)
 		i++;
 		game->cycle = game->cycle_to_die;
 		while (game->cycle > 0)
-		{
-			process = game->process;
-			while (process)
-			{
-				if (!process->duration_set)
-				{
-					process->index = (process->index + 1) % MEM_SIZE;
-					process->duration_set = ft_add_duration(game, process);
-				}
-				else if (process->duration)
-					process->duration--;
-				else if (process->duration_set)
-				{
-					if (game->arena[process->index % MEM_SIZE] >= 1
-					&& game->arena[process->index % MEM_SIZE] <= 16)
-						(*operations[game->arena[process->index % MEM_SIZE]])(game, process);
-					process->index = (process->index + 1) % MEM_SIZE;
-					process->duration_set = ft_add_duration(game, process);
-				}
-				process = process->next;
-			}
-			if (game->flag_v && game->cycle_count >= game->flag_w)
-				print_visualizer(game, i);
-			if (game->cycle_count && game->cycle_count == game->flag_dump)
-			{
-				if (game->flag_v)
-					error_exit("", game);
-				print_dump(game->arena, game);
-			}
-			game->cycle--;
-			game->cycle_count++;
-		}
+			do_cycle(game, operations, i);
 		if (i >= MAX_CHECKS || game->alive_count >= NBR_LIVE)
 		{
 			game->cycle_to_die -= CYCLE_DELTA;
