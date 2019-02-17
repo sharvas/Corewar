@@ -5,6 +5,7 @@ DONE
 4. custom audio to kill process
 5. proper default output ?
 6. added processes to front
+7. script to check if no && or || at the end
 
 MUST DO
 1. fix all the operations (add, etc.)
@@ -14,7 +15,6 @@ MUST DO
 3. leaks and stuff
 
 OPTIONAL TO DO
-2. script to check if no && or || at the end
 3. aff buffer (champ with big message)
 
 GLOBAL TO DO

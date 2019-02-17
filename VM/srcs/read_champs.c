@@ -27,14 +27,14 @@ void	read_champion(char *cor, t_game *game, unsigned char champ_count, int champ
 	ft_bzero(binary, sizeof(binary));
 
 	if ((fd = open(cor, O_RDONLY)) < 0)
-		error_exit("failed to open .cor file");
+		error_exit("failed to open .cor file", game);
 	weight = read(fd, binary, FILE_SIZE + 1);
 	if (weight == -1)
-		error_exit("read .cor failed");
+		error_exit("read .cor failed", game);
 	if (weight > FILE_SIZE)
-		error_exit("champion size too big");
+		error_exit("champion size too big", game);
 	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
-		error_exit("champion size too small");
+		error_exit("champion size too small", game);
 	close(fd);
 
 	if (!game->champ[champ_count].nbr_set)
@@ -48,14 +48,14 @@ void	read_champion(char *cor, t_game *game, unsigned char champ_count, int champ
 	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
 	game->champ[champ_count].header.magic = ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.magic, 3);
 	if (game->champ[champ_count].header.magic != COREWAR_EXEC_MAGIC)
-		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC");
+		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC", game);
 
 	ft_strncat(game->champ[champ_count].header.prog_name, (char*)(binary + 4), PROG_NAME_LENGTH);
 
 	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
 	game->champ[champ_count].header.prog_size = ft_reverse_bytes((unsigned char *)&game->champ[champ_count].header.prog_size, 2);
 	if (game->champ[champ_count].header.prog_size != (unsigned int)(weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16))
-		error_exit("prog_size doesn't match read size");
+		error_exit("prog_size doesn't match read size", game);
 
 	ft_strncat(game->champ[champ_count].header.comment, (char*)(binary + 4 + 136), COMMENT_LENGTH);
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)), (binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);//whats this number all about??
@@ -75,6 +75,6 @@ int		find_champ_total(int argc, char **argv)
 			champ_total++;
 	}
 	if (champ_total > 4)
-		error_exit("too many champions");
+		error_exit("too many champions", NULL);
 	return (champ_total);
 }

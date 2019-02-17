@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void    print_dump(unsigned char *arena)
+void    print_dump(unsigned char *arena, t_game *game)
 {
 	int	i;
 	
@@ -30,7 +30,7 @@ void    print_dump(unsigned char *arena)
 			ft_printf(" ");
 		i++;
 	}
-	//free everything?
+	ft_free_game(game);
 	exit(1);
 }
 
@@ -52,10 +52,10 @@ void	print_visualizer(t_game *game, int i)
 		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s \tlast alive: %s%-21d\n", YELLOW, game->champ[4].nbr, game->champ[4].header.prog_name, RESET, game->champ[4].alive_count, YELLOW, RESET, game->champ[4].last_alive);
 	ft_printf("\n%s", RESET_CURSOR);
 	if (game->speed)
-		usleep(4200000 / game->speed);//////////////////
+		usleep(4200000 / game->speed);
 }
 
-void	print_usage(/*t_game *game*/)
+void	print_usage(t_game *game)
 {
 	ft_putstr("\nusage:\t./corewar [-dump nbr_cycles] [-p] [-a] [-arg] [-w nbr_cycles] ");
 	ft_putstr("[-v [speed (1-100)]] [-cp] [[-n number] champion1.cor] ...\n\n");
@@ -71,7 +71,7 @@ void	print_usage(/*t_game *game*/)
 	ft_putstr("\t[-w nbr_cycles] wait for nbr_cycles before starting vizualizer\n");
 	ft_putstr("\t[-cp] color process pointers according to which champion is the parent\n");
 	ft_putstr("\t[-e] print \"Game ended at cycle count: (cycle_count)\"\n\n");
-//	free_everything(/*t_game *game*/);
+	ft_free_game(game);
 	exit(1);
 }
 

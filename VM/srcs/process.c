@@ -18,7 +18,7 @@ void	ft_add_process(t_game *game, int champ)
 	t_process *last;
 
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
-		exit(1); //ft_error
+		error_exit("Malloc fail in ft_add_process", game);
 	ft_bzero(new, sizeof(*new));
 	new->index = game->champ[champ].start_index;
 	new->champ = champ;
