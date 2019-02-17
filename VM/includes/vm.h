@@ -25,8 +25,6 @@
 # define BRIGHT			"\x1b[1m"
 # define RESET			"\x1B[0m"
 
-typedef void 			t_op_type;
-
 typedef struct			s_process
 {
 	int					index;

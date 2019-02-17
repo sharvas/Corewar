@@ -114,7 +114,7 @@ void	print_winner(t_game *game)
 		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);//
 }
 
-void	ft_init_op(t_op_type (*operations[])(t_game *, t_process *))
+void	ft_init_op(void (*operations[])(t_game *, t_process *))
 {
 	operations[1] = &op_live;
 	operations[2] = &op_ld;
@@ -136,9 +136,9 @@ void	ft_init_op(t_op_type (*operations[])(t_game *, t_process *))
 
 void	ft_game(t_game *game)
 {
-	int				i;
-	t_process		*process;
-	t_op_type		(*operations[17])(t_game *, t_process *);
+	int			i;
+	t_process	*process;
+	void		(*operations[17])(t_game *, t_process *);
 
 	ft_init_op(operations);
 	i = 1;
