@@ -47,7 +47,7 @@ void		reset_live(t_game *game)
 	int	i;
 
 	i = 0;
-	while (++i <= game->champ_count)
+	while (++i <= game->champ_total)
 		game->champ[i].alive_count = 0;
 	game->alive_count = 0;
 }
@@ -72,8 +72,8 @@ int		who_won(t_game *game)
 	int	champ;
 	int	i;
 
-	i = game->champ_count;
-	champ = game->champ_count;
+	i = game->champ_total;
+	champ = game->champ_total;
 	while (i > 0)
 	{
 		if (game->champ[i].last_alive >= game->champ[champ].last_alive)
@@ -93,10 +93,25 @@ void	print_winner(t_game *game)
 		if (!game->champ[winner].last_alive)
 			ft_printf("No player won, no player lived\n");
 		else
-			ft_printf("%sPlayer %d (%s) won%s\n", BRIGHT, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
+		{
+			if (game->flag_v)
+			{
+				if (winner == 1)
+					ft_printf("\t%sPlayer %d (%s) won%s\n", RED, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
+				else if (winner == 2)
+					ft_printf("\t%sPlayer %d (%s) won%s\n", GREEN, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
+				else if (winner == 3)
+					ft_printf("\t%sPlayer %d (%s) won%s\n", BLUE, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
+				else if (winner == 4)
+					ft_printf("\t%sPlayer %d (%s) won%s\n", YELLOW, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
+			}
+			else
+				ft_printf("%sPlayer %d (%s) won%s\n", BRIGHT, game->champ[winner].nbr, game->champ[winner].header.prog_name, RESET);
+
+		}
 	}
 	if (game->flag_e)
-		ft_printf("Game ended at cycle count: %d\n", game->cycle_count);//
+		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);//
 }
 
 // void	ft_init_op(t_op_type (*operations[]))
@@ -127,7 +142,7 @@ void	ft_game(t_game *game)
 
 	// ft_init_op(*operations);
 	i = 1;
-	while (i <= game->champ_count)
+	while (i <= game->champ_total)
 		ft_add_process(game, i++);
 	i = 0;
 	while (game->cycle_to_die > 0 && game->process)
@@ -208,6 +223,4 @@ void	ft_game(t_game *game)
 		reset_live(game);
 	}
 	print_winner(game);
-	// if (!game->dump_set)
-	// 	ft_printf("Player %d (%s) won\n", game->champ[who_won(game)].nbr, game->champ[who_won(game)].header.prog_name);//find champion declared alive last
 }

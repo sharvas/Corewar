@@ -46,6 +46,7 @@ typedef struct			s_champ
 	int					start_index;
 	unsigned int		nbr;
 	short				nbr_set;
+	int					weight;
 	int			    	alive_count;
 	long long			last_alive;
 }						t_champ;
@@ -59,7 +60,8 @@ typedef struct			s_game
 	int					alive_count;
 	long long			cycle_count;
 	struct s_champ		champ[5];
-	int					champ_count;
+	// int					champ_count;
+	int					champ_total;//
 	struct s_process	*process;
 	int					flag_dump;
 	short				dump_set;

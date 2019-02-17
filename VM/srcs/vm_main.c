@@ -31,7 +31,7 @@ void	error_exit(char *err_message, t_game *game)
 	ft_putstr(err_message);
 	ft_putstr("\n");
 	ft_free_game(game);
-	exit (1);
+	exit(1);
 }
 
 void	init_game(t_game *game)
@@ -42,7 +42,7 @@ void	init_game(t_game *game)
 	game->cycle = CYCLE_TO_DIE;
 }
 
-int 	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_game	game;
 
@@ -51,7 +51,7 @@ int 	main(int argc, char **argv)
 	if (game.flag_i)
 		print_intro(&game);
 	if (game.flag_v)
-		ft_printf("%s", CLEAR);
+		ft_printf("%s%s", CLEAR, MOVE_CURSOR);
 	if (game.dump_set && !game.flag_dump)
 		print_dump(game.arena, &game);
 	else

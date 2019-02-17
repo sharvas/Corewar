@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void	ft_add_process(t_game *game, int champ)
+void		ft_add_process(t_game *game, int champ)
 {
 	t_process *new;
 	t_process *last;
@@ -35,24 +35,36 @@ void	ft_add_process(t_game *game, int champ)
 	}
 }
 
-void		ft_delete_process(t_game *game)
+static void	ft_delete_process(t_game *game)
 {
 	t_process *tmp;
 
 	tmp = game->process;
 	game->process = game->process->next;
-	free (tmp);
+	free(tmp);
 	tmp = NULL;
 }
 
-void		ft_delete_next_process(t_process *process)
+static void	ft_delete_next_process(t_process *process)
 {
 	t_process	*tmp;
 
 	tmp = process->next;
 	process->next = process->next->next;
-	free (tmp);
+	free(tmp);
 	tmp = NULL;
+}
+
+void		reset_process_live(t_game *game)
+{
+	t_process	*process;
+
+	process = game->process;
+	while (process)
+	{
+		process->alive = 0;
+		process = process->next;
+	}
 }
 
 void		ft_check_process(t_game *game)
@@ -76,21 +88,16 @@ void		ft_check_process(t_game *game)
 		}
 		process = process->next;
 	}
-	process = game->process;
-	while (process)
-	{
-		process->alive = 0;
-		process = process->next;
-	}
+	reset_process_live(game);
 	if (game->flag_v && killed == 1 && game->flag_w < game->cycle_count)
 		system("say kill");
 	else if (game->flag_v && killed > 1 && game->flag_w < game->cycle_count)
 		system("say massacre");
 }
 
-int		ft_count_process(t_game *game)
+int			ft_count_process(t_game *game)
 {
-	t_process 	*process;
+	t_process	*process;
 	int			count;
 
 	count = 0;
