@@ -94,18 +94,3 @@ void		ft_check_process(t_game *game)
 	else if (game->flag_v && killed > 1 && game->flag_w < game->cycle_count)
 		system("say massacre");
 }
-
-int			ft_count_process(t_game *game)
-{
-	t_process	*process;
-	int			count;
-
-	count = 0;
-	process = game->process;
-	while (process)
-	{
-		count++;
-		process = process->next;
-	}
-	return (count);
-}

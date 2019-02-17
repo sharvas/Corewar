@@ -95,6 +95,14 @@ void					read_champion(char *cor, t_game *game, unsigned char champ_count, int c
 int						find_champ_total(int argc, char **argv);
 
 /*
+**		read_nbrs.c
+*/
+void					read_w_nbr(char *nbr, t_game *game);
+void	    			read_n_nbr(char *nbr, t_game *game, int champ_count);
+void	    			read_speed(char *nbr, t_game *game);
+void	    			read_dump(char **argv, t_game *game, int i);
+
+/*
 **		game.c
 */
 int						ft_reverse_bytes(void *ptr, unsigned int size);
@@ -111,6 +119,13 @@ t_op					ft_get_op(int index);
 void					ft_add_process(t_game *game, int champ);
 void					ft_check_process(t_game *game);
 int						ft_count_process(t_game *game);
+
+/*
+**		process_more.c
+*/
+void					reset_live(t_game *game);
+int						ft_add_duration(t_game *game, t_process *process);
+
 
 /*
 **		op_and_or.c
@@ -179,6 +194,11 @@ void					print_intro(t_game *game);
 **		print_colors.c
 */
 void        			print_arena_color(t_game *game);
+
+/*
+**		print_end.c
+*/
+void					print_winner(t_game *game);
 
 /*
 **		idx.c
