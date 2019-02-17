@@ -47,7 +47,7 @@ void		reset_live(t_game *game)
 	int	i;
 
 	i = 0;
-	while (++i <= game->champ_count)
+	while (++i <= game->champ_total)
 		game->champ[i].alive_count = 0;
 	game->alive_count = 0;
 }
@@ -72,8 +72,8 @@ int		who_won(t_game *game)
 	int	champ;
 	int	i;
 
-	i = game->champ_count;
-	champ = game->champ_count;
+	i = game->champ_total;
+	champ = game->champ_total;
 	while (i > 0)
 	{
 		if (game->champ[i].last_alive >= game->champ[champ].last_alive)
@@ -120,7 +120,7 @@ void	ft_game(t_game *game)
 	t_process		*process;
 
 	i = 1;
-	while (i <= game->champ_count)
+	while (i <= game->champ_total)
 		ft_add_process(game, i++);
 	i = 0;
 	while (game->cycle_to_die > 0 && game->process)

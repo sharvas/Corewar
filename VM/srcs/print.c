@@ -40,17 +40,17 @@ void	print_v_champ(t_game *game)
 	\tlast alive: %s%-21d\n", RED, game->champ[1].nbr,\
 	game->champ[1].header.prog_name, RESET, game->champ[1].alive_count,\
 	RED, RESET, game->champ[1].last_alive);
-	if (game->champ_count >= 2)
+	if (game->champ_total >= 2)
 		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s\
 		last alive: %s%-21d\n", GREEN, game->champ[2].nbr,\
 		game->champ[2].header.prog_name, RESET, game->champ[2].alive_count,\
 		GREEN, RESET, game->champ[2].last_alive);
-	if (game->champ_count >= 3)
+	if (game->champ_total >= 3)
 		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s\
 		last alive: %s%-21d\n", BLUE, game->champ[3].nbr,\
 		game->champ[3].header.prog_name, RESET, game->champ[3].alive_count,\
 		BLUE, RESET, game->champ[3].last_alive);
-	if (game->champ_count >= 4)
+	if (game->champ_total >= 4)
 		ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s\
 		last alive: %s%-21d\n", YELLOW, game->champ[4].nbr,\
 		game->champ[4].header.prog_name, RESET, game->champ[4].alive_count,\
@@ -105,7 +105,7 @@ void	print_intro(t_game *game)
 
 	champ = 0;
 	ft_printf("Introducing contestants...\n");
-	while (++champ <= game->champ_count)
+	while (++champ <= game->champ_total)
 		ft_printf("Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",\
 		game->champ[champ].nbr,\
 		game->champ[champ].header.prog_size,\

@@ -105,7 +105,7 @@ static int	read_n(char **argv, t_game *game, int i, short champ_count)
 	else
 		error_exit("no champion number argument after -n", game);
 	if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
-		read_champion(argv[++i], game, champ_count++, game->champ_count);
+		read_champion(argv[++i], game, champ_count++, game->champ_total);
 	else
 		error_exit("lacking valid .cor following -n [number]", game);
 	return (i);
@@ -134,7 +134,7 @@ static int	read_n(char **argv, t_game *game, int i, short champ_count)
 // 	else if (ft_strcmp((argv[i]), "-n") == 0)
 // 		i = read_n(argv, game, i, champ_count++);
 // 	else if (ft_strstr(argv[i], ".cor"))
-// 		read_champion(argv[i], game, champ_count++, game->champ_count);
+// 		read_champion(argv[i], game, champ_count++, game->champ_total);
 // 	else
 // 		print_usage(game);
 // 	return (++i);
@@ -145,10 +145,10 @@ void		read_args(int argc, char **argv, t_game *game)
 	int		i;
 	short	champ_count;
 
-	game->champ_count = find_champ_total(argc, argv);
+	game->champ_total = find_champ_total(argc, argv);
 	i = 1;
 	champ_count = 1;
-	while (champ_count <= game->champ_count)
+	while (champ_count <= game->champ_total)
 		game->champ[champ_count++].nbr = 0;
 	champ_count = 1;
 	if (argc == 1)
@@ -177,7 +177,7 @@ void		read_args(int argc, char **argv, t_game *game)
 		else if (ft_strcmp((argv[i]), "-n") == 0)
 			i = read_n(argv, game, i, champ_count++);
 		else if (ft_strstr(argv[i], ".cor"))
-			read_champion(argv[i], game, champ_count++, game->champ_count);
+			read_champion(argv[i], game, champ_count++, game->champ_total);
 		else
 			print_usage(game);
 	}

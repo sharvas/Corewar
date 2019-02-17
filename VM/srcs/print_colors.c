@@ -28,11 +28,11 @@ static void	print_process_no_cp(t_game *game, int i)
 {
 	if (game->arena_champs[i] == 1)
 		ft_printf("%s%.2x%s", BRED, (unsigned int)game->arena[i], RESET);
-	else if (game->arena_champs[i] == 2 && game->champ_count > 1)
+	else if (game->arena_champs[i] == 2 && game->champ_total > 1)
 		ft_printf("%s%.2x%s", BGREEN, (unsigned int)game->arena[i], RESET);
-	else if (game->arena_champs[i] == 3 && game->champ_count > 2)
+	else if (game->arena_champs[i] == 3 && game->champ_total > 2)
 		ft_printf("%s%.2x%s", BBLUE, (unsigned int)game->arena[i], RESET);
-	else if (game->arena_champs[i] == 4 && game->champ_count > 3)
+	else if (game->arena_champs[i] == 4 && game->champ_total > 3)
 		ft_printf("%s%.2x%s", BYELLOW, (unsigned int)game->arena[i], RESET);
 	else
 		ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
@@ -66,7 +66,7 @@ static int	print_champ_condition(t_game *game, int i)
 	int	j;
 
 	j = 1;
-	while (j <= game->champ_count)
+	while (j <= game->champ_total)
 	{
 		if (game->arena_champs[i] == j)
 			return (1);

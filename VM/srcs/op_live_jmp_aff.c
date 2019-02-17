@@ -20,7 +20,7 @@ void	op_live(t_game *game, t_process *process)
 	process->alive = 1;
 	if (game->flag_op)
 		ft_printf("LIVE(%i) number: %i\n", process->champ, id);
-	if (id > 0 && id <= game->champ_count)
+	if (id > 0 && id <= game->champ_total)
 	{
 		if (game->alive_count < 21)
 			game->alive_count++;
