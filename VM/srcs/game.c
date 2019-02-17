@@ -114,33 +114,33 @@ void	print_winner(t_game *game)
 		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);//
 }
 
-// void	ft_init_op(t_op_type (*operations[]))
-// {
-// 	operations[1] = &op_live;
-// 	operations[2] = &op_ld;
-// 	operations[3] = &op_st;
-// 	operations[4] = &op_add;
-// 	operations[5] = &op_sub;
-// 	operations[6] = &op_and;
-// 	operations[7] = &op_or;
-// 	operations[8] = &op_xor;
-// 	operations[9] = &op_zjmp;
-// 	operations[10] = &op_ldi;
-// 	operations[11] = &op_sti;
-// 	operations[12] = &op_fork;
-// 	operations[13] = &op_lld;
-// 	operations[14] = &op_lldi;
-// 	operations[15] = &op_lfork;
-// 	operations[16] = &op_aff;
-// }
+void	ft_init_op(t_op_type (*operations[])(t_game *, t_process *))
+{
+	operations[1] = &op_live;
+	operations[2] = &op_ld;
+	operations[3] = &op_st;
+	operations[4] = &op_add;
+	operations[5] = &op_sub;
+	operations[6] = &op_and;
+	operations[7] = &op_or;
+	operations[8] = &op_xor;
+	operations[9] = &op_zjmp;
+	operations[10] = &op_ldi;
+	operations[11] = &op_sti;
+	operations[12] = &op_fork;
+	operations[13] = &op_lld;
+	operations[14] = &op_lldi;
+	operations[15] = &op_lfork;
+	operations[16] = &op_aff;
+}
 
 void	ft_game(t_game *game)
 {
 	int				i;
 	t_process		*process;
-	// t_op_type		(*operations[17]);
+	t_op_type		(*operations[17])(t_game *, t_process *);
 
-	// ft_init_op(*operations);
+	ft_init_op(operations);
 	i = 1;
 	while (i <= game->champ_total)
 		ft_add_process(game, i++);
@@ -163,41 +163,9 @@ void	ft_game(t_game *game)
 					process->duration--;
 				else if (process->duration_set)
 				{
-					// if (game->arena[process->index % MEM_SIZE] >= 1
-					// && game->arena[process->index % MEM_SIZE] <= 16)
-					// 	(*operations[game->arena[process->index % MEM_SIZE]])(game, process);
-					if (game->arena[process->index % MEM_SIZE] == 1)
-						op_live(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 2)
-						op_ld(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 3)
-						op_st(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 4)
-						op_add(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 5)
-						op_sub(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 6)
-						op_and(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 7)
-						op_or(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 8)
-						op_xor(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 9)
-						op_zjmp(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 10)
-						op_ldi(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 11)
-						op_sti(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 12)
-						op_fork(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 13)
-						op_lld(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 14)
-						op_lldi(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 15)
-						op_lfork(game, process);
-					else if (game->arena[process->index % MEM_SIZE] == 16)
-						op_aff(game, process);
+					if (game->arena[process->index % MEM_SIZE] >= 1
+					&& game->arena[process->index % MEM_SIZE] <= 16)
+						(*operations[game->arena[process->index % MEM_SIZE]])(game, process);
 					process->index = (process->index + 1) % MEM_SIZE;
 					process->duration_set = ft_add_duration(game, process);
 				}
