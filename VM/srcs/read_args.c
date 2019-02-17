@@ -19,7 +19,7 @@ static void	read_dump(char *nbr, t_game *game)
 	i = -1;
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
-			error_exit("argument following -d not a valid number");
+			error_exit("argument following -d not a valid number", game);
 	game->flag_dump = ft_atoi(nbr);
 	game->dump_set = 1;
 }
@@ -31,7 +31,7 @@ static void	read_w(char *nbr, t_game *game)
 	i = -1;
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
-			error_exit("argument following -w not a valid number");
+			error_exit("argument following -w not a valid number", game);
 	game->flag_w = ft_atoi(nbr);
 	// if (game->flag_p)
 	// 	ft_printf("flag_w: %d\n", game->flag_w);//
@@ -44,18 +44,18 @@ static void	read_nbr(char *nbr, t_game *game, int champ_count)
 
 	i = 0;
 	if (!ft_isdigit(nbr[0]) && !(nbr[0] == '-') && !(nbr[0] == '+'))
-		error_exit("-n number first digit invalid");
+		error_exit("-n number first digit invalid", game);
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
-			error_exit("-n number invalid");
+			error_exit("-n number invalid", game);
 	tmp = ft_atoi_intmax(nbr);
 	if (tmp > 2147483647 || tmp < -2147483648)
-		error_exit("-n number outside of acceptable range");
+		error_exit("-n number outside of acceptable range", game);
 	game->champ[champ_count].nbr = tmp;
 	i = 0;
 	while (++i < champ_count)
 		if (game->champ[champ_count].nbr == game->champ[i].nbr)
-			error_exit("-n number duplicate, try another number");
+			error_exit("-n number duplicate, try another number", game);
 	// ft_printf("champ->nbr: %d\n", game->champ[champ_count].nbr);
 }
 
@@ -69,7 +69,7 @@ static void	read_speed(char *nbr, t_game *game)
 			return ;
 	game->speed = ft_atoi(nbr);
 	if (game->speed < 1 || game->speed > 100)
-		error_exit("argument following -v outside acceptable range (1-100)");
+		error_exit("argument following -v outside acceptable range (1-100)", game);
 	// ft_printf("speed: %d\n", game->speed);//
 }
 
@@ -83,7 +83,7 @@ void	    read_args(int argc, char **argv, t_game *game)
 	i = 1;
 	champ_count = 1;
 	if (argc == 1)
-		print_usage();
+		print_usage(game);
 	while (i < argc)
 	{
 		if (ft_strcmp((argv[i]), "-v") == 0)
@@ -101,7 +101,7 @@ void	    read_args(int argc, char **argv, t_game *game)
 			if (argv[i + 1])
 				read_w(argv[++i], game);
 			else
-				error_exit("no nbr_cycles argument after -w");
+				error_exit("no nbr_cycles argument after -w", game);
 		}
 		else if (ft_strcmp((argv[i]), "-cp") == 0)
 			game->flag_cp = 1;
@@ -116,7 +116,7 @@ void	    read_args(int argc, char **argv, t_game *game)
 			if (argv[i + 1])
 				read_dump(argv[++i], game);
 			else
-				error_exit("no nbr_cycles argument after -dump");
+				error_exit("no nbr_cycles argument after -dump", game);
 		}
 		else if (ft_strcmp((argv[i]), "-i") == 0)
 			game->flag_i = 1;
@@ -128,11 +128,11 @@ void	    read_args(int argc, char **argv, t_game *game)
 				read_nbr(argv[++i], game, champ_count);
 			}
 			else
-				error_exit("no champion number argument after -n");
+				error_exit("no champion number argument after -n", game);
 			if (argv[i + 1] && ft_strstr(argv[i + 1], ".cor"))
 				read_champion(argv[++i], game, champ_count++, game->champ_count);
 			else
-				error_exit("lacking valid .cor following -n [number]");
+				error_exit("lacking valid .cor following -n [number]", game);
 		}
 		else if (ft_strstr(argv[i], ".cor"))
 		{
@@ -140,7 +140,7 @@ void	    read_args(int argc, char **argv, t_game *game)
 			read_champion(argv[i], game, champ_count++, game->champ_count);
 		}
 		else
-			print_usage();
+			print_usage(game);
 		i++;
 	}
 }

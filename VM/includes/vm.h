@@ -26,8 +26,8 @@
 
 typedef struct			s_process
 {
-	int					index;// PC
-	int					seek; // PC_seek
+	int					index;
+	int					seek;
 	int					reg[17];
 	int					duration;
 	int					duration_set;
@@ -50,7 +50,6 @@ typedef struct			s_game
 {
 	unsigned char		arena[MEM_SIZE];
 	unsigned char		arena_champs[MEM_SIZE];
-	int					frame_rate;
 	int					cycle_to_die;
 	int					cycle;
 	int					alive_count;
@@ -74,7 +73,8 @@ typedef struct			s_game
 /*
 **		vm.c
 */
-void					error_exit(char *err_message);
+void					ft_free_game(t_game *game);
+void					error_exit(char *err_message, t_game *game);
 void					init_game(t_game *game);
 int 					main(int argc, char **argv);
 
@@ -165,9 +165,9 @@ void					op_aff(t_game *game, t_process *process);
 /*
 **		print.c
 */
-void    				print_dump(unsigned char *arena);
+void    				print_dump(unsigned char *arena, t_game *game);
 void					print_visualizer(t_game *game, int i);
-void					print_usage(/*t_game *game*/);
+void					print_usage(t_game *game);
 void					print_intro(t_game *game);
 
 /*

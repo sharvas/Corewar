@@ -166,8 +166,8 @@ void	ft_game(t_game *game)
 			if (game->cycle_count && game->cycle_count == game->flag_dump)
 			{
 				if (game->flag_v)
-					exit(1);//free everything first?
-				print_dump(game->arena);
+					error_exit("", game);
+				print_dump(game->arena, game);
 			}
 			game->cycle--;
 			game->cycle_count++;
