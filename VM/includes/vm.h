@@ -58,7 +58,7 @@ typedef struct			s_game
 	int					alive_count;
 	long long			cycle_count;
 	struct s_champ		champ[5];
-	int					champ_count;
+	// int					champ_count;
 	int					champ_total;//
 	struct s_process	*process;
 	int					flag_dump;

@@ -31,7 +31,7 @@ void	error_exit(char *err_message, t_game *game)
 	ft_putstr(err_message);
 	ft_putstr("\n");
 	ft_free_game(game);
-	exit (1);
+	exit(1);
 }
 
 void	init_game(t_game *game)
@@ -42,7 +42,7 @@ void	init_game(t_game *game)
 	game->cycle = CYCLE_TO_DIE;
 }
 
-int 	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_game	game;
 
