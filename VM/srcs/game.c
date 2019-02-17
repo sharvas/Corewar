@@ -76,7 +76,7 @@ static void	do_process(t_game *game,
 			if (game->arena[process->index % MEM_SIZE] >= 1
 			&& game->arena[process->index % MEM_SIZE] <= 16)
 				(*operations[game->arena[process->index % MEM_SIZE]])(game,
-				process);
+					process);
 			process->index = (process->index + 1) % MEM_SIZE;
 			process->duration_set = ft_add_duration(game, process);
 		}

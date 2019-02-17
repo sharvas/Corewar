@@ -32,7 +32,7 @@ static void	read_w(char **argv, t_game *game, int i)
 		error_exit("no nbr_cycles argument after -w", game);
 }
 
-static int	read_n(char **argv, t_game *game, int i, unsigned char champ_count)
+static int	read_n(char **argv, t_game *game, int i, int champ_count)
 {
 	if (argv[i + 1])
 	{
@@ -48,8 +48,7 @@ static int	read_n(char **argv, t_game *game, int i, unsigned char champ_count)
 	return (i);
 }
 
-static int	read_arg(unsigned char *champ_count, char **argv, t_game *game,
-int i)
+static int	read_arg(int *champ_count, char **argv, t_game *game, int i)
 {
 	if (ft_strcmp((argv[i]), "-dump") == 0)
 		read_dump(argv, game, i++);
@@ -80,8 +79,8 @@ int i)
 
 void		read_args(int argc, char **argv, t_game *game)
 {
-	int				i;
-	unsigned char	champ_count;
+	int	i;
+	int	champ_count;
 
 	game->champ_total = find_champ_total(argc, argv);
 	i = 1;

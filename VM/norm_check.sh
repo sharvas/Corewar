@@ -8,6 +8,7 @@ else
 	cat $1/* | rev | cut -c 1-3 | grep "-"
 	cat $1/* | rev | cut -c 1-3 | grep "*"
 	cat $1/* | rev | cut -c 1-3 | grep "/"
+	cat $1/* | rev | cut -c 1-3 | grep "="
 	cat $1/* | rev | cut -c 1-3 | grep ">>"
 	cat $1/* | rev | cut -c 1-3 | grep "<<"
 fi

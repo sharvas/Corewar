@@ -100,7 +100,7 @@ void					read_args(int argc, char **argv, t_game *game);
 **		read_champs.c
 */
 void					read_champion(char *cor, t_game *game,
-	unsigned char champ_count, int champ_total);
+	int champ_count, int champ_total);
 int						find_champ_total(int argc, char **argv);
 
 /*
