@@ -49,7 +49,7 @@ void		print_winner(t_game *game)
 	short	winner;
 
 	winner = who_won(game);
-	if (!game->dump_set)
+	if (!game->dump_set || game->flag_dump > game->cycle_count)
 	{
 		if (!game->champ[winner].last_alive)
 			ft_printf("No player won, no player lived\n");

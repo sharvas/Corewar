@@ -216,7 +216,7 @@ void					print_winner(t_game *game);
 int						print_champ_condition(t_game *game, int i);
 
 /*
-**		idx.c
+**		get_index.c
 */
 void					ft_get_index(unsigned char	*process, int size,
 short *index);
@@ -227,7 +227,7 @@ int						check_args(t_game *game, int index, t_arg_type *args,
 	int op_id);
 
 /*
-**		idx.c
+**		op.c
 */
 t_op					ft_get_op(int index);
 

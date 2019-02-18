@@ -89,4 +89,9 @@ void		read_args(int argc, char **argv, t_game *game)
 		print_usage(game);
 	while (i < argc)
 		i = read_arg(&champ_count, argv, game, i);
+	if (game->flag_v)
+	{
+		game->flag_arg = 0;
+		game->flag_op = 0;
+	}
 }
