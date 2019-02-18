@@ -41,7 +41,7 @@ typedef struct			s_process
 {
 	int					index;
 	int					seek;
-	int					reg[17];
+	int					reg[REG_NUMBER + 1];
 	int					duration;
 	int					duration_set;
 	int					carry;
@@ -69,7 +69,7 @@ typedef struct			s_game
 	int					cycle;
 	int					alive_count;
 	long long			cycle_count;
-	struct s_champ		champ[5];
+	struct s_champ		champ[MAX_PLAYERS + 1];
 	int					champ_total;
 	struct s_process	*process;
 	int					flag_dump;
