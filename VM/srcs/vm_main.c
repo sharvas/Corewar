@@ -12,29 +12,7 @@
 
 #include "vm.h"
 
-void	ft_free_game(t_game *game)
-{
-	t_process *tmp;
-
-	while (game && game->process)
-	{
-		tmp = game->process;
-		game->process = game->process->next;
-		free(tmp);
-		tmp = NULL;
-	}
-}
-
-void	error_exit(char *err_message, t_game *game)
-{
-	ft_putstr("ERROR ");
-	ft_putstr(err_message);
-	ft_putstr("\n");
-	ft_free_game(game);
-	exit(1);
-}
-
-void	init_game(t_game *game)
+static void	init_game(t_game *game)
 {
 	ft_bzero(game, sizeof(*game));
 	ft_bzero(game->arena_champs, sizeof(MEM_SIZE));
@@ -42,7 +20,7 @@ void	init_game(t_game *game)
 	game->cycle = CYCLE_TO_DIE;
 }
 
-int		find_champ_total(int argc, char **argv)
+int			find_champ_total(int argc, char **argv)
 {
 	int	champ_total;
 
@@ -57,7 +35,20 @@ int		find_champ_total(int argc, char **argv)
 	return (champ_total);
 }
 
-int		main(int argc, char **argv)
+void		ft_free_game(t_game *game)
+{
+	t_process *tmp;
+
+	while (game && game->process)
+	{
+		tmp = game->process;
+		game->process = game->process->next;
+		free(tmp);
+		tmp = NULL;
+	}
+}
+
+int			main(int argc, char **argv)
 {
 	t_game	game;
 

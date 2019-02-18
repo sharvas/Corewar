@@ -89,7 +89,7 @@ typedef struct			s_game
 **		vm.c
 */
 void					ft_free_game(t_game *game);
-void					error_exit(char *err_message, t_game *game);
+int						find_champ_total(int argc, char **argv);
 
 /*
 **		read_args.c
@@ -101,7 +101,6 @@ void					read_args(int argc, char **argv, t_game *game);
 */
 void					read_champion(char *cor, t_game *game,
 int champ_count, int champ_total);
-int						find_champ_total(int argc, char **argv);
 
 /*
 **		read_nbrs.c
@@ -197,23 +196,29 @@ void					op_zjmp(t_game *game, t_process *process);
 void					op_aff(t_game *game, t_process *process);
 
 /*
+**		print_error.c
+*/
+void					print_usage(t_game *game);
+void					error_exit(char *err_message, t_game *game);
+
+/*
 **		print.c
 */
+void					print_intro(t_game *game);
 void					print_dump(unsigned char *arena, t_game *game);
 void					print_visualizer(t_game *game, int i);
-void					print_usage(t_game *game);
-void					print_intro(t_game *game);
 
 /*
 **		print_colors.c
 */
-void					print_arena_color(t_game *game);
+int						print_process(t_game *game, int i);
+int						print_champ_condition(t_game *game, int i);
+void					print_champ(t_game *game, int i);
 
 /*
-**		print_end.c
+**		print_winner.c
 */
 void					print_winner(t_game *game);
-int						print_champ_condition(t_game *game, int i);
 
 /*
 **		get_index.c

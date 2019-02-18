@@ -66,17 +66,3 @@ void		print_winner(t_game *game)
 	if (game->flag_e)
 		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);
 }
-
-int			print_champ_condition(t_game *game, int i)
-{
-	int	j;
-
-	j = 1;
-	while (j <= game->champ_total)
-	{
-		if (game->arena_champs[i] == j)
-			return (1);
-		j++;
-	}
-	return (0);
-}

@@ -38,7 +38,7 @@ static void	print_process_no_cp(t_game *game, int i)
 		ft_printf("%s%.2x%s", LIGHT, (unsigned int)game->arena[i], RESET);
 }
 
-static int	print_process(t_game *game, int i)
+int			print_process(t_game *game, int i)
 {
 	int			printed;
 	t_process	*process;
@@ -61,7 +61,21 @@ static int	print_process(t_game *game, int i)
 	return (printed);
 }
 
-static void	print_champ(t_game *game, int i)
+int			print_champ_condition(t_game *game, int i)
+{
+	int	j;
+
+	j = 1;
+	while (j <= game->champ_total)
+	{
+		if (game->arena_champs[i] == j)
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+void		print_champ(t_game *game, int i)
 {
 	if (game->arena_champs[i] == 1)
 		ft_printf("%s%.2x%s", RED, (unsigned int)game->arena[i], RESET);
@@ -71,31 +85,4 @@ static void	print_champ(t_game *game, int i)
 		ft_printf("%s%.2x%s", BLUE, (unsigned int)game->arena[i], RESET);
 	else if (game->arena_champs[i] == 4)
 		ft_printf("%s%.2x%s", YELLOW, (unsigned int)game->arena[i], RESET);
-}
-
-void		print_arena_color(t_game *game)
-{
-	int			i;
-	int			printed;
-
-	i = 0;
-	ft_printf("0x%.4x : ", i);
-	while (i < MEM_SIZE)
-	{
-		printed = print_process(game, i);
-		if (!printed && print_champ_condition(game, i))
-		{
-			print_champ(game, i);
-			printed++;
-		}
-		if (!printed)
-			ft_printf("%s%.2x%s", GREY, (unsigned int)game->arena[i], RESET);
-		if (i == MEM_SIZE - 1)
-			ft_printf("\n");
-		else if (i && (i + 1) % 64 == 0)
-			ft_printf("\n%#.4x : ", i + 1);
-		else
-			ft_printf(" ");
-		i++;
-	}
 }

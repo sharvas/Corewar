@@ -12,7 +12,21 @@
 
 #include "vm.h"
 
-void	print_dump(unsigned char *arena, t_game *game)
+void		print_intro(t_game *game)
+{
+	int	champ;
+
+	champ = 0;
+	ft_printf("Introducing contestants...\n");
+	while (++champ <= game->champ_total)
+		ft_printf("Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+		game->champ[champ].nbr,
+		game->champ[champ].header.prog_size,
+		game->champ[champ].header.prog_name,
+		game->champ[champ].header.comment);
+}
+
+void		print_dump(unsigned char *arena, t_game *game)
 {
 	int	i;
 
@@ -34,7 +48,34 @@ void	print_dump(unsigned char *arena, t_game *game)
 	exit(1);
 }
 
-void	print_v_champ(t_game *game)
+static void	print_arena_color(t_game *game)
+{
+	int			i;
+	int			printed;
+
+	i = 0;
+	ft_printf("0x%.4x : ", i);
+	while (i < MEM_SIZE)
+	{
+		printed = print_process(game, i);
+		if (!printed && print_champ_condition(game, i))
+		{
+			print_champ(game, i);
+			printed++;
+		}
+		if (!printed)
+			ft_printf("%s%.2x%s", GREY, (unsigned int)game->arena[i], RESET);
+		if (i == MEM_SIZE - 1)
+			ft_printf("\n");
+		else if (i && (i + 1) % 64 == 0)
+			ft_printf("\n%#.4x : ", i + 1);
+		else
+			ft_printf(" ");
+		i++;
+	}
+}
+
+static void	print_v_champ(t_game *game)
 {
 	ft_printf("\t%sPlayer %11i %-54s\tlives in current period: %s%-21d%s\
 	\tlast alive: %s%-21d\n", RED, game->champ[1].nbr,
@@ -57,7 +98,7 @@ void	print_v_champ(t_game *game)
 		YELLOW, RESET, game->champ[4].last_alive);
 }
 
-void	print_visualizer(t_game *game, int i)
+void		print_visualizer(t_game *game, int i)
 {
 	short	champ_nbr;
 
@@ -75,40 +116,4 @@ void	print_visualizer(t_game *game, int i)
 	ft_printf("\n%s", RESET_CURSOR);
 	if (game->speed)
 		usleep(4200000 / game->speed);
-}
-
-void	print_usage(t_game *game)
-{
-	ft_putstr("\nusage:\t./corewar [-dump nbr_cycles] [-i] [-a] [-op] [-arg]");
-	ft_putstr(" [-v [speed (1-100)]] [-w nbr_cycles] [-cp] [-e]");
-	ft_putstr(" [[-n number] champion1.cor] ...\n\n");
-	ft_putstr("\t[-dump nbr_cycles] at the end of nbr_cycles of executions, ");
-	ft_putstr("dump the memory on the standard output and quit\n");
-	ft_putstr("\t[-i] print introduction of contestants\n");
-	ft_putstr("\t[-a] don't print live operations\n");
-	ft_putstr("\t[-op] print operations excecuted, for debugging\n");
-	ft_putstr("\t[-arg] print argument sizes, for debugging\n");
-	ft_putstr("\t[-v [speed (1-100)]] vizualizer, optional speed ");
-	ft_putstr("between 1 (slow) and 100 (fast)\n");
-	ft_putstr("\t[-w nbr_cycles] wait nbr_cycles before starting vizualizer\n");
-	ft_putstr("\t[-cp] in visualizer color process pointers");
-	ft_putstr(" according to which champion is the parent\n");
-	ft_putstr("\t[-e] print \"Game ended at cycle count: (cycle_count)\"\n");
-	ft_putstr("\t[-n number] sets the number of the next player\n\n");
-	ft_free_game(game);
-	exit(1);
-}
-
-void	print_intro(t_game *game)
-{
-	int	champ;
-
-	champ = 0;
-	ft_printf("Introducing contestants...\n");
-	while (++champ <= game->champ_total)
-		ft_printf("Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-		game->champ[champ].nbr,
-		game->champ[champ].header.prog_size,
-		game->champ[champ].header.prog_name,
-		game->champ[champ].header.comment);
 }
