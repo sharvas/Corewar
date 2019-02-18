@@ -25,7 +25,7 @@ int *value)
 		ft_printf("LLD(%i) value: %i, reg: %i\n", process->champ, *value,
 		game->arena[(process->seek + IND_SIZE) % MEM_SIZE]);
 	process->seek += IND_SIZE;
-	process->carry = 1;
+	process->carry = (*value == 0) ? 1 : 0;
 	process->index = process->seek;
 }
 
@@ -48,7 +48,7 @@ void		op_lld(t_game *game, t_process *process)
 			ft_printf("LLD(%i) value: %i, reg: %i\n", process->champ, value,
 			game->arena[(process->seek + DIR_SIZE) % MEM_SIZE]);
 		process->seek += DIR_SIZE;
-		process->carry = 1;
+		process->carry = (value == 0) ? 1 : 0;
 		process->index = process->seek;
 	}
 	else if (args[0] == IND_CODE && args[1] == REG_CODE
@@ -62,7 +62,7 @@ static void	op_lldi_print_carry(t_game *game, t_process *process, int *value)
 {
 	if (game->flag_op)
 		ft_printf("LLDI(%i) index: %i, reg: %i\n", process->champ,
-		value[0] + value[1], game->arena[(process->seek - 1) % MEM_SIZE]);
+		value[0] + value[1], game->arena[process->seek % MEM_SIZE]);
 	if (value[0] + value[1] == 0)
 		process->carry = 1;
 	else

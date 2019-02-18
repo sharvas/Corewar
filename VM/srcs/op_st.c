@@ -26,7 +26,6 @@ unsigned char *reg_index)
 	*reg_index = game->arena[++process->seek % MEM_SIZE];
 	process->reg[game->arena[++process->seek
 		% MEM_SIZE]] = process->reg[*reg_index];
-	process->carry = (!process->reg[*reg_index]) ? 1 : 0;
 	if (game->flag_op)
 		ft_printf("ST(%i) reg_id: %i, reg_id: %i\n",
 		process->champ, *reg_index, game->arena[process->seek % MEM_SIZE]);
@@ -51,7 +50,6 @@ void		op_st(t_game *game, t_process *process)
 		print_op_st_idx(game, process, reg_index, idx);
 		color(index_mod(process->seek - 3 + idx) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;
-		process->carry = (!process->reg[reg_index]) ? 1 : 0;
 	}
 	else if (args[0] == REG_CODE && args[1] == REG_CODE
 	&& check_args(game, process->seek, args, 3))
