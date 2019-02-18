@@ -13,7 +13,7 @@
 #ifndef VM_H
 # define VM_H
 
-# include "../../op.h"
+# include "../../shared/op.h"
 # include "../libft/ft_printf/ft_printf.h"
 # include <fcntl.h>
 

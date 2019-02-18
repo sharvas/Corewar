@@ -25,7 +25,7 @@ HEADER = $(INC)vm.h
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
 
-SRCS_FILES = vm_main.c ../../op.c \
+SRCS_FILES = vm_main.c ../../shared/op.c \
 	read_args.c read_arg.c read_nbrs.c read_champs.c \
 	game.c \
 	process.c process_more.c \
