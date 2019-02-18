@@ -52,7 +52,7 @@ void		op_sti(t_game *game, t_process *process)
 	|| args[2] == REG_CODE) && check_args(game, process->seek, args, 11))
 	{
 		reg_id = game->arena[++process->seek % MEM_SIZE];
-		get_first_value_ind(game, process, args[1], &value[0]);
+		get_first_value_ind_sti(game, process, args[1], &value[0]);
 		get_second_value_ind(game, process, args[2], &value[1]);
 		ft_index_sum(value[0], value[1], &t_idx);
 		*(int *)(game->arena + (index_mod(process->seek - size[0] - size[1]

@@ -60,6 +60,30 @@ int *value2)
 	}
 }
 
+void	get_first_value_ind_sti(t_game *game, t_process *process, t_arg_type args,
+int *value1)
+{
+	short index;
+
+	if (args == REG_CODE)
+		*value1 = *(short *)(process->reg
+		+ game->arena[++process->seek % MEM_SIZE]);
+	else if (args == DIR_CODE)
+	{
+		*value1 = ft_reverse_bytes(&game->arena[++process->seek
+			% MEM_SIZE], IND_SIZE);
+		process->seek++;
+	}
+	else if (args == IND_CODE)
+	{
+		index = ft_reverse_bytes(&game->arena[(process->seek + 1)
+			% MEM_SIZE], IND_SIZE);
+		*value1 = ft_reverse_bytes(&game->arena[index_mod(process->seek
+			- 2 + index) % MEM_SIZE], DIR_SIZE);
+		process->seek += IND_SIZE;
+	}
+}
+
 void	get_first_value_ind(t_game *game, t_process *process, t_arg_type args,
 int *value1)
 {

@@ -17,7 +17,7 @@
 # include "../libft/ft_printf/ft_printf.h"
 # include <fcntl.h>
 
-# define FILE_SIZE 		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
+# define FILE_SIZE 		(sizeof(struct s_header) + CHAMP_MAX_SIZE)
 
 # define CLEAR			"\x1B[2J"
 # define MOVE_CURSOR	"\x1B[H"
@@ -150,6 +150,8 @@ void					get_first_value_ind(t_game *game, t_process *process,
 t_arg_type args, int *value1);
 void					get_second_value_ind(t_game *game, t_process *process,
 t_arg_type args, int *value2);
+void					get_first_value_ind_sti(t_game *game,
+t_process *process, t_arg_type args, int *value1);
 
 /*
 **		op_args.c
