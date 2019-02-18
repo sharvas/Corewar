@@ -114,15 +114,16 @@ void		run_game(t_game *game)
 	print_zero_cycle_flags(game);
 	while (game->cycle_to_die > 0 && game->process)
 	{
-		i++;
 		game->cycle = game->cycle_to_die;
 		while (game->cycle > 0)
 			do_cycle(game, operations, i);
 		if (i >= MAX_CHECKS || game->alive_count >= NBR_LIVE)
 		{
 			game->cycle_to_die -= CYCLE_DELTA;
-			i = 1;
+			i = 0;
 		}
+		else
+			i++;
 		check_process(game);
 		reset_live(game);
 	}
