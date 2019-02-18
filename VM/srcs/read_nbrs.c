@@ -28,6 +28,27 @@ static void	read_dump_nbr(char *nbr, t_game *game)
 	game->dump_set = 1;
 }
 
+void		read_dump(char **argv, t_game *game, int i)
+{
+	if (argv[i + 1])
+		read_dump_nbr(argv[++i], game);
+	else
+		error_exit("no nbr_cycles argument after -dump", game);
+}
+
+void		read_speed(char *nbr, t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (nbr[++i])
+		if (!ft_isdigit(nbr[i]))
+			return ;
+	game->speed = ft_atoi(nbr);
+	if (game->speed < 1 || game->speed > 100)
+		error_exit("-v number outside acceptable range (1-100)", game);
+}
+
 void		read_w_nbr(char *nbr, t_game *game)
 {
 	int			i;
@@ -63,25 +84,4 @@ void		read_n_nbr(char *nbr, t_game *game, int champ_count)
 	while (++i < champ_count)
 		if (game->champ[champ_count].nbr == game->champ[i].nbr)
 			error_exit("-n number duplicate, try another number", game);
-}
-
-void		read_speed(char *nbr, t_game *game)
-{
-	int	i;
-
-	i = -1;
-	while (nbr[++i])
-		if (!ft_isdigit(nbr[i]))
-			return ;
-	game->speed = ft_atoi(nbr);
-	if (game->speed < 1 || game->speed > 100)
-		error_exit("-v number outside acceptable range (1-100)", game);
-}
-
-void		read_dump(char **argv, t_game *game, int i)
-{
-	if (argv[i + 1])
-		read_dump_nbr(argv[++i], game);
-	else
-		error_exit("no nbr_cycles argument after -dump", game);
 }

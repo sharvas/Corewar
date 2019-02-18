@@ -106,10 +106,10 @@ int						find_champ_total(int argc, char **argv);
 /*
 **		read_nbrs.c
 */
+void					read_dump(char **argv, t_game *game, int i);
+void					read_speed(char *nbr, t_game *game);
 void					read_w_nbr(char *nbr, t_game *game);
 void					read_n_nbr(char *nbr, t_game *game, int champ_count);
-void					read_speed(char *nbr, t_game *game);
-void					read_dump(char **argv, t_game *game, int i);
 
 /*
 **		game.c
