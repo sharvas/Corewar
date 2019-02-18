@@ -107,7 +107,7 @@ void		print_visualizer(t_game *game, int i)
 	print_arena_color(game);
 	ft_printf("\n\tCycle delta: %2i\t", CYCLE_DELTA);
 	ft_printf("\tNbr_live: %2i/%i", game->alive_count, NBR_LIVE);
-	ft_printf("\t Checks: %.1i/%i", i, MAX_CHECKS);
+	ft_printf("\t Checks: %2i/%i", i, MAX_CHECKS);
 	ft_printf("\tCycle to die: %-4i", game->cycle_to_die);
 	ft_printf("\tCycles left in current period: %-4i", game->cycle);
 	ft_printf("\tCycle count: %i\n\n", game->cycle_count);
