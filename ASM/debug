@@ -1,0 +1,10 @@
+make
+./asm test.s
+cp test.cor notre
+./zaz_asm test.s
+echo "NOTRE"
+hexdump notre
+echo "ZAZ "
+hexdump test.cor
+echo "DIFF ?"
+diff notre test.cor

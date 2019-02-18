@@ -1,0 +1,6 @@
+make
+./asm test.s
+cp test.cor notre
+./zaz_asm test.s
+echo "DIFF ?"
+diff notre test.cor
