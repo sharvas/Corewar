@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:10:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:35:18 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 17:39:51 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,11 @@ int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 	while (ret > 0 && i < asm_op_tab(opcode).nb_arg)
 	{
 		data->col = cols[i];
-		if ((ocp >> (6 - (2 * i)) & 3) == 1)
+		if ((ocp >> (6 - (2 * i)) & 3) == REG_CODE)
 			ret = asm_manage_register(data, strip[i]);
-		else if ((ocp >> (6 - (2 * i)) & 3) == 2)
+		else if ((ocp >> (6 - (2 * i)) & 3) == DIR_CODE)
 			ret = asm_manage_direct(data, opcode, strip[i]);
-		else if ((ocp >> (6 - (2 * i)) & 3) == 3)
+		else if ((ocp >> (6 - (2 * i)) & 3) == IND_CODE)
 			ret = asm_manage_indirect(data, opcode, strip[i]);
 		i++;
 	}

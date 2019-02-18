@@ -26,7 +26,7 @@ t_error_msg		g_error_msg[11] =
 	{"Syntax error at ", 16},
 	{"Error, end of file before first instruction at ", 47},
 	{"Error, missing arguments at ", 28},
-	{"Error, unknowm insctruction at ", 31},
+	{"Error, unknown instruction at ", 31},
 	{"Error, wrong number of argument at ", 35},
 	{"Error, wrong reg number at ", 27},
 	{"Error, wrong type of argument at ", 33},

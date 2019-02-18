@@ -6,7 +6,7 @@
 /*   By: pmasson <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:35:02 by pmasson           #+#    #+#             */
-/*   Updated: 2019/02/14 15:07:02 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/18 17:38:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	asm_create_ocp(char *ocp, int tr, int i)
 {
 	if (tr == 1)
-		*ocp = (*ocp | 1 << (6 - 2 * i));
+		*ocp = (*ocp | REG_CODE << (6 - 2 * i));
 	if (tr == 2)
-		*ocp = (*ocp | 2 << (6 - 2 * i));
+		*ocp = (*ocp | DIR_CODE << (6 - 2 * i));
 	if (tr == 3)
-		*ocp = (*ocp | 3 << (6 - 2 * i));
+		*ocp = (*ocp | IND_CODE << (6 - 2 * i));
 }
