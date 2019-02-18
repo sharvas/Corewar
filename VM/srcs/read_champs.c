@@ -16,7 +16,7 @@ static void	check_weight(int weight, t_game *game, int fd)
 {
 	if (weight == -1)
 		error_exit("read .cor failed", game);
-	if (weight > FILE_SIZE)
+	if (weight > (int)FILE_SIZE)
 		error_exit("champion size too big", game);
 	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
 		error_exit("champion size too small", game);

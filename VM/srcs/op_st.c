@@ -28,7 +28,7 @@ unsigned char *reg_index)
 		% MEM_SIZE]] = process->reg[*reg_index];
 	if (game->flag_op)
 		ft_printf("ST(%i) reg_id: %i, reg_id: %i\n",
-		process->champ, reg_index, game->arena[process->seek % MEM_SIZE]);
+		process->champ, *reg_index, game->arena[process->seek % MEM_SIZE]);
 	process->index = process->seek;
 }
 

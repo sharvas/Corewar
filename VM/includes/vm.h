@@ -17,7 +17,7 @@
 # include "../libft/ft_printf/ft_printf.h"
 # include <fcntl.h>
 
-# define FILE_SIZE 		(PROG_NAME_LENGTH + COMMENT_LENGTH + CHAMP_MAX_SIZE)
+# define FILE_SIZE 		(sizeof(struct s_header) + CHAMP_MAX_SIZE)
 
 # define CLEAR			"\x1B[2J"
 # define MOVE_CURSOR	"\x1B[H"
@@ -136,7 +136,6 @@ int						ft_count_process(t_game *game);
 /*
 **		get_args.c
 */
-int						ft_reverse_bytes(void *ptr, unsigned int size);
 void					get_first_value(t_game *game, t_process *process,
 							t_arg_type *args, int *value1);
 void					get_second_value(t_game *game, t_process *process,
@@ -145,6 +144,8 @@ void					get_first_value_ind(t_game *game, t_process *process,
 							t_arg_type args, int *value1);
 void					get_second_value_ind(t_game *game, t_process *process,
 							t_arg_type args, int *value2);
+void					get_first_value_ind_sti(t_game *game,
+							t_process *process, t_arg_type args, int *value1);
 
 /*
 **		get_index.c
@@ -163,6 +164,7 @@ int						check_args(t_game *game, int index, t_arg_type *args,
 void					find_args(unsigned char *ptr, t_arg_type arg[],
 							int flag_arg);
 void					ft_get_size(unsigned int *size, t_arg_type args, int i);
+int						ft_reverse_bytes(void *ptr, unsigned int size);
 
 /*
 **		op_and_or.c

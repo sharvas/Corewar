@@ -59,11 +59,11 @@ void		op_ld(t_game *game, t_process *process)
 }
 
 static void	op_ldi_print_carry(t_game *game, t_process *process,
-int total_value)
+short total_index, int total_value)
 {
 	if (game->flag_op)
-		ft_printf("LDI(%i) value: %i, reg: %i\n", process->champ,
-		total_value, game->arena[(process->seek) % MEM_SIZE]);
+		ft_printf("LDI(%i) index: %i, reg: %i\n", process->champ,
+		total_index, game->arena[(process->seek) % MEM_SIZE]);
 	if (total_value == 0)
 		process->carry = 1;
 	else
@@ -93,7 +93,7 @@ void		op_ldi(t_game *game, t_process *process)
 		total_value = ft_reverse_bytes(&game->arena[index_mod(process->seek
 			- 1 - size[0] - size[1] + total_index) % MEM_SIZE], REG_SIZE);
 		process->reg[game->arena[++process->seek % MEM_SIZE]] = total_value;
-		op_ldi_print_carry(game, process, total_value);
+		op_ldi_print_carry(game, process, total_index, total_value);
 	}
 	else
 		process->index = ft_move_index(process->index, args, 10);
