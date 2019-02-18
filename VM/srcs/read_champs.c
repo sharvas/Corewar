@@ -18,7 +18,7 @@ static void	check_weight(int weight, t_game *game, int fd)
 		error_exit("read .cor failed", game);
 	if (weight > (int)FILE_SIZE)
 		error_exit("champion size too big", game);
-	if (weight < (PROG_NAME_LENGTH + COMMENT_LENGTH + 4))
+	if (weight < ((int)sizeof(struct s_header) + 2))
 		error_exit("champion size too small", game);
 	close(fd);
 }
@@ -39,27 +39,24 @@ static void	read_champ_nbr(t_game *game, int champ_count)
 	}
 }
 
-static void	read_magic(t_game *game, int champ_count,
-unsigned char *binary)
+static void	read_magic(t_game *game, int champ_count)
 {
-	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
 	game->champ[champ_count].header.magic =
-		reverse_bytes((unsigned char *)&game->champ[champ_count].
-		header.magic, 3);
-	if (game->champ[champ_count].header.magic != COREWAR_EXEC_MAGIC)
+		ft_reverse_bytes((unsigned char *)&game->champ[champ_count].
+		header.magic, 4);
+	if (game->champ[champ_count].header.magic != (unsigned int)
+		COREWAR_EXEC_MAGIC)
 		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC",
 		game);
 }
 
-static void	read_prog_size(t_game *game, int champ_count,
-unsigned char *binary, int weight)
+static void	read_prog_size(t_game *game, int champ_count, int weight)
 {
-	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
 	game->champ[champ_count].header.prog_size =
-		reverse_bytes((unsigned char *)
-		&game->champ[champ_count].header.prog_size, 2);
+		ft_reverse_bytes((unsigned char *)
+		&game->champ[champ_count].header.prog_size, 4);
 	if (game->champ[champ_count].header.prog_size !=
-		(unsigned int)(weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16))
+		(unsigned int)(weight - sizeof(struct s_header)))
 		error_exit("prog_size doesn't match read size", game);
 }
 
@@ -78,14 +75,12 @@ int champ_total)
 	weight = read(fd, binary, FILE_SIZE + 1);
 	check_weight(weight, game, fd);
 	read_champ_nbr(game, champ_count);
-	read_magic(game, champ_count, binary);
-	ft_strncat(game->champ[champ_count].header.prog_name,
-		(char*)(binary + 4), PROG_NAME_LENGTH);
-	read_prog_size(game, champ_count, binary, weight);
-	ft_strncat(game->champ[champ_count].header.comment,
-		(char*)(binary + 4 + 136), COMMENT_LENGTH);
+	game->champ[champ_count].header = *(struct s_header *)binary;
+	read_magic(game, champ_count);
+	read_prog_size(game, champ_count, weight);
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)),
-		(binary + 144 + COMMENT_LENGTH), weight - sizeof(struct s_header));
+		(binary + sizeof(struct s_header)),
+		game->champ[champ_count].header.prog_size);
 	game->champ[champ_count].start_index = (MEM_SIZE / champ_total)
 		* (champ_count - 1);
 	while (i < game->champ[champ_count].header.prog_size)
