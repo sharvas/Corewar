@@ -39,7 +39,7 @@ t_op	g_op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-t_op	ft_get_op(int index)
+t_op	get_op(int index)
 {
 	return (g_op_tab[index]);
 }
