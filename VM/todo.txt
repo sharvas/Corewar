@@ -6,13 +6,11 @@ DONE
 5. proper default output ?
 6. added processes to front
 7. script to check if no && or || at the end
+8. w larger than dump, w or dump larger than max cycle
 
 MUST DO
 1. fix all the operations (add, etc.)
-2. what if w is larger then dump
-	- w larger than the max cycle
-	- dump is larger than the max cycle
-3. leaks and stuff
+2. leaks and stuff
 
 OPTIONAL TO DO
 3. aff buffer (champ with big message)
@@ -23,7 +21,7 @@ GLOBAL TO DO
 
 BONUS:
 1. visualiser:
-	- start at specified cycle
+	- w start at specified cycle
 	- speed
 	- cp
 2. kill process sound
@@ -31,4 +29,7 @@ BONUS:
 4. (not yet) asm custom output location
 5. (not yet) championship
 6. (not yet) statistics
-7. debug mode/modes
+7. debug mode/modes -op & -arg
+8. -i intro contestants
+9. -a don't print live operations
+10. -e print game ended at cycle count
