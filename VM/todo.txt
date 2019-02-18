@@ -11,9 +11,6 @@ DONE
 MUST DO
 1. fix all the operations (add, etc.)
 
-OPTIONAL TO DO
-3. aff buffer (champ with big message)
-
 GLOBAL TO DO
 1. main makefile
 2. script for diff on op.c and op.h in makefile
@@ -30,7 +27,5 @@ BONUS:
 6. -e print game ended at cycle count
 7. asm custom output location
 8. asm multiple files
+9. asm error messages
 
-1. (not yet) asm error messages
-2. (not yet) championship
-3. (not yet) statistics
