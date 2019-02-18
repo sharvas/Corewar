@@ -4,6 +4,4 @@ a.out
 .vscode
 *.o
 *.a
-asm
-corewar
 *.dSYM
