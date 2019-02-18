@@ -12,30 +12,6 @@
 
 #include "vm.h"
 
-int			ft_reverse_bytes(void *ptr, unsigned int size)
-{
-	short		ret_two;
-	int			ret_four;
-	int			i;
-
-	ret_two = 0;
-	ret_four = 0;
-	i = 0;
-	if (size <= 2)
-	{
-		while (size-- > 0)
-			ret_two |= *((unsigned char *)ptr + i++) << (size * 8);
-		return (ret_two);
-	}
-	else if (size <= 4)
-	{
-		while (size-- > 0)
-			ret_four |= *((unsigned char *)ptr + i++) << (size * 8);
-		return (ret_four);
-	}
-	return (0);
-}
-
 static void	ft_init_op(void (*operations[])(t_game *, t_process *))
 {
 	operations[1] = &op_live;
@@ -103,11 +79,22 @@ void (*operations[17])(t_game *, t_process *), int i)
 	game->cycle_count++;
 }
 
+static void	print_zero_cycle_flags(t_game *game)
+{
+	if (game->flag_i)
+		print_intro(game);
+	if (game->flag_v)
+		ft_printf("%s%s", CLEAR, MOVE_CURSOR);
+	if (game->dump_set && !game->flag_dump)
+		print_dump(game->arena, game);
+}
+
 void		ft_game(t_game *game)
 {
 	int			i;
 	void		(*operations[17])(t_game *, t_process *);
 
+	print_zero_cycle_flags(game);
 	ft_init_op(operations);
 	i = 1;
 	while (i <= game->champ_total)

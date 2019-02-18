@@ -55,7 +55,7 @@ static void	ft_delete_next_process(t_process *process)
 	tmp = NULL;
 }
 
-void		reset_process_live(t_game *game)
+static void	reset_process_live(t_game *game)
 {
 	t_process	*process;
 

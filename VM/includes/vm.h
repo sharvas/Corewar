@@ -89,7 +89,6 @@ typedef struct			s_game
 **		vm.c
 */
 void					ft_free_game(t_game *game);
-int						find_champ_total(int argc, char **argv);
 
 /*
 **		read_args.c
@@ -97,10 +96,16 @@ int						find_champ_total(int argc, char **argv);
 void					read_args(int argc, char **argv, t_game *game);
 
 /*
+**		read_arg.c
+*/
+int						read_arg(int *champ_count, char **argv, t_game *game,
+							int i);
+
+/*
 **		read_champs.c
 */
 void					read_champion(char *cor, t_game *game,
-int champ_count, int champ_total);
+							int champ_count, int champ_total);
 
 /*
 **		read_nbrs.c
@@ -113,9 +118,6 @@ void					read_n_nbr(char *nbr, t_game *game, int champ_count);
 /*
 **		game.c
 */
-int						ft_reverse_bytes(void *ptr, unsigned int size);
-unsigned int			ft_get_bytes(void *ptr, int size);
-int						ft_add_duration(t_game *game, t_process *process);
 void					ft_game(t_game *game);
 
 /*
@@ -123,13 +125,44 @@ void					ft_game(t_game *game);
 */
 void					ft_add_process(t_game *game, int champ);
 void					ft_check_process(t_game *game);
-int						ft_count_process(t_game *game);
 
 /*
 **		process_more.c
 */
 void					reset_live(t_game *game);
 int						ft_add_duration(t_game *game, t_process *process);
+int						ft_count_process(t_game *game);
+
+/*
+**		get_args.c
+*/
+int						ft_reverse_bytes(void *ptr, unsigned int size);
+void					get_first_value(t_game *game, t_process *process,
+							t_arg_type *args, int *value1);
+void					get_second_value(t_game *game, t_process *process,
+							t_arg_type *args, int *value2);
+void					get_first_value_ind(t_game *game, t_process *process,
+							t_arg_type args, int *value1);
+void					get_second_value_ind(t_game *game, t_process *process,
+							t_arg_type args, int *value2);
+
+/*
+**		get_index.c
+*/
+void					ft_get_index(unsigned char	*process, int size,
+							short *index);
+void					ft_index_sum(short index1, short index2, short *total);
+int						index_mod(int index);
+int						ft_move_index(int index, t_arg_type *args, int op_id);
+int						check_args(t_game *game, int index, t_arg_type *args,
+							int op_id);
+
+/*
+**		get_ocp.c
+*/
+void					find_args(unsigned char *ptr, t_arg_type arg[],
+							int flag_arg);
+void					ft_get_size(unsigned int *size, t_arg_type args, int i);
 
 /*
 **		op_and_or.c
@@ -137,25 +170,6 @@ int						ft_add_duration(t_game *game, t_process *process);
 void					op_and(t_game *game, t_process *process);
 void					op_or(t_game *game, t_process *process);
 void					op_xor(t_game *game, t_process *process);
-
-/*
-**		op_arg_value.c
-*/
-void					get_first_value(t_game *game, t_process *process,
-t_arg_type *args, int *value1);
-void					get_second_value(t_game *game, t_process *process,
-t_arg_type *args, int *value2);
-void					get_first_value_ind(t_game *game, t_process *process,
-t_arg_type args, int *value1);
-void					get_second_value_ind(t_game *game, t_process *process,
-t_arg_type args, int *value2);
-
-/*
-**		op_args.c
-*/
-void					find_args(unsigned char *ptr, t_arg_type arg[],
-int flag_arg);
-void					ft_get_size(unsigned int *size, t_arg_type args, int i);
 
 /*
 **		op_fork.c
@@ -189,7 +203,7 @@ void					color(int index, t_game *game, t_process *process);
 void					op_sti(t_game *game, t_process *process);
 
 /*
-**		op_others.c
+**		op_live_jmp_aff.c
 */
 void					op_live(t_game *game, t_process *process);
 void					op_zjmp(t_game *game, t_process *process);
@@ -209,7 +223,7 @@ void					print_dump(unsigned char *arena, t_game *game);
 void					print_visualizer(t_game *game, int i);
 
 /*
-**		print_colors.c
+**		print_color.c
 */
 int						print_process(t_game *game, int i);
 int						print_champ_condition(t_game *game, int i);
@@ -219,17 +233,6 @@ void					print_champ(t_game *game, int i);
 **		print_winner.c
 */
 void					print_winner(t_game *game);
-
-/*
-**		get_index.c
-*/
-void					ft_get_index(unsigned char	*process, int size,
-short *index);
-void					ft_index_sum(short index1, short index2, short *total);
-int						index_mod(int index);
-int						ft_move_index(int index, t_arg_type *args, int op_id);
-int						check_args(t_game *game, int index, t_arg_type *args,
-	int op_id);
 
 /*
 **		op.c

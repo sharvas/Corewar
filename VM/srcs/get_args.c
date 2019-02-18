@@ -12,6 +12,30 @@
 
 #include "vm.h"
 
+int		ft_reverse_bytes(void *ptr, unsigned int size)
+{
+	short		ret_two;
+	int			ret_four;
+	int			i;
+
+	ret_two = 0;
+	ret_four = 0;
+	i = 0;
+	if (size <= 2)
+	{
+		while (size-- > 0)
+			ret_two |= *((unsigned char *)ptr + i++) << (size * 8);
+		return (ret_two);
+	}
+	else if (size <= 4)
+	{
+		while (size-- > 0)
+			ret_four |= *((unsigned char *)ptr + i++) << (size * 8);
+		return (ret_four);
+	}
+	return (0);
+}
+
 void	get_first_value(t_game *game, t_process *process, t_arg_type *args,
 int *value1)
 {
