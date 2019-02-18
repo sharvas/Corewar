@@ -85,7 +85,7 @@ int champ_total)
 	ft_strncat(game->champ[champ_count].header.comment,
 		(char*)(binary + 4 + 136), COMMENT_LENGTH);
 	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)),
-		(binary + 144 + COMMENT_LENGTH), CHAMP_MAX_SIZE - 16);
+		(binary + 144 + COMMENT_LENGTH), weight - sizeof(struct s_header));
 	game->champ[champ_count].start_index = (MEM_SIZE / champ_total)
 		* (champ_count - 1);
 	while (i < game->champ[champ_count].header.prog_size)
