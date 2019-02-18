@@ -84,9 +84,21 @@ static void	print_zero_cycle_flags(t_game *game)
 	if (game->flag_i)
 		print_intro(game);
 	if (game->flag_v)
+	{
 		ft_printf("%s%s", CLEAR, MOVE_CURSOR);
+		if (game->dump_set && !game->flag_dump && !game->flag_w)
+		{
+			print_visualizer(game, 0);
+			ft_free_game(game);
+			exit(1);
+		}
+	}
 	if (game->dump_set && !game->flag_dump)
+	{
+		if (game->flag_v && game->flag_w)
+			error_exit("-w > 0 but -dump 0", game);
 		print_dump(game->arena, game);
+	}
 }
 
 void		ft_game(t_game *game)
@@ -94,12 +106,12 @@ void		ft_game(t_game *game)
 	int			i;
 	void		(*operations[17])(t_game *, t_process *);
 
-	print_zero_cycle_flags(game);
 	ft_init_op(operations);
 	i = 1;
 	while (i <= game->champ_total)
 		ft_add_process(game, i++);
 	i = 0;
+	print_zero_cycle_flags(game);
 	while (game->cycle_to_die > 0 && game->process)
 	{
 		i++;
