@@ -93,7 +93,10 @@ void (*operations[17])(t_game *, t_process *), int i)
 	if (game->cycle_count && game->cycle_count == game->flag_dump)
 	{
 		if (game->flag_v)
-			error_exit("", game);
+		{
+			ft_free_game(game);
+			exit(1);
+		}
 		print_dump(game->arena, game);
 	}
 	game->cycle--;

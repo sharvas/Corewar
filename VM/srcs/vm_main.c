@@ -69,8 +69,7 @@ int		main(int argc, char **argv)
 		ft_printf("%s%s", CLEAR, MOVE_CURSOR);
 	if (game.dump_set && !game.flag_dump)
 		print_dump(game.arena, &game);
-	else
-		ft_game(&game);
+	ft_game(&game);
 	ft_free_game(&game);
 	return (0);
 }
