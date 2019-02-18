@@ -22,7 +22,7 @@ void		reset_live(t_game *game)
 	game->alive_count = 0;
 }
 
-int			ft_add_duration(t_game *game, t_process *process)
+int			add_duration(t_game *game, t_process *process)
 {
 	t_op			op_tab;
 	unsigned char	index;
@@ -30,14 +30,14 @@ int			ft_add_duration(t_game *game, t_process *process)
 	index = game->arena[process->index];
 	if (index > 0 && index < 17)
 	{
-		op_tab = ft_get_op(index - 1);
+		op_tab = get_op(index - 1);
 		process->duration = op_tab.cycles;
 		return (op_tab.cycles);
 	}
 	return (0);
 }
 
-int			ft_count_process(t_game *game)
+int			count_process(t_game *game)
 {
 	t_process	*process;
 	int			count;

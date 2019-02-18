@@ -37,7 +37,7 @@ void		op_fork(t_game *game, t_process *process)
 {
 	short		index;
 
-	ft_get_index(&game->arena[process->index + 1], IND_SIZE, &index);
+	get_index(&game->arena[process->index + 1], IND_SIZE, &index);
 	ft_fork_process(game, process, index);
 	if (game->flag_op)
 		ft_printf("FORK(%i) index: %i\n", process->champ, index);
@@ -48,7 +48,7 @@ void		op_lfork(t_game *game, t_process *process)
 {
 	short		index;
 
-	index = ft_reverse_bytes(&game->arena[process->index + 1], IND_SIZE);
+	index = reverse_bytes(&game->arena[process->index + 1], IND_SIZE);
 	ft_fork_process(game, process, index);
 	if (game->flag_op)
 		ft_printf("LFORK(%i) index: %i\n", process->champ, index);

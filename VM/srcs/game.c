@@ -43,7 +43,7 @@ void (*operations[17])(t_game *, t_process *))
 		if (!process->duration_set)
 		{
 			process->index = (process->index + 1) % MEM_SIZE;
-			process->duration_set = ft_add_duration(game, process);
+			process->duration_set = add_duration(game, process);
 		}
 		else if (process->duration)
 			process->duration--;
@@ -54,7 +54,7 @@ void (*operations[17])(t_game *, t_process *))
 				(*operations[game->arena[process->index % MEM_SIZE]])(game,
 				process);
 			process->index = (process->index + 1) % MEM_SIZE;
-			process->duration_set = ft_add_duration(game, process);
+			process->duration_set = add_duration(game, process);
 		}
 		process = process->next;
 	}
@@ -101,7 +101,7 @@ static void	print_zero_cycle_flags(t_game *game)
 	}
 }
 
-void		ft_game(t_game *game)
+void		run_game(t_game *game)
 {
 	int			i;
 	void		(*operations[17])(t_game *, t_process *);
@@ -109,7 +109,7 @@ void		ft_game(t_game *game)
 	ft_init_op(operations);
 	i = 1;
 	while (i <= game->champ_total)
-		ft_add_process(game, i++);
+		add_process(game, i++);
 	i = 0;
 	print_zero_cycle_flags(game);
 	while (game->cycle_to_die > 0 && game->process)
@@ -123,7 +123,7 @@ void		ft_game(t_game *game)
 			game->cycle_to_die -= CYCLE_DELTA;
 			i = 1;
 		}
-		ft_check_process(game);
+		check_process(game);
 		reset_live(game);
 	}
 	print_winner(game);

@@ -39,7 +39,7 @@ int			main(int argc, char **argv)
 
 	init_game(&game);
 	read_args(argc, argv, &game);
-	ft_game(&game);
+	run_game(&game);
 	ft_free_game(&game);
 	return (0);
 }

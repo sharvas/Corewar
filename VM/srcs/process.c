@@ -12,18 +12,18 @@
 
 #include "vm.h"
 
-void		ft_add_process(t_game *game, int champ)
+void		add_process(t_game *game, int champ)
 {
 	t_process *new;
 	t_process *last;
 
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
-		error_exit("Malloc fail in ft_add_process", game);
+		error_exit("Malloc fail in add_process", game);
 	ft_bzero(new, sizeof(*new));
 	new->index = game->champ[champ].start_index;
 	new->champ = champ;
 	new->reg[1] = champ;
-	new->duration_set = ft_add_duration(game, new);
+	new->duration_set = add_duration(game, new);
 	new->alive = 0;
 	if (!game->process)
 		game->process = new;
@@ -67,7 +67,7 @@ static void	reset_process_live(t_game *game)
 	}
 }
 
-void		ft_check_process(t_game *game)
+void		check_process(t_game *game)
 {
 	t_process	*process;
 	int			killed;

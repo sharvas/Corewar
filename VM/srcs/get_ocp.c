@@ -30,7 +30,7 @@ void	find_args(unsigned char *ptr, t_arg_type arg[], int flag_arg)
 	}
 }
 
-void	ft_get_size(unsigned int *size, t_arg_type args, int i)
+void	get_size(unsigned int *size, t_arg_type args, int i)
 {
 	if (args == REG_CODE)
 		*size = 1;
@@ -42,7 +42,7 @@ void	ft_get_size(unsigned int *size, t_arg_type args, int i)
 		*size = 0;
 }
 
-int		ft_reverse_bytes(void *ptr, unsigned int size)
+int		reverse_bytes(void *ptr, unsigned int size)
 {
 	short		ret_two;
 	int			ret_four;

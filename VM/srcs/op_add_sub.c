@@ -36,7 +36,7 @@ void	op_add(t_game *game, t_process *process)
 		process->index = process->seek;
 	}
 	else
-		process->index = ft_move_index(process->index, args, 4);
+		process->index = move_index(process->index, args, 4);
 }
 
 void	op_sub(t_game *game, t_process *process)
@@ -63,5 +63,5 @@ void	op_sub(t_game *game, t_process *process)
 		process->index = process->seek;
 	}
 	else
-		process->index = ft_move_index(process->index, args, 5);
+		process->index = move_index(process->index, args, 5);
 }

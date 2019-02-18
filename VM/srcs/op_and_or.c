@@ -20,8 +20,8 @@ void	op_and(t_game *game, t_process *process)
 
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
-	ft_get_size(&size[0], args[0], 1);
-	ft_get_size(&size[1], args[1], 1);
+	get_size(&size[0], args[0], 1);
+	get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
 	&& check_args(game, process->seek, args, 6))
 	{
@@ -38,7 +38,7 @@ void	op_and(t_game *game, t_process *process)
 		process->index = process->seek;
 	}
 	else
-		process->index = ft_move_index(process->index, args, 6);
+		process->index = move_index(process->index, args, 6);
 }
 
 void	op_or(t_game *game, t_process *process)
@@ -49,8 +49,8 @@ void	op_or(t_game *game, t_process *process)
 
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
-	ft_get_size(&size[0], args[0], 1);
-	ft_get_size(&size[1], args[1], 1);
+	get_size(&size[0], args[0], 1);
+	get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
 	&& check_args(game, process->seek, args, 7))
 	{
@@ -67,7 +67,7 @@ void	op_or(t_game *game, t_process *process)
 		process->index = process->seek;
 	}
 	else
-		process->index = ft_move_index(process->index, args, 7);
+		process->index = move_index(process->index, args, 7);
 }
 
 void	op_xor(t_game *game, t_process *process)
@@ -78,8 +78,8 @@ void	op_xor(t_game *game, t_process *process)
 
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
-	ft_get_size(&size[0], args[0], 1);
-	ft_get_size(&size[1], args[1], 1);
+	get_size(&size[0], args[0], 1);
+	get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
 	&& check_args(game, process->seek, args, 8))
 	{
@@ -96,5 +96,5 @@ void	op_xor(t_game *game, t_process *process)
 		process->index = process->seek;
 	}
 	else
-		process->index = ft_move_index(process->index, args, 8);
+		process->index = move_index(process->index, args, 8);
 }

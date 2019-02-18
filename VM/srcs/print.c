@@ -111,7 +111,7 @@ void		print_visualizer(t_game *game, int i)
 	ft_printf("\tCycle to die: %-4i", game->cycle_to_die);
 	ft_printf("\tCycles left in current period: %-4i", game->cycle);
 	ft_printf("\tCycle count: %i\n\n", game->cycle_count);
-	ft_printf("\tProcess count: %-21i\n\n", ft_count_process(game));
+	ft_printf("\tProcess count: %-21i\n\n", count_process(game));
 	print_v_champ(game);
 	ft_printf("\n%s", RESET_CURSOR);
 	if (game->speed)

@@ -44,7 +44,7 @@ unsigned char *binary)
 {
 	ft_memcpy(&game->champ[champ_count].header.magic, (binary + 1), 3);
 	game->champ[champ_count].header.magic =
-		ft_reverse_bytes((unsigned char *)&game->champ[champ_count].
+		reverse_bytes((unsigned char *)&game->champ[champ_count].
 		header.magic, 3);
 	if (game->champ[champ_count].header.magic != COREWAR_EXEC_MAGIC)
 		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC",
@@ -56,7 +56,7 @@ unsigned char *binary, int weight)
 {
 	ft_memcpy(&game->champ[champ_count].header.prog_size, (binary + 138), 2);
 	game->champ[champ_count].header.prog_size =
-		ft_reverse_bytes((unsigned char *)
+		reverse_bytes((unsigned char *)
 		&game->champ[champ_count].header.prog_size, 2);
 	if (game->champ[champ_count].header.prog_size !=
 		(unsigned int)(weight - PROG_NAME_LENGTH - COMMENT_LENGTH - 16))

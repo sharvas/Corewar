@@ -44,9 +44,9 @@ void		op_st(t_game *game, t_process *process)
 	&& check_args(game, process->seek, args, 3))
 	{
 		reg_index = game->arena[++process->seek % MEM_SIZE];
-		ft_get_index(&game->arena[++process->seek % MEM_SIZE], IND_SIZE, &idx);
+		get_index(&game->arena[++process->seek % MEM_SIZE], IND_SIZE, &idx);
 		*(int *)(game->arena + (index_mod(process->seek - 3 + idx)
-		% MEM_SIZE)) = ft_reverse_bytes(&process->reg[reg_index], DIR_SIZE);
+		% MEM_SIZE)) = reverse_bytes(&process->reg[reg_index], DIR_SIZE);
 		print_op_st_idx(game, process, reg_index, idx);
 		color(index_mod(process->seek - 3 + idx) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;
@@ -55,5 +55,5 @@ void		op_st(t_game *game, t_process *process)
 	&& check_args(game, process->seek, args, 3))
 		op_st_reg(game, process, &reg_index);
 	else
-		process->index = ft_move_index(process->index, args, 3);
+		process->index = move_index(process->index, args, 3);
 }

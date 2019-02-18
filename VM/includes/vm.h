@@ -118,20 +118,20 @@ void					read_n_nbr(char *nbr, t_game *game, int champ_count);
 /*
 **		game.c
 */
-void					ft_game(t_game *game);
+void					run_game(t_game *game);
 
 /*
 **		process.c
 */
-void					ft_add_process(t_game *game, int champ);
-void					ft_check_process(t_game *game);
+void					add_process(t_game *game, int champ);
+void					check_process(t_game *game);
 
 /*
 **		process_more.c
 */
 void					reset_live(t_game *game);
-int						ft_add_duration(t_game *game, t_process *process);
-int						ft_count_process(t_game *game);
+int						add_duration(t_game *game, t_process *process);
+int						count_process(t_game *game);
 
 /*
 **		get_args.c
@@ -150,11 +150,11 @@ void					get_first_value_ind_sti(t_game *game,
 /*
 **		get_index.c
 */
-void					ft_get_index(unsigned char	*process, int size,
+void					get_index(unsigned char	*process, int size,
 							short *index);
-void					ft_index_sum(short index1, short index2, short *total);
+void					index_sum(short index1, short index2, short *total);
 int						index_mod(int index);
-int						ft_move_index(int index, t_arg_type *args, int op_id);
+int						move_index(int index, t_arg_type *args, int op_id);
 int						check_args(t_game *game, int index, t_arg_type *args,
 							int op_id);
 
@@ -163,8 +163,8 @@ int						check_args(t_game *game, int index, t_arg_type *args,
 */
 void					find_args(unsigned char *ptr, t_arg_type arg[],
 							int flag_arg);
-void					ft_get_size(unsigned int *size, t_arg_type args, int i);
-int						ft_reverse_bytes(void *ptr, unsigned int size);
+void					get_size(unsigned int *size, t_arg_type args, int i);
+int						reverse_bytes(void *ptr, unsigned int size);
 
 /*
 **		op_and_or.c
@@ -239,6 +239,6 @@ void					print_winner(t_game *game);
 /*
 **		op.c
 */
-t_op					ft_get_op(int index);
+t_op					get_op(int index);
 
 #endif
