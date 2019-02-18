@@ -10,7 +10,6 @@ DONE
 
 MUST DO
 1. fix all the operations (add, etc.)
-2. leaks and stuff
 
 OPTIONAL TO DO
 3. aff buffer (champ with big message)
@@ -25,11 +24,13 @@ BONUS:
 	- speed
 	- cp
 2. kill process sound
-3. (not yet) asm error messages
-4. (not yet) asm custom output location
-5. (not yet) championship
-6. (not yet) statistics
-7. debug mode/modes -op & -arg
-8. -i intro contestants
-9. -a don't print live operations
-10. -e print game ended at cycle count
+3. debug mode/modes -op & -arg
+4. -i intro contestants
+5. -a don't print live operations
+6. -e print game ended at cycle count
+7. asm custom output location
+8. asm multiple files
+
+1. (not yet) asm error messages
+2. (not yet) championship
+3. (not yet) statistics
