@@ -12,7 +12,8 @@
 
 #include "vm.h"
 
-static void	op_lld_ind(t_game *game, t_process *process, short *index, int *value)
+static void	op_lld_ind(t_game *game, t_process *process, short *index,
+int *value)
 {
 	*index = ft_reverse_bytes(&game->arena[++process->seek % MEM_SIZE],
 		IND_SIZE);

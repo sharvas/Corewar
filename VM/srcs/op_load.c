@@ -12,7 +12,8 @@
 
 #include "vm.h"
 
-static void	op_ld_ind(t_game *game, t_process *process, short *index, int *value)
+static void	op_ld_ind(t_game *game, t_process *process, short *index,
+int *value)
 {
 	ft_get_index(&game->arena[++process->seek % MEM_SIZE],
 		IND_SIZE, index);
@@ -57,7 +58,8 @@ void		op_ld(t_game *game, t_process *process)
 		process->index = ft_move_index(process->index, args, 2);
 }
 
-static void	op_ldi_print_carry(t_game *game, t_process *process, int total_value)
+static void	op_ldi_print_carry(t_game *game, t_process *process,
+int total_value)
 {
 	if (game->flag_op)
 		ft_printf("LDI(%i) value: %i, reg: %i\n", process->champ,
