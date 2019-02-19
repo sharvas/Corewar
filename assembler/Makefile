@@ -31,6 +31,7 @@ CC			=		gcc -g
 
 CFLAG		=		-Wall -Werror -Wextra
 
+INC			=		includes/
 INCL		=		-I includes/ -I libft/includes/ -I ../shared/
 
 HEADER		=		includes/asm.h includes/asm_error_msg.h ../shared/op.h
@@ -41,9 +42,14 @@ LIB			=		libft/libft.a
 
 ADDLIB		=		-L libft/	-lft
 
+GREEN		=		"\033[0;32m"
+RED			=		"\033[0;31m"
+DEFAULT		=		"\033[0m"
+
 all			:		$(NAME)
 
 $(NAME)		:		$(OBJS) $(LIB) $(HEADER)
+					@echo "Compiling:" $(GREEN) $(NAME) $(DEFAULT)
 					$(CC) $(CFLAG) $(INCL) $(OBJS) $(ADDLIB)\
 					$(FRAMEWORK) -o $(NAME)
 
@@ -51,14 +57,18 @@ $(LIB)		:
 					make -C libft/
 
 $(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c $(HEADER)
+					@echo "Compiling:" $(GREEN) $< $(DEFAULT)
 					@mkdir -p $(OBJSDIR)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
+norm:
+	norminette -R CheckForbiddenSourceHeader $(INC) $(SRCSDIR)
+
 clean		:
-					$(RM) $(OBJS)
+					@$(RM) $(OBJS)
 
 fclean		:		clean
-					$(RM) $(NAME)
+					@$(RM) $(NAME)
 
 re			:		
 					@make -C libft re
@@ -77,4 +87,4 @@ reset		:
 					@make -C libft reset
 					@rm -Rf objs
 
-.PHONY		:		clean fclean re delsav reset
+.PHONY		:		clean fclean re delsav reset norm

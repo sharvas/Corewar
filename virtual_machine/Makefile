@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-COREWAR = corewar
+COREWAR = ../corewar
 
 G = -g
 FSAN = -fsanitize=address $(G)
@@ -20,7 +20,8 @@ SRCS_DIR = srcs/
 OBJS_DIR = objs/
 
 INC = includes/
-HEADER = $(INC)vm.h
+SHARED = ../shared/
+HEADER = $(INC)vm.h $(SHARED)op.h
 
 LIBFT = libft/ft_printf
 LIBFT_A = $(LIBFT)/libftprintf.a
@@ -46,8 +47,7 @@ DEFAULT = "\033[0m"
 all: comp_libft $(COREWAR)
 
 comp_libft:
-	@echo "Compiling:" $(GREEN) Libft $(DEFAULT)
-	make -C $(LIBFT)
+	@make -C $(LIBFT)
 
 norm:
 	norminette -R CheckForbiddenSourceHeader $(INC) $(SRCS_DIR)
