@@ -27,6 +27,23 @@ static int	find_champ_total(int argc, char **argv)
 	return (champ_total);
 }
 
+static void	cut_names(t_game *game)
+{
+	int	champ;
+	int	i;
+
+	champ = 0;
+	while (++champ <= game->champ_total)
+	{
+		i = 0;
+		while (game->champ[champ].header.prog_name[i]
+		&& game->champ[champ].header.prog_name[i] != '\n' && i < 71)
+			i++;
+		ft_strncpy(game->champ[champ].name,
+			game->champ[champ].header.prog_name, i);
+	}
+}
+
 void		read_args(int argc, char **argv, t_game *game)
 {
 	int	i;
@@ -43,5 +60,6 @@ void		read_args(int argc, char **argv, t_game *game)
 	{
 		game->flag_arg = 0;
 		game->flag_op = 0;
+		cut_names(game);
 	}
 }

@@ -53,6 +53,7 @@ typedef struct			s_process
 typedef struct			s_champ
 {
 	struct s_header		header;
+	char				name[71];
 	int					start_index;
 	int					nbr;
 	short				nbr_set;
