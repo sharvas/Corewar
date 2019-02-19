@@ -24,7 +24,7 @@ void	print_usage(t_game *game)
 	ft_putstr("\t[-op] print operations excecuted, for debugging\n");
 	ft_putstr("\t[-arg] print argument sizes, for debugging\n");
 	ft_putstr("\t[-v [speed (1-100)]] vizualizer, optional speed ");
-	ft_putstr("between 1 (slow) and 100 (fast)\n");
+	ft_putstr("between 1 (slow) and 100 (fast). (max 4 champions)\n");
 	ft_putstr("\t[-w nbr_cycles] wait nbr_cycles before starting vizualizer\n");
 	ft_putstr("\t[-cp] in visualizer color process pointers");
 	ft_putstr(" according to which champion is the parent\n");
