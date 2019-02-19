@@ -38,7 +38,7 @@ void		print_dump(unsigned char *arena, t_game *game)
 		ft_printf("%.2x", (unsigned int)arena[i]);
 		if (i == MEM_SIZE - 1)
 			ft_printf("\n");
-		else if (i && (i + 1) % 64 == 0)
+		else if (i && (i + 1) % 32 == 0)
 			ft_printf("\n%#.4x : ", i + 1);
 		else
 			ft_printf(" ");
