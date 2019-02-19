@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:01:28 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 13:38:50 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 14:30:01 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static	int			asm_tag_max_size(void)
 
 	i = 0;
 	max = 0;
-	while (asm_op_tab(i).tag != 0)
+	while (get_op(i).tag != 0)
 	{
-		if (ft_strlen(asm_op_tab(i).tag) > max)
-			max = ft_strlen(asm_op_tab(i).tag);
+		if (ft_strlen(get_op(i).tag) > max)
+			max = ft_strlen(get_op(i).tag);
 		i++;
 	}
 	if (ft_strlen(NAME_CMD_STRING) > max)

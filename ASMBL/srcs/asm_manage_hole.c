@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 13:56:02 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 10:06:48 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 13:59:59 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ int				asm_manage_hole(t_asm_data *data, char *arg, int nb_byte,
 			- data->instruction_cursor;
 		if (nb_byte == 2)
 			content = content % 65536;
-		if (asm_op_tab(opcode).opcode < 13
-			&& asm_op_tab(opcode).opcode > 15)
+		if (get_op(opcode).opcode < 13
+			&& get_op(opcode).opcode > 15)
 			content = content % IDX_MOD;
 		if (asm_write_in_buf(data, content, nb_byte) < 0)
 			return (-1);

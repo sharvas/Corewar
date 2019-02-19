@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:10:17 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 17:39:51 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 14:00:33 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static	int	asm_manage_direct(t_asm_data *data, int opcode, char *arg)
 	int		content;
 
 	content = 0;
-	half_size = asm_op_tab(opcode).direct_is_half;
+	half_size = get_op(opcode).direct_is_half;
 	if (arg[1] == LABEL_CHAR && asm_manage_hole(data, arg + 2,
 		(half_size == 1 ? 2 : 4), opcode) < 0)
 		return (-1);
@@ -66,8 +66,8 @@ static	int	asm_manage_direct(t_asm_data *data, int opcode, char *arg)
 			: ft_atoi(arg + 1));
 		if (half_size == 1)
 			content = content % 65536;
-		if (asm_op_tab(opcode).opcode < 13
-			&& asm_op_tab(opcode).opcode > 15)
+		if (get_op(opcode).opcode < 13
+			&& get_op(opcode).opcode > 15)
 			content = content % IDX_MOD;
 		if (asm_write_in_buf(data, content, (half_size == 1 ? 2 : 4)) < 0)
 			return (-1);
@@ -91,8 +91,8 @@ static	int	asm_manage_indirect(t_asm_data *data, int opcode, char *arg)
 	else if (arg[0] != LABEL_CHAR)
 	{
 		content = (int)asm_atoi_short(arg);
-		if (asm_op_tab(opcode).opcode < 13
-			&& asm_op_tab(opcode).opcode > 15)
+		if (get_op(opcode).opcode < 13
+			&& get_op(opcode).opcode > 15)
 			content = content % IDX_MOD;
 		if (asm_write_in_buf(data, content, 2) < 0)
 			return (-1);
@@ -112,11 +112,11 @@ int			asm_write_instruction(t_asm_data *data, int opcode, char **strip,
 		return (-1);
 	if (asm_write_in_buf(data, opcode + 1, 1) < 0)
 		return (-1);
-	if (asm_op_tab(opcode).ocp == 1 && asm_write_in_buf(data, (int)ocp, 1) < 0)
+	if (get_op(opcode).ocp == 1 && asm_write_in_buf(data, (int)ocp, 1) < 0)
 		return (-1);
 	i = 0;
 	ret = 1;
-	while (ret > 0 && i < asm_op_tab(opcode).nb_arg)
+	while (ret > 0 && i < get_op(opcode).nb_arg)
 	{
 		data->col = cols[i];
 		if ((ocp >> (6 - (2 * i)) & 3) == REG_CODE)

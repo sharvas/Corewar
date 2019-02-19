@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:56:06 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 10:23:15 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 13:25:51 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 {
-	char	*strip[4];
-	int		cols[3];
+	char	*strip[MAX_ARGS_NUMBER + 1];
+	int		cols[MAX_ARGS_NUMBER];
 	int		i;
 
 	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
@@ -31,9 +31,9 @@ int			asm_manage_arg(t_asm_data *data, int opcode, char *line)
 		data->col++;
 	if (line[data->col] == '\0' || line[data->col] == COMMENT_CHAR)
 		return (asm_error_msg(data, MISSING_ARGUMENT));
-	ft_bzero(cols, sizeof(int) * 3);
+	ft_bzero(cols, sizeof(int) * MAX_ARGS_NUMBER);
 	i = 0;
-	while (i <= 3)
+	while (i <= MAX_ARGS_NUMBER)
 		strip[i++] = 0;
 	if (asm_strip_arg(data, line, strip, cols) < 0)
 		return (-1);

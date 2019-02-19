@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 15:26:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 09:32:18 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/19 14:00:22 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ int				asm_verif_nb_arg(t_asm_data *data, int opcode,
 	ocp = 0;
 	while (strip[i] != NULL && strip[i][0] != COMMENT_CHAR)
 		i++;
-	if (asm_op_tab(opcode).nb_arg != i)
+	if (get_op(opcode).nb_arg != i)
 		return (asm_error_msg(data, WRONG_NB_OF_ARG));
 	i = 0;
-	while (i < asm_op_tab(opcode).nb_arg)
+	while (i < get_op(opcode).nb_arg)
 	{
 		data->col = cols[i];
-		if ((tr = asm_verif_type_arg(data, asm_op_tab(opcode), strip, i)) <= 0)
+		if ((tr = asm_verif_type_arg(data, get_op(opcode), strip, i)) <= 0)
 		{
 			if (tr == -1)
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/02/18 14:00:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 14:24:54 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define DIR_CODE 2
 # define IND_CODE 3
 
-# define MAX_ARGS_NUMBER 4
+# define MAX_ARGS_NUMBER 3
 # define MAX_PLAYERS 4
 # define MEM_SIZE (4 * 1024)
 # define IDX_MOD (MEM_SIZE / 8)

@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/02/18 09:38:29 by pmasson          ###   ########.fr       */
+/*   Updated: 2019/02/19 14:29:39 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,7 @@ t_op	g_op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
-t_op	asm_op_tab(int i)
+t_op	get_op(int i)
 {
 	return (g_op_tab[i]);
-}
-
-int		asm_max_arg(void)
-{
-	int i;
-	int max;
-
-	max = 0;
-	i = 0;
-	while (g_op_tab[i].tag != 0)
-	{
-		if (g_op_tab[i].nb_arg > max)
-			max = g_op_tab[i].nb_arg;
-		i++;
-	}
-	return (max);
 }

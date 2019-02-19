@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/18 12:15:09 by erli             ###   ########.fr        #
+#    Updated: 2019/02/19 14:28:56 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -24,7 +24,6 @@ SRCS		=		main.c		op.c	asm_assemble.c			asm_get_header2.c	\
 					asm_manage_hole.c	asm_search_label.c		asm_fill_holes.c	\
 					asm_write_in_buf.c	asm_dest_file.c								\
 					asm_match_name_or_comment.c						\
-
 
 OBJS		=		$(addprefix $(OBJSDIR)/, $(SRCS:.c=.o))
 
@@ -45,8 +44,8 @@ ADDLIB		=		-L libft/	-lft
 all			:		$(NAME)
 
 $(NAME)		:		$(OBJS) $(LIB) $(HEADER)
-					$(CC) $(CFLAG) $(INCL) $(OBJS) $(ADDLIB) $(FRAMEWORK) \
-					-o $(NAME)
+					$(CC) $(CFLAG) $(INCL) $(OBJS) $(ADDLIB)\
+					$(FRAMEWORK) -o $(NAME)
 
 $(LIB)		:		
 					make -C libft/

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:06:23 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 10:20:25 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 13:59:46 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int		asm_fill_holes(t_asm_data *data)
 			- data->holes[i].instruction_curs;
 		if (data->holes[i].nb_byte == 2)
 			content = content % 65536;
-		if (asm_op_tab(data->holes[i].opcode).opcode < 13
-			&& asm_op_tab(data->holes[i].opcode).opcode > 15)
+		if (get_op(data->holes[i].opcode).opcode < 13
+			&& get_op(data->holes[i].opcode).opcode > 15)
 			content = content % IDX_MOD;
 		if (asm_write_in_buf(data, content, data->holes[i++].nb_byte) < 0)
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:26:03 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 11:16:18 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 14:00:11 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		asm_match_tag(t_asm_data *data, char *line)
 		return (asm_error_msg(data, LEXICAL_ERROR));
 	line[i++] = '\0';
 	j = 0;
-	while (asm_op_tab(j).tag != 0)
+	while (get_op(j).tag != 0)
 	{
-		if (ft_strcmp(line + data->col, asm_op_tab(j).tag) == 0)
+		if (ft_strcmp(line + data->col, get_op(j).tag) == 0)
 		{
 			data->col = i;
 			return (j);

@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:22:57 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/19 13:58:55 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_op
 {
 	char		*tag;
 	int			nb_arg;
-	int			arg_type[3];
+	int			arg_type[MAX_ARGS_NUMBER];
 	char		opcode;
 	int			duration;
 	char		*description;
@@ -99,7 +99,7 @@ char			asm_verif_arg(t_asm_data *data, int opcode, char **strip,
 					int *cols);
 int				asm_write_instruction(t_asm_data *data, int opcode,
 					char **strip, int *cols);
-t_op			asm_op_tab(int i);
+t_op			get_op(int i);
 int				asm_max_arg(void);
 void			asm_create_ocp(char *ocp, int tr, int i);
 int				asm_write_instruction(t_asm_data *data, int opcode,
