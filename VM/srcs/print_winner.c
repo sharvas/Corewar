@@ -28,7 +28,7 @@ static int	who_won(t_game *game)
 	return (champ);
 }
 
-static void	print_winner_color(t_game *game, short winner)
+static void	print_winner_color(t_game *game, int winner)
 {
 	if (winner == 1)
 		ft_printf("\t%sPlayer %d (%s) won%s\n", RED, game->champ[winner].nbr,
@@ -46,7 +46,7 @@ static void	print_winner_color(t_game *game, short winner)
 
 void		print_winner(t_game *game)
 {
-	short	winner;
+	int	winner;
 
 	winner = who_won(game);
 	if (!game->dump_set || game->flag_dump > game->cycle_count)
