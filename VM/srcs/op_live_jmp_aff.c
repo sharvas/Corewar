@@ -59,10 +59,10 @@ void	op_aff(t_game *game, t_process *process)
 	&& check_args(game, process->seek, args, 16))
 	{
 		if (game->flag_op)
-			ft_printf("AFF(%i) %c", process->champ,
+			ft_printf("AFF(%i) %c\n", process->champ,
 			process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);
-		ft_printf("%c", process->champ,
-			process->reg[game->arena[++process->seek % MEM_SIZE]] % 256);
+		ft_printf("%c", process->reg[game->arena[++process->seek
+			% MEM_SIZE]] % 256);
 		process->index = process->seek;
 	}
 	else

@@ -46,7 +46,7 @@ typedef struct			s_process
 	int					duration_set;
 	int					carry;
 	int					alive;
-	short				champ;
+	int					champ;
 	struct s_process	*next;
 }						t_process;
 
@@ -54,7 +54,7 @@ typedef struct			s_champ
 {
 	struct s_header		header;
 	int					start_index;
-	unsigned int		nbr;
+	int					nbr;
 	short				nbr_set;
 	int					weight;
 	int					alive_count;

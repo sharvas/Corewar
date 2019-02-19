@@ -21,9 +21,9 @@ static int	find_champ_total(int argc, char **argv)
 	{
 		if (ft_strstr(argv[argc], ".cor"))
 			champ_total++;
+		if (champ_total > MAX_PLAYERS)
+			error_exit("too many champions", NULL);
 	}
-	if (champ_total > 4)
-		error_exit("too many champions", NULL);
 	return (champ_total);
 }
 

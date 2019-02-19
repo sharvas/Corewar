@@ -25,8 +25,8 @@ static void	check_weight(int weight, t_game *game, int fd)
 
 static void	read_champ_nbr(t_game *game, int champ_count)
 {
-	int				j;
-	unsigned int	champ_tmp;
+	int	j;
+	int	champ_tmp;
 
 	j = 0;
 	champ_tmp = champ_count;

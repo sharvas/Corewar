@@ -100,9 +100,6 @@ static void	print_v_champ(t_game *game)
 
 void		print_visualizer(t_game *game, int i)
 {
-	short	champ_nbr;
-
-	champ_nbr = 0;
 	ft_printf("%s%s", MOVE_CURSOR, HIDE_CURSOR);
 	print_arena_color(game);
 	ft_printf("\n\tCycle delta: %2i\t", CYCLE_DELTA);
