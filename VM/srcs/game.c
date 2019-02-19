@@ -33,7 +33,7 @@ static void	ft_init_op(void (*operations[])(t_game *, t_process *))
 }
 
 static void	do_process(t_game *game,
-void (*operations[17])(t_game *, t_process *))
+void (*op[17])(t_game *, t_process *))
 {
 	t_process	*process;
 
@@ -51,10 +51,12 @@ void (*operations[17])(t_game *, t_process *))
 		{
 			if (game->arena[process->index % MEM_SIZE] >= 1
 			&& game->arena[process->index % MEM_SIZE] <= 16)
-				(*operations[game->arena[process->index % MEM_SIZE]])(game,
-				process);
-			process->index = (process->index + 1) % MEM_SIZE;
-			process->duration_set = add_duration(game, process);
+				(*op[game->arena[process->index % MEM_SIZE]])(game, process);
+			if (!process->duration)
+			{
+				process->index = (process->index + 1) % MEM_SIZE;
+				process->duration_set = add_duration(game, process);
+			}
 		}
 		process = process->next;
 	}

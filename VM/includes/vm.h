@@ -88,17 +88,17 @@ typedef struct			s_game
 /*
 **		op.c structure
 */
-typedef struct				s_op
+typedef struct			s_op
 {
-	char					*name;
-	int						argc;
-	int						args[MAX_ARGS_NUMBER];
-	int						id;
-	int						cycles;
-	char					*long_name;
-	int						ocp;
-	int						dir_size;
-}							t_op;
+	char				*name;
+	int					argc;
+	int					args[MAX_ARGS_NUMBER];
+	int					id;
+	int					cycles;
+	char				*long_name;
+	int					ocp;
+	int					dir_size;
+}						t_op;
 
 /*
 **		vm.c
