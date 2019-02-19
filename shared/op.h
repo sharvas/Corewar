@@ -76,20 +76,4 @@ typedef struct				s_header
 	char					comment[COMMENT_LENGTH + 1];
 }							t_header;
 
-/*
-** op.c structure
-*/
-
-typedef struct				s_op
-{
-	char					*name;
-	int						argc;
-	int						args[MAX_ARGS_NUMBER];
-	int						id;
-	int						cycles;
-	char					*long_name;
-	int						ocp;
-	int						dir_size;
-}							t_op;
-
 #endif
