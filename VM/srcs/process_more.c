@@ -27,7 +27,7 @@ int			add_duration(t_game *game, t_process *process)
 	t_op			op_tab;
 	unsigned char	index;
 
-	index = game->arena[process->index];
+	index = game->arena[process->index % MEM_SIZE];
 	if (index > 0 && index < 17)
 	{
 		op_tab = get_op(index - 1);
