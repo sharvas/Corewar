@@ -83,11 +83,11 @@ all			:		$(NAME)
 
 $(NAME)		:		$(OBJS) includes/libft.h includes/ft_con_tab.h 		\
 					includes/get_next_line.h
-					ar -rucs $(NAME) $(OBJS)
+					@ar -rucs $(NAME) $(OBJS)
 
 $(OBJSDIR)/%.o			:		$(SRCSDIR)/%.c
 					@mkdir -p $(OBJSDIR)
-					$(CC) $(CFLAG) $(INCL) -c $< -o $@
+					@$(CC) $(CFLAG) $(INCL) -c $< -o $@
 
 val			:		$(OBJS) includes/libft.h includes/ft_con_tab.h		\
 					includes/get_next_line.h

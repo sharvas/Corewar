@@ -66,9 +66,11 @@ norm:
 
 clean		:
 					@$(RM) $(OBJS)
+					@make -C libft clean
 
 fclean		:		clean
 					@$(RM) $(NAME)
+					@make -C libft fclean
 
 re			:		
 					@make -C libft re
