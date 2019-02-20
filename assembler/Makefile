@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/20 09:29:02 by erli             ###   ########.fr        #
+#    Updated: 2019/02/20 10:28:17 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -62,7 +62,7 @@ $(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c $(HEADER)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
 norm:
-					norminette $(INC) $(SRCSDIR)
+					norminette $(INC) $(SRCSDIR) libft/
 
 clean		:
 					@$(RM) $(OBJS)
