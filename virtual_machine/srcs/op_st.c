@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 18:41:00 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/20 16:24:58 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 18:42:26 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void		op_st(t_game *game, t_process *process)
 
 	ft_memset(args, 0, 4);
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	if (args[0] == REG_CODE && args[1] == IND_CODE
 	&& check_args(game, process->seek, args, 3))
 	{
 		reg_index = game->arena[++process->seek % MEM_SIZE];
 		get_index(game, ++process->seek % MEM_SIZE, IND_SIZE, &idx);
 		write_int(game, (index_mod(process->seek - 3 + idx) % MEM_SIZE),
-			reverse_bytes(&process->reg[reg_index]));
+				  reverse_bytes(&(process->reg[reg_index])));
 		print_op_st_idx(game, process, reg_index, idx);
 		color(index_mod(process->seek - 3 + idx) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;

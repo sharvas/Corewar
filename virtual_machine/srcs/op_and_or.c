@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 11:52:36 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/13 11:52:37 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 18:32:28 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	op_and(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	get_size(&size[0], args[0], 1);
 	get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
@@ -48,7 +48,7 @@ void	op_or(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	get_size(&size[0], args[0], 1);
 	get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE
@@ -77,7 +77,7 @@ void	op_xor(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	get_size(&size[0], args[0], 1);
 	get_size(&size[1], args[1], 1);
 	if (args[0] && args[1] && args[2] == REG_CODE

@@ -6,21 +6,25 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 16:43:25 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/17 16:43:30 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 19:13:30 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	find_args(unsigned char *ptr, t_arg_type arg[], int flag_arg)
+void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg)
 {
 	unsigned char	mask;
 
+	ft_printf("index = %d, ", index);
+	ft_printf("cycle = %d, \n", game->cycle_count);
+	ft_printf("op = %#hhx, OCP =%#hhx\n",  game->arena[(index - 1 < 0 ? MEM_SIZE - 1 : index - 1)],
+			  game->arena[index % MEM_SIZE], game->cycle_count);
 	mask = 192;
-	arg[0] = (mask & *ptr) >> 6;
-	arg[1] = ((mask >> 2) & *ptr) >> 4;
-	arg[2] = ((mask >> 4) & *ptr) >> 2;
-	arg[3] = (mask >> 6) & *ptr;
+	arg[0] = (mask & game->arena[index % MEM_SIZE]) >> 6;
+	arg[1] = ((mask >> 2) & game->arena[index % MEM_SIZE]) >> 4;
+	arg[2] = ((mask >> 4) & game->arena[index % MEM_SIZE]) >> 2;
+	arg[3] = (mask >> 6) & game->arena[index];
 	if (flag_arg)
 	{
 		ft_printf("arg1 - %i\n", arg[0]);

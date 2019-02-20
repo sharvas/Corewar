@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 09:10:15 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/14 09:10:21 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 18:09:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		add_process(t_game *game, int champ)
 	ft_bzero(new, sizeof(*new));
 	new->index = game->champ[champ].start_index;
 	new->champ = champ;
+	ft_bzero(new->reg, sizeof(int) * 17);
 	new->reg[1] = champ;
 	new->duration_set = add_duration(game, new);
 	new->alive = 0;
