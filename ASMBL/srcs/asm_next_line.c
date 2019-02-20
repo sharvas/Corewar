@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:43:47 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 12:17:14 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 09:23:35 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static	int			read_line(const int fd, char **line, char *old,
 		if (ret == 0 && first_read == 1 && old[0] == '\0')
 			return (0);
 		ft_memccpy(str_add, buf, 10, BUFF_SIZE);
-		if (!(add_to_line(line, str_add, old, first_read)))
+		if (add_to_line(line, str_add, old, first_read) == -1)
 			return (-1);
 		first_read = 0;
 	}

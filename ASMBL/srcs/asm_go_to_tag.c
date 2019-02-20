@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:52:53 by erli              #+#    #+#             */
-/*   Updated: 2019/02/18 10:06:10 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 09:24:02 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ int				asm_go_to_tag(t_asm_data *data, char *line)
 
 	if (data == 0 || line == 0)
 		return (ft_msg_int(2, "no data or no line go to tag.\n", -1));
-	while (line[data->col] != '\0' && (line[data->col] == ' ' ||
-			line[data->col] == '\t'))
+	while (line[data->col] != '\0' && (line[data->col] == ' '
+		|| line[data->col] == '\t'))
 		data->col++;
 	str_lab = LABEL_CHARS;
 	i = 0;
