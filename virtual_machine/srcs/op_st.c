@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 18:41:00 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/17 18:41:05 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 16:24:58 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ void		op_st(t_game *game, t_process *process)
 	{
 		reg_index = game->arena[++process->seek % MEM_SIZE];
 		get_index(&game->arena[++process->seek % MEM_SIZE], IND_SIZE, &idx);
-		*(int *)(game->arena + (index_mod(process->seek - 3 + idx)
-		% MEM_SIZE)) = reverse_bytes(&process->reg[reg_index], DIR_SIZE);
+//		*(int *)(game->arena + (index_mod(process->seek - 3 + idx)
+//		% MEM_SIZE)) = reverse_bytes(&process->reg[reg_index], DIR_SIZE);
+		write_int(game, (index_mod(process->seek - 3 + idx) % MEM_SIZE),
+			reverse_bytes(&process->reg[reg_index], DIR_SIZE));
 		print_op_st_idx(game, process, reg_index, idx);
 		color(index_mod(process->seek - 3 + idx) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;
