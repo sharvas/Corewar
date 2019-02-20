@@ -37,7 +37,9 @@ static void	cut_names(t_game *game)
 	{
 		i = 0;
 		while (game->champ[champ].header.prog_name[i]
-		&& game->champ[champ].header.prog_name[i] != '\n' && i < 71)
+		&& game->champ[champ].header.prog_name[i] != '\n'
+		&& game->champ[champ].header.prog_name[i] != '\t'
+		&& i < 71)
 			i++;
 		ft_strncpy(game->champ[champ].name,
 			game->champ[champ].header.prog_name, i);
