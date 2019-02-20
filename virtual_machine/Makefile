@@ -50,7 +50,7 @@ comp_libft:
 	@make -C $(LIBFT)
 
 norm:
-	norminette -R CheckForbiddenSourceHeader $(INC) $(SRCS_DIR) $(SHARED)
+	norminette $(INC) $(SRCS_DIR) $(SHARED) libft/
 
 fsanitize:
 	@echo $(RED)"Compiling all with -g and -fsanitize:" $(COREWAR) $(DEFAULT)

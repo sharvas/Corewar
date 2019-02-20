@@ -14,8 +14,8 @@
 
 void	ft_parse(t_print *all, va_list ap)
 {
-	while (all->form[all->len] &&
-		ft_strchr("+- #0123456789.hlLjz*", all->form[all->len]))
+	while (all->form[all->len]
+		&& ft_strchr("+- #0123456789.hlLjz*", all->form[all->len]))
 	{
 		ft_parse_flags(all);
 		ft_parse_width(all, ap);
@@ -28,8 +28,8 @@ void	ft_parse(t_print *all, va_list ap)
 
 void	ft_read(t_print *all, va_list ap)
 {
-	if (all->type == 'i' || all->type == 'd' || all->type == 'u' ||
-			all->type == 'o' || all->type == 'x' || all->type == 'X')
+	if (all->type == 'i' || all->type == 'd' || all->type == 'u'
+		|| all->type == 'o' || all->type == 'x' || all->type == 'X')
 		ft_number(all, ap);
 	else if (all->type == 's')
 		ft_string(all, ap);
@@ -50,9 +50,10 @@ void	ft_justify(char *num_str, t_print *all)
 	if (all->prec)
 		num_str = ft_precision(num_str, all);
 	if ((!all->minus && (all->plus || all->hash || all->space) && (!all->zero
-		|| all->type == 'o' || ((all->type == 'x' || all->type == 'X') &&
-		(!all->zero) && !all->width)) && all->type != 'c') || (all->type == 'x'
-		&& all->hash && all->prec_set && all->width && !all->num_zero))
+		|| all->type == 'o' || ((all->type == 'x' || all->type == 'X')
+		&& (!all->zero) && !all->width)) && all->type != 'c')
+		|| (all->type == 'x' && all->hash && all->prec_set && all->width
+		&& !all->num_zero))
 		num_str = ft_build_prefix(num_str, all);
 	if (all->type == 'c' && all->char_zero == 1)
 		all->width--;
@@ -60,11 +61,11 @@ void	ft_justify(char *num_str, t_print *all)
 		num_str = ft_fill_width(num_str, all, ' ');
 	else if (all->width && all->zero)
 		num_str = ft_fill_width(num_str, all, '0');
-	if ((all->minus || all->zero || all->prec_set || all->prec) &&
-		(!all->width || all->zero))
+	if ((all->minus || all->zero || all->prec_set || all->prec)
+		&& (!all->width || all->zero))
 		num_str = ft_negative(num_str, all);
-	if ((all->minus && (all->plus || all->hash || all->space)) ||
-		(all->zero && all->type != 'o'))
+	if ((all->minus && (all->plus || all->hash || all->space))
+		|| (all->zero && all->type != 'o'))
 		num_str = ft_build_prefix(num_str, all);
 	if (all->sign && !all->print_negative)
 		num_str = ft_negative(num_str, all);

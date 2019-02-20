@@ -78,12 +78,12 @@ int champ_total)
 	game->champ[champ_count].header = *(struct s_header *)binary;
 	read_magic(game, champ_count);
 	read_prog_size(game, champ_count, weight);
-	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)),
-		(binary + sizeof(struct s_header)),
-		game->champ[champ_count].header.prog_size);
+	ft_memcpy(game->arena + ((MEM_SIZE / champ_total) * (champ_count - 1)
+		+ apply_mod(champ_total, champ_count)), (binary
+		+ sizeof(struct s_header)), game->champ[champ_count].header.prog_size);
 	game->champ[champ_count].start_index = (MEM_SIZE / champ_total)
-		* (champ_count - 1);
+		* (champ_count - 1) + apply_mod(champ_total, champ_count);
 	while (i < game->champ[champ_count].header.prog_size)
-		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total)
-		* (champ_count - 1)) + i++, &champ_count, 1);
+		ft_memcpy(game->arena_champs + ((MEM_SIZE / champ_total) * (champ_count
+		- 1) + apply_mod(champ_total, champ_count)) + i++, &champ_count, 1);
 }

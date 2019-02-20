@@ -69,8 +69,8 @@ char		*ft_precision(char *num_str, t_print *all)
 {
 	int		i;
 
-	if ((i = ft_strlen(num_str)) < all->prec &&
-		all->type != 's' && all->type != 'p' && all->type != 'f')
+	if ((i = ft_strlen(num_str)) < all->prec && all->type != 's'
+		&& all->type != 'p' && all->type != 'f')
 		num_str = ft_prec_a(num_str, all, i);
 	else if (all->type == 's' && all->prec)
 		num_str[all->prec] = '\0';

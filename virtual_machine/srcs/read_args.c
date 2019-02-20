@@ -12,6 +12,19 @@
 
 #include "vm.h"
 
+int			apply_mod(int champ_total, int champ_count)
+{
+	int	mod;
+
+	mod = 0;
+	if (champ_total % 2)
+		mod = 1;
+	if (MEM_SIZE % champ_total && champ_count > ((champ_total / 2) + mod))
+		return (1);
+	else
+		return (0);
+}
+
 static int	find_champ_total(int argc, char **argv)
 {
 	int	champ_total;
@@ -37,7 +50,9 @@ static void	cut_names(t_game *game)
 	{
 		i = 0;
 		while (game->champ[champ].header.prog_name[i]
-		&& game->champ[champ].header.prog_name[i] != '\n' && i < 71)
+		&& game->champ[champ].header.prog_name[i] != '\n'
+		&& game->champ[champ].header.prog_name[i] != '\t'
+		&& i < 71)
 			i++;
 		ft_strncpy(game->champ[champ].name,
 			game->champ[champ].header.prog_name, i);

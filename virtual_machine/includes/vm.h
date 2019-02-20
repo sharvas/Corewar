@@ -110,6 +110,7 @@ void					ft_free_game(t_game *game);
 **		read_args.c
 */
 void					read_args(int argc, char **argv, t_game *game);
+int						apply_mod(int champ_total, int champ_count);
 
 /*
 **		read_arg.c

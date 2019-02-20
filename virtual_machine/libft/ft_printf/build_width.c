@@ -14,36 +14,36 @@
 
 int			ft_is_unsigned(t_print *all)
 {
-	return (all->type == 'u' || all->type == 'U' || all->type == 'x' ||
-		all->type == 'X' || all->type == 'o');
+	return (all->type == 'u' || all->type == 'U' || all->type == 'x'
+		|| all->type == 'X' || all->type == 'o');
 }
 
 int			ft_is_unsigned_wo(t_print *all)
 {
-	return (all->type == 'u' || all->type == 'U' ||
-		(all->type == 'o' && all->zero && all->num_zero) ||
-		(all->type == 'x' && all->plus));
+	return (all->type == 'u' || all->type == 'U'
+		|| (all->type == 'o' && all->zero && all->num_zero)
+		|| (all->type == 'x' && all->plus));
 }
 
 void		ft_calc_width(t_print *all)
 {
-	if ((all->sign || (((all->hash && !ft_is_unsigned_wo(all)) ||
-		((all->plus || all->space) && (!ft_is_unsigned(all)))) &&
-		(all->minus || all->zero)) || all->type == '%') && all->type != 's')
+	if ((all->sign || (((all->hash && !ft_is_unsigned_wo(all))
+		|| ((all->plus || all->space) && (!ft_is_unsigned(all))))
+		&& (all->minus || all->zero)) || all->type == '%') && all->type != 's')
 	{
-		if (all->hash && all->type != '%' &&
-			!(all->type == 'o' || all->type == 'd' || all->type == 'i'))
+		if (all->hash && all->type != '%'
+			&& !(all->type == 'o' || all->type == 'd' || all->type == 'i'))
 			all->width--;
 		all->width--;
 	}
-	else if (all->type == 'o' &&
-		all->minus && all->width && all->prec && all->num_zero)
+	else if (all->type == 'o' && all->minus && all->width && all->prec
+		&& all->num_zero)
 		all->width--;
 	if ((all->type == 'x' || all->type == 'X') && all->zero && all->width
 		&& all->hash && (all->h || all->prec_set || all->num_zero))
 		all->width += 2;
-	if ((all->type == 'o' && all->hash && all->width && all->prec_set &&
-		!all->num_zero && all->zero) || (all->type == '%' && all->width))
+	if ((all->type == 'o' && all->hash && all->width && all->prec_set
+		&& !all->num_zero && all->zero) || (all->type == '%' && all->width))
 		all->width++;
 }
 
@@ -53,8 +53,8 @@ char		*ft_build_width(t_print *all, char c)
 	int		i;
 
 	i = 0;
-	if ((all->type == 'u' || all->type == 'o' || all->type == 'x' ||
-		all->type == 'X') && all->prec_set && all->width)
+	if ((all->type == 'u' || all->type == 'o' || all->type == 'x'
+		|| all->type == 'X') && all->prec_set && all->width)
 		c = ' ';
 	if (!(str = (char*)malloc(sizeof(char) * (all->width + 1))))
 		ft_error(NULL, all->form);
