@@ -12,6 +12,19 @@
 
 #include "vm.h"
 
+int			apply_mod(int champ_total, int champ_count)
+{
+	int	mod;
+
+	mod = 0;
+	if (champ_total % 2)
+		mod = 1;
+	if (MEM_SIZE % champ_total && champ_count > ((champ_total / 2) + mod))
+		return (1);
+	else
+		return (0);
+}
+
 static int	find_champ_total(int argc, char **argv)
 {
 	int	champ_total;
