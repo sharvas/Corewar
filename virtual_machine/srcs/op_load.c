@@ -15,7 +15,7 @@
 static void	op_ld_ind(t_game *game, t_process *process, short *index,
 int *value)
 {
-	get_index(game, ++process->seek % MEM_SIZE,	IND_SIZE, index);
+	get_index(game, ++process->seek % MEM_SIZE, IND_SIZE, index);
 	*value = read_bytes(game, index_mod(process->seek - 2 + *index)
 		% MEM_SIZE, DIR_SIZE);
 	process->reg[game->arena[(process->seek + IND_SIZE)

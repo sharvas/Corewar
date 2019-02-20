@@ -68,13 +68,15 @@ int		read_bytes(t_game *game, int index, int size)
 	if (size <= 2)
 	{
 		while (size-- > 0)
-			ret_two |= *(game->arena + ((index + i++) % MEM_SIZE)) << (size * 8);
+			ret_two |= *(game->arena + ((index + i++) % MEM_SIZE))
+				<< (size * 8);
 		return (ret_two);
 	}
 	else if (size <= 4)
 	{
 		while (size-- > 0)
-			ret_four |= *(game->arena + ((index + i++) % MEM_SIZE)) << (size * 8);
+			ret_four |= *(game->arena + ((index + i++) % MEM_SIZE))
+				<< (size * 8);
 		return (ret_four);
 	}
 	return (0);

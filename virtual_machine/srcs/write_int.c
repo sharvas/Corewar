@@ -14,7 +14,7 @@
 
 void			write_int(t_game *game, short address, int content)
 {
-	int 			i;
+	int				i;
 	unsigned char	*ptr;
 
 	i = 0;
