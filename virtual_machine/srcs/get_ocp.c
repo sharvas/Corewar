@@ -72,7 +72,7 @@ int		read_bytes(t_game *game, int index, int size)
 	{
 		while (size-- > 0)
 		{
-			ret_two |= *(unsigned char *)(game->arena + ((index + i)
+			ret_two |= *(char *)(game->arena + ((index + i)
 				% MEM_SIZE)) << (size * 8);
 			i++;
 		}
@@ -82,7 +82,7 @@ int		read_bytes(t_game *game, int index, int size)
 	{
 		while (size-- > 0)
 		{
-			ret_four |= *(unsigned char *)(game->arena + ((index + i)
+			ret_four |= *(char *)(game->arena + ((index + i)
 				% MEM_SIZE)) << (size * 8);
 			i++;
 		}
