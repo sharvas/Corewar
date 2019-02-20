@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:43:47 by erli              #+#    #+#             */
-/*   Updated: 2019/02/20 10:20:55 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 10:56:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static	int			asm_test_line(char *line)
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	if (line[i] != COMMENT_CHAR)
+	if (line[i] != COMMENT_CHAR && line[i] != '\0')
 		return (-2);
 	return (1);
 }
