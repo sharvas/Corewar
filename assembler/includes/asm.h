@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 10:57:30 by erli              #+#    #+#             */
-/*   Updated: 2019/02/19 13:58:55 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 10:27:31 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define WRONG_ARG_TYPE 8
 # define LABEL_DOES_NOT_EXIST 9
 # define LABEL_ALREADY_EXISTS 10
+# define NO_NEWLINE 11
 # define MAX_MALLOC_SIZE 10000000
 
 typedef struct	s_op
