@@ -18,6 +18,7 @@ void	op_and(t_game *game, t_process *process)
 	unsigned int	size[2];
 	t_arg_type		args[4];
 
+	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	get_size(&size[0], args[0], 1);
@@ -47,6 +48,7 @@ void	op_or(t_game *game, t_process *process)
 	unsigned int	size[2];
 	t_arg_type		args[4];
 
+	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	get_size(&size[0], args[0], 1);
@@ -76,6 +78,7 @@ void	op_xor(t_game *game, t_process *process)
 	unsigned int	size[2];
 	t_arg_type		args[4];
 
+	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	get_size(&size[0], args[0], 1);

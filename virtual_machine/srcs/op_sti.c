@@ -46,6 +46,7 @@ void		op_sti(t_game *game, t_process *process)
 	short			t_idx;
 	t_arg_type		args[4];
 
+	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	op_sti_args(game, process, args, size);
 	if (args[0] == REG_CODE && args[1] && (args[2] == DIR_CODE

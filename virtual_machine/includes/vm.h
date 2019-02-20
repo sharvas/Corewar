@@ -169,7 +169,7 @@ void					get_first_value_ind_sti(t_game *game,
 */
 void					get_index(unsigned char	*process, int size,
 							short *index);
-void					index_sum(short index1, short index2, short *total);
+void					index_sum(int index1, int index2, short *total);
 int						index_mod(int index);
 int						move_index(int index, t_arg_type *args, int op_id);
 int						check_args(t_game *game, int index, t_arg_type *args,

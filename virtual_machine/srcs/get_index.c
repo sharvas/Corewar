@@ -18,9 +18,12 @@ void	get_index(unsigned char *process, int size, short *index)
 	*index = *index % IDX_MOD;
 }
 
-void	index_sum(short index1, short index2, short *total)
+void	index_sum(int index1, int index2, short *total)
 {
-	*total = index1 + index2;
+	int total_4;
+
+	total_4 = index1 + index2;
+	*total = total_4 % 65535;
 	*total = *total % IDX_MOD;
 }
 

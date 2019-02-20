@@ -35,6 +35,7 @@ void		op_ld(t_game *game, t_process *process)
 	short		index;
 	t_arg_type	args[4];
 
+	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	if (args[0] == DIR_CODE && args[1] == REG_CODE
@@ -76,6 +77,7 @@ void		op_ldi(t_game *game, t_process *process)
 	int				total_value;
 	t_arg_type		args[4];
 
+	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	get_size(&size[0], args[0], 2);

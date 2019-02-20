@@ -66,7 +66,7 @@ t_arg_type args, int *value1)
 	short index;
 
 	if (args == REG_CODE)
-		*value1 = *(short *)(process->reg
+		*value1 = *(process->reg
 		+ game->arena[++process->seek % MEM_SIZE]);
 	else if (args == DIR_CODE)
 	{
@@ -90,7 +90,7 @@ int *value1)
 	short index;
 
 	if (args == REG_CODE)
-		*value1 = *(short *)(process->reg
+		*value1 = *(process->reg
 		+ game->arena[++process->seek % MEM_SIZE]);
 	else if (args == DIR_CODE)
 	{
@@ -112,7 +112,7 @@ void	get_second_value_ind(t_game *game, t_process *process,
 t_arg_type args, int *value2)
 {
 	if (args == REG_CODE)
-		*value2 = *(short *)(process->reg
+		*value2 = *(process->reg
 		+ game->arena[++process->seek % MEM_SIZE]);
 	else if (args == DIR_CODE)
 	{
