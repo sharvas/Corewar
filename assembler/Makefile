@@ -6,7 +6,7 @@
 #    By: erli <erli@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/08 14:34:35 by erli              #+#    #+#              #
-#    Updated: 2019/02/19 17:27:50 by erli             ###   ########.fr        #
+#    Updated: 2019/02/20 09:29:02 by erli             ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -62,7 +62,7 @@ $(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c $(HEADER)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
 norm:
-	norminette -R CheckForbiddenSourceHeader $(INC) $(SRCSDIR)
+					norminette $(INC) $(SRCSDIR)
 
 clean		:
 					@$(RM) $(OBJS)

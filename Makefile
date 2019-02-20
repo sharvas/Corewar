@@ -6,7 +6,7 @@
 #    By: svaskeli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/19 19:39:06 by svaskeli          #+#    #+#              #
-#    Updated: 2019/02/19 19:39:09 by svaskeli         ###   ########.fr        #
+#    Updated: 2019/02/20 09:31:39 by erli             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,6 @@ comp_asm:
 
 comp_corewar:
 	@make -C $(COREWAR_DIR)/
-
-$(NAME): comp_asm comp_corewar
 
 clean:
 	@make -C $(ASM_DIR)/ clean
