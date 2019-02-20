@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:12:58 by erli              #+#    #+#             */
-/*   Updated: 2019/02/20 16:23:42 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 17:33:00 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,11 @@ void			write_int(t_game *game, short address, int content)
 	unsigned char	*ptr;
 
 	i = 0;
-	if (address + 4 < MEM_SIZE)
-		game->arena[address] = content;
-	else
+	ptr = (unsigned char *)(&content);
+	while (i < 4)
 	{
-		ptr = (unsigned char *)(&content);
-		while (i < 4)
-		{
-			game->arena[(address + i) % MEM_SIZE] = ptr[i];
-			i++;
-		}
+		ft_printf("character = %c\n", ptr[i]);
+		game->arena[(address + i) % MEM_SIZE] = ptr[i];
+		i++;
 	}
 }
