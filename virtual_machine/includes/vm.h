@@ -167,7 +167,7 @@ void					get_first_value_ind_sti(t_game *game,
 /*
 **		get_index.c
 */
-void					get_index(unsigned char	*process, int size,
+void					get_index(t_game *game, int seek, int size,
 							short *index);
 void					index_sum(int index1, int index2, short *total);
 int						index_mod(int index);
@@ -181,7 +181,8 @@ int						check_args(t_game *game, int index, t_arg_type *args,
 void					find_args(unsigned char *ptr, t_arg_type arg[],
 							int flag_arg);
 void					get_size(unsigned int *size, t_arg_type args, int i);
-int						reverse_bytes(void *ptr, unsigned int size);
+int						reverse_bytes(void *ptr);
+int						read_bytes(t_game *game, int index, int size);
 
 /*
 **		op_and_or.c

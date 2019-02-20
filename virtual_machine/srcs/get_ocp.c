@@ -42,28 +42,18 @@ void	get_size(unsigned int *size, t_arg_type args, int i)
 		*size = 0;
 }
 
-int		reverse_bytes(void *ptr, unsigned int size)//no size of 2 for magic and size
+int		reverse_bytes(void *ptr)
 {
-	short		ret_two;
 	int			ret_four;
 	int			i;
+	int			size;
 
-	ret_two = 0;
 	ret_four = 0;
 	i = 0;
-	if (size <= 2)
-	{
-		while (size-- > 0)
-			ret_two |= *((unsigned char *)ptr + i++) << (size * 8);
-		return (ret_two);
-	}
-	else if (size <= 4)
-	{
-		while (size-- > 0)
-			ret_four |= *((unsigned char *)ptr + i++) << (size * 8);
-		return (ret_four);
-	}
-	return (0);
+	size = 4;
+	while (size-- > 0)
+		ret_four |= *((unsigned char *)ptr + i++) << (size * 8);
+	return (ret_four);
 }
 
 int		read_bytes(t_game *game, int index, int size)

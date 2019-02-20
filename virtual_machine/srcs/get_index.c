@@ -12,9 +12,9 @@
 
 #include "vm.h"
 
-void	get_index(unsigned char *process, int size, short *index)
+void	get_index(t_game *game, int seek, int size, short *index)
 {
-	*index = reverse_bytes(process, size);
+	*index = read_bytes(game, seek % MEM_SIZE, size);
 	*index = *index % IDX_MOD;
 }
 

@@ -43,7 +43,7 @@ static void	read_magic(t_game *game, int champ_count)
 {
 	game->champ[champ_count].header.
 		magic = reverse_bytes((unsigned char *)&game->champ[champ_count].
-		header.magic, 4);
+		header.magic);
 	if (game->champ[champ_count].header.magic != (unsigned int)
 		COREWAR_EXEC_MAGIC)
 		error_exit("champion magic number doesn't match COREWAR_EXEC_MAGIC",
@@ -54,7 +54,7 @@ static void	read_prog_size(t_game *game, int champ_count, int weight)
 {
 	game->champ[champ_count].header.
 		prog_size = reverse_bytes((unsigned char *)
-		&game->champ[champ_count].header.prog_size, 4);
+		&game->champ[champ_count].header.prog_size);
 	if (game->champ[champ_count].header.
 		prog_size != (unsigned int)(weight - sizeof(struct s_header)))
 		error_exit("prog_size doesn't match read size", game);

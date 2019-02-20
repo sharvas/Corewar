@@ -18,7 +18,6 @@ void	op_add(t_game *game, t_process *process)
 	int			reg2;
 	t_arg_type	args[4];
 
-	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	if (args[0] == REG_CODE && args[1] == REG_CODE && args[2] == REG_CODE
@@ -46,7 +45,6 @@ void	op_sub(t_game *game, t_process *process)
 	int			reg2;
 	t_arg_type	args[4];
 
-	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	if (args[0] == REG_CODE && args[1] == REG_CODE && args[2] == REG_CODE

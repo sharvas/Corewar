@@ -15,10 +15,9 @@
 static void	op_ld_ind(t_game *game, t_process *process, short *index,
 int *value)
 {
-	get_index(&game->arena[++process->seek % MEM_SIZE],
-		IND_SIZE, index);
-	*value = reverse_bytes(&game->arena[index_mod(process->seek
-		- 2 + *index) % MEM_SIZE], DIR_SIZE);
+	get_index(game, ++process->seek % MEM_SIZE,	IND_SIZE, index);
+	*value = read_bytes(game, index_mod(process->seek - 2 + *index)
+		% MEM_SIZE, DIR_SIZE);
 	process->reg[game->arena[(process->seek + IND_SIZE)
 		% MEM_SIZE]] = *value;
 	if (game->flag_op)
@@ -35,14 +34,12 @@ void		op_ld(t_game *game, t_process *process)
 	short		index;
 	t_arg_type	args[4];
 
-	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	if (args[0] == DIR_CODE && args[1] == REG_CODE
 	&& check_args(game, process->seek, args, 2))
 	{
-		value = reverse_bytes(&game->arena[++process->seek % MEM_SIZE],
-			DIR_SIZE);
+		value = read_bytes(game, ++process->seek % MEM_SIZE, DIR_SIZE);
 		process->reg[game->arena[(process->seek + DIR_SIZE)
 			% MEM_SIZE]] = value;
 		if (game->flag_op)
@@ -77,7 +74,6 @@ void		op_ldi(t_game *game, t_process *process)
 	int				total_value;
 	t_arg_type		args[4];
 
-	ft_memset(args, 0, 4);
 	process->seek = process->index;
 	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
 	get_size(&size[0], args[0], 2);
@@ -89,8 +85,8 @@ void		op_ldi(t_game *game, t_process *process)
 		get_first_value_ind(game, process, args[0], &value[0]);
 		get_second_value_ind(game, process, args[1], &value[1]);
 		index_sum(value[0], value[1], &total_index);
-		total_value = reverse_bytes(&game->arena[index_mod(process->seek
-			- 1 - size[0] - size[1] + total_index) % MEM_SIZE], REG_SIZE);
+		total_value = read_bytes(game, index_mod(process->seek - 1 - size[0]
+			- size[1] + total_index) % MEM_SIZE, REG_SIZE);
 		process->reg[game->arena[++process->seek % MEM_SIZE]] = total_value;
 		op_ldi_print_carry(game, process, total_index, total_value);
 	}

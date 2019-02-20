@@ -16,8 +16,7 @@ void	op_live(t_game *game, t_process *process)
 {
 	int		id;
 
-	id = reverse_bytes(&game->arena[(process->index + 1) % MEM_SIZE],
-		DIR_SIZE);
+	id = read_bytes(game, (process->index + 1) % MEM_SIZE, DIR_SIZE);
 	process->alive = 1;
 	if (game->flag_op)
 		ft_printf("LIVE(%i) number: %i\n", process->champ, id);
@@ -38,8 +37,7 @@ void	op_zjmp(t_game *game, t_process *process)
 {
 	short	index;
 
-	get_index(&game->arena[(process->index + 1) % MEM_SIZE],
-		IND_SIZE, &index);
+	get_index(game, (process->index + 1) % MEM_SIZE, IND_SIZE, &index);
 	if (game->flag_op)
 		ft_printf("ZJMP(%i) index: %i, carry: %i\n", process->champ,
 		index, process->carry);
