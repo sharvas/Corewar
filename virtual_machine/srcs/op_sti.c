@@ -60,8 +60,7 @@ void		op_sti(t_game *game, t_process *process)
 //			- 2 + t_idx) % MEM_SIZE)) = reverse_bytes(&process->reg[reg_id],
 //			REG_SIZE);
 		write_int(game, (index_mod(process->seek - size[0] - size[1] - 2
-			+ t_idx) % MEM_SIZE), reverse_bytes(&process->reg[reg_id],
-			REG_SIZE));
+			+ t_idx) % MEM_SIZE), reverse_bytes(&process->reg[reg_id]));
 		print_op_sti(game, process, reg_id, value);
 		color((index_mod(process->seek - size[0] - size[1] - 2 + t_idx)
 			% MEM_SIZE), game, process);

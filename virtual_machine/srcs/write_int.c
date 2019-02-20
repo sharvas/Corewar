@@ -19,7 +19,7 @@ void			write_int(t_game *game, short address, int content)
 
 	i = 0;
 	if (address + 4 < MEM_SIZE)
-		*(int *)game->arena[address] = content;
+		game->arena[address] = content;
 	else
 	{
 		ptr = (unsigned char *)(&content);

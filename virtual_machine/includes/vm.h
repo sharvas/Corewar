@@ -259,4 +259,9 @@ void					print_winner(t_game *game);
 */
 t_op					get_op(int index);
 
+/*
+**		write_int.c
+*/
+void					write_int(t_game *game, short address, int content);
+
 #endif

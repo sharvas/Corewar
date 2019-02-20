@@ -33,7 +33,8 @@ SRCS_FILES = vm_main.c op.c \
 	get_args.c get_index.c get_ocp.c \
 	op_add_sub.c op_and_or.c op_fork.c op_live_jmp_aff.c \
 	op_load.c op_lload.c op_st.c op_sti.c \
-	print_error.c print.c print_color.c print_winner.c
+	print_error.c print.c print_color.c print_winner.c \
+	write_int.c
 
 SRCS_PATH = $(SRCS_FILES:%=$(SRCS_DIR)%)
 
