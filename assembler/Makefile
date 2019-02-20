@@ -62,7 +62,7 @@ $(OBJSDIR)/%.o	:	$(SRCSDIR)/%.c $(HEADER)
 					$(CC) -c $(CFLAG) $(INCL) -c $< -o $@
 
 norm:
-					norminette $(INC) $(SRCSDIR)
+					norminette $(INC) $(SRCSDIR) libft/
 
 clean		:
 					@$(RM) $(OBJS)
