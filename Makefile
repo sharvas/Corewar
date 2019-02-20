@@ -17,7 +17,7 @@ NAME = $(ASM) $(COREWAR)
 ASM_DIR = assembler
 COREWAR_DIR = virtual_machine
 
-all: comp_asm comp_corewar $(NAME)
+all: $(NAME)
 
 norm:
 	@make -C $(ASM_DIR)/ norm
@@ -28,6 +28,8 @@ comp_asm:
 
 comp_corewar:
 	@make -C $(COREWAR_DIR)/
+
+$(NAME): comp_asm comp_corewar
 
 clean:
 	@make -C $(ASM_DIR)/ clean
