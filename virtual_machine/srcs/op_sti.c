@@ -56,9 +56,6 @@ void		op_sti(t_game *game, t_process *process)
 		get_first_value_ind_sti(game, process, args[1], &value[0]);
 		get_second_value_ind(game, process, args[2], &value[1]);
 		index_sum(value[0], value[1], &t_idx);
-//		*(int *)(game->arena + (index_mod(process->seek - size[0] - size[1]
-//			- 2 + t_idx) % MEM_SIZE)) = reverse_bytes(&process->reg[reg_id],
-//			REG_SIZE);
 		write_int(game, (index_mod(process->seek - size[0] - size[1] - 2
 			+ t_idx) % MEM_SIZE), reverse_bytes(&process->reg[reg_id]));
 		print_op_sti(game, process, reg_id, value);
