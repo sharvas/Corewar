@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 10:46:14 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/18 10:46:17 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 18:16:49 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	init_game(t_game *game)
 {
 	ft_bzero(game, sizeof(*game));
-	ft_bzero(game->arena_champs, sizeof(MEM_SIZE));
+	// ft_bzero(game->arena_champs, sizeof(MEM_SIZE));
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->cycle = CYCLE_TO_DIE;
 }

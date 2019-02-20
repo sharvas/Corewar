@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 11:02:40 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/18 11:02:43 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 18:32:44 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	op_aff(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	if (args[0] == REG_CODE
 	&& check_args(game, process->seek, args, 16))
 	{

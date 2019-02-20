@@ -6,14 +6,14 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 18:46:02 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/17 18:46:03 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 18:33:06 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 static void	op_lld_ind(t_game *game, t_process *process, short *index,
-int *value)
+				int *value)
 {
 	*index = read_bytes(game, ++process->seek % MEM_SIZE, IND_SIZE);
 	*value = read_bytes(game, index_mod(process->seek - 2 + *index)
@@ -35,7 +35,7 @@ void		op_lld(t_game *game, t_process *process)
 	t_arg_type	args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	if (args[0] == DIR_CODE && args[1] == REG_CODE
 	&& check_args(game, process->seek, args, 13))
 	{
@@ -61,10 +61,7 @@ static void	op_lldi_print_carry(t_game *game, t_process *process, int *value)
 	if (game->flag_op)
 		ft_printf("LLDI(%i) index: %i, reg: %i\n", process->champ,
 		value[0] + value[1], game->arena[process->seek % MEM_SIZE]);
-	if (value[0] + value[1] == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
+	process->carry = (value[0] + value[1] == 0) ? 1 : 0;
 	process->index = process->seek;
 }
 
@@ -76,7 +73,7 @@ void		op_lldi(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	get_size(&size[0], args[0], 2);
 	get_size(&size[1], args[1], 2);
 	if (args[0] && (args[1] == DIR_CODE || args[1] == REG_CODE)

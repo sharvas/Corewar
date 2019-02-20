@@ -6,21 +6,21 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 16:43:25 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/17 16:43:30 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 19:13:30 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	find_args(unsigned char *ptr, t_arg_type arg[], int flag_arg)
+void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg)
 {
 	unsigned char	mask;
 
 	mask = 192;
-	arg[0] = (mask & *ptr) >> 6;
-	arg[1] = ((mask >> 2) & *ptr) >> 4;
-	arg[2] = ((mask >> 4) & *ptr) >> 2;
-	arg[3] = (mask >> 6) & *ptr;
+	arg[0] = (mask & game->arena[index % MEM_SIZE]) >> 6;
+	arg[1] = ((mask >> 2) & game->arena[index % MEM_SIZE]) >> 4;
+	arg[2] = ((mask >> 4) & game->arena[index % MEM_SIZE]) >> 2;
+	arg[3] = (mask >> 6) & game->arena[index];
 	if (flag_arg)
 	{
 		ft_printf("arg1 - %i\n", arg[0]);
@@ -52,7 +52,10 @@ int		reverse_bytes(void *ptr)
 	i = 0;
 	size = 4;
 	while (size-- > 0)
-		ret_four |= *((unsigned char *)ptr + i++) << (size * 8);
+	{
+		ret_four |= *((unsigned char *)ptr + i) << (size * 8);
+		i++;
+	}
 	return (ret_four);
 }
 
@@ -68,15 +71,21 @@ int		read_bytes(t_game *game, int index, int size)
 	if (size <= 2)
 	{
 		while (size-- > 0)
-			ret_two |= *(game->arena + ((index + i++) % MEM_SIZE))
-				<< (size * 8);
+		{
+			ret_two |= *(unsigned char *)(game->arena + ((index + i)
+				% MEM_SIZE)) << (size * 8);
+			i++;
+		}
 		return (ret_two);
 	}
 	else if (size <= 4)
 	{
 		while (size-- > 0)
-			ret_four |= *(game->arena + ((index + i++) % MEM_SIZE))
-				<< (size * 8);
+		{
+			ret_four |= *(unsigned char *)(game->arena + ((index + i)
+				% MEM_SIZE)) << (size * 8);
+			i++;
+		}
 		return (ret_four);
 	}
 	return (0);

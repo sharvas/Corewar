@@ -6,14 +6,14 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 11:48:24 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/13 11:48:24 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/20 18:33:35 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 static void	op_ld_ind(t_game *game, t_process *process, short *index,
-int *value)
+				int *value)
 {
 	get_index(game, ++process->seek % MEM_SIZE, IND_SIZE, index);
 	*value = read_bytes(game, index_mod(process->seek - 2 + *index)
@@ -35,7 +35,7 @@ void		op_ld(t_game *game, t_process *process)
 	t_arg_type	args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	if (args[0] == DIR_CODE && args[1] == REG_CODE
 	&& check_args(game, process->seek, args, 2))
 	{
@@ -57,7 +57,7 @@ void		op_ld(t_game *game, t_process *process)
 }
 
 static void	op_ldi_print_carry(t_game *game, t_process *process,
-short total_index, int total_value)
+				short total_index, int total_value)
 {
 	if (game->flag_op)
 		ft_printf("LDI(%i) index: %i, reg: %i\n", process->champ,
@@ -75,7 +75,7 @@ void		op_ldi(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	get_size(&size[0], args[0], 2);
 	get_size(&size[1], args[1], 2);
 	if (args[0] && (args[1] == DIR_CODE || args[1] == REG_CODE)

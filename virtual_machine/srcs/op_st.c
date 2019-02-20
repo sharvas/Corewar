@@ -6,14 +6,14 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 18:41:00 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/20 16:24:58 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 18:42:26 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 static void	print_op_st_idx(t_game *game, t_process *process,
-unsigned char reg_index, short idx)
+				unsigned char reg_index, short idx)
 {
 	if (game->flag_op)
 		ft_printf("ST(%i) reg_id: %i, index: %i\n",
@@ -21,7 +21,7 @@ unsigned char reg_index, short idx)
 }
 
 static void	op_st_reg(t_game *game, t_process *process,
-unsigned char *reg_index)
+				unsigned char *reg_index)
 {
 	*reg_index = game->arena[++process->seek % MEM_SIZE];
 	process->reg[game->arena[++process->seek
@@ -38,18 +38,15 @@ void		op_st(t_game *game, t_process *process)
 	unsigned char	reg_index;
 	t_arg_type		args[4];
 
-	ft_memset(args, 0, 4);
 	process->seek = process->index;
-	find_args(&game->arena[++process->seek % MEM_SIZE], args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	if (args[0] == REG_CODE && args[1] == IND_CODE
 	&& check_args(game, process->seek, args, 3))
 	{
 		reg_index = game->arena[++process->seek % MEM_SIZE];
 		get_index(game, ++process->seek % MEM_SIZE, IND_SIZE, &idx);
-//		*(int *)(game->arena + (index_mod(process->seek - 3 + idx)
-//		% MEM_SIZE)) = reverse_bytes(&process->reg[reg_index], DIR_SIZE);
 		write_int(game, (index_mod(process->seek - 3 + idx) % MEM_SIZE),
-			reverse_bytes(&process->reg[reg_index]));
+				  reverse_bytes(&(process->reg[reg_index])));
 		print_op_st_idx(game, process, reg_index, idx);
 		color(index_mod(process->seek - 3 + idx) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;

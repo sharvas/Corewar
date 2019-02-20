@@ -13,7 +13,7 @@
 #include "vm.h"
 
 void	get_first_value(t_game *game, t_process *process, t_arg_type *args,
-int *value1)
+			int *value1)
 {
 	short index;
 
@@ -34,7 +34,7 @@ int *value1)
 }
 
 void	get_second_value(t_game *game, t_process *process, t_arg_type *args,
-int *value2)
+			int *value2)
 {
 	short			index;
 	unsigned int	size;
@@ -57,7 +57,7 @@ int *value2)
 }
 
 void	get_first_value_ind_sti(t_game *game, t_process *process,
-t_arg_type args, int *value1)
+			t_arg_type args, int *value1)
 {
 	short index;
 
@@ -79,7 +79,7 @@ t_arg_type args, int *value1)
 }
 
 void	get_first_value_ind(t_game *game, t_process *process, t_arg_type args,
-int *value1)
+			int *value1)
 {
 	short index;
 
@@ -101,7 +101,7 @@ int *value1)
 }
 
 void	get_second_value_ind(t_game *game, t_process *process,
-t_arg_type args, int *value2)
+			t_arg_type args, int *value2)
 {
 	if (args == REG_CODE)
 		*value2 = *(process->reg
