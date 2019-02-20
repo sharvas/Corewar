@@ -6,7 +6,7 @@
 /*   By: erli <erli@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 16:43:47 by erli              #+#    #+#             */
-/*   Updated: 2019/02/20 09:23:35 by erli             ###   ########.fr       */
+/*   Updated: 2019/02/20 10:56:13 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ static	int			read_line(const int fd, char **line, char *old,
 	return (1);
 }
 
+static	int			asm_test_line(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	if (line[i] != COMMENT_CHAR && line[i] != '\0')
+		return (-2);
+	return (1);
+}
+
 int					asm_next_line(t_asm_data *data, char **line)
 {
 	char				buf[BUFF_SIZE + 1];
@@ -88,5 +100,7 @@ int					asm_next_line(t_asm_data *data, char **line)
 		return (-1);
 	if (ft_strchr(*line, 10) != NULL)
 		*ft_strchr(*line, 10) = '\0';
+	else
+		return (asm_test_line(*line));
 	return (1);
 }

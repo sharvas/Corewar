@@ -21,7 +21,7 @@ intmax_t	ft_atoi_intmax(const char *str)
 	a = 0;
 	i = 0;
 	n = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'\
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
 	|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
