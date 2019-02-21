@@ -46,7 +46,7 @@ void		op_st(t_game *game, t_process *process)
 		reg_index = game->arena[++process->seek % MEM_SIZE];
 		get_index(game, ++process->seek % MEM_SIZE, IND_SIZE, &idx);
 		write_int(game, (index_mod(process->seek - 3 + idx) % MEM_SIZE),
-				  reverse_bytes(&(process->reg[reg_index])));
+			reverse_bytes(&(process->reg[reg_index])));
 		print_op_st_idx(game, process, reg_index, idx);
 		color(index_mod(process->seek - 3 + idx) % MEM_SIZE, game, process);
 		process->index = process->seek + 1;
