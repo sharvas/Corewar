@@ -6,7 +6,7 @@
 /*   By: dfinnis <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 16:40:31 by dfinnis           #+#    #+#             */
-/*   Updated: 2019/02/17 16:40:33 by dfinnis          ###   ########.fr       */
+/*   Updated: 2019/02/21 13:11:47 by erli             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	index_sum(int index1, int index2, short *total)
 	int total_4;
 
 	total_4 = index1 + index2;
-	*total = total_4 % 65535;
+	*total = total_4 % 65536;
 	*total = *total % IDX_MOD;
 }
 
