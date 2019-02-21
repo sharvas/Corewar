@@ -64,5 +64,9 @@ void		print_winner(t_game *game)
 		}
 	}
 	if (game->flag_e)
-		ft_printf("\tGame ended at cycle count: %d\n", game->cycle_count);
+	{
+		if (game->flag_v)
+			ft_printf("\t");
+		ft_printf("Game ended at cycle count: %d\n", game->cycle_count);
+	}
 }
