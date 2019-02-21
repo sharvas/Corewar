@@ -27,6 +27,7 @@ static void	ft_fork_process(t_game *game, t_process *parent, short index)
 	new->alive = parent->alive;
 	new->carry = parent->carry;
 	new->duration_set = add_duration(game, new);
+	new->process_id = game->process->process_id + 1;
 	while (++i <= REG_NUMBER)
 		new->reg[i] = parent->reg[i];
 	last = game->process;

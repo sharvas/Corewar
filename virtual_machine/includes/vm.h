@@ -47,6 +47,7 @@ typedef struct			s_process
 	int					carry;
 	int					alive;
 	int					champ;
+	int					process_id;
 	struct s_process	*next;
 }						t_process;
 
@@ -179,11 +180,10 @@ int						check_args(t_game *game, int index, t_arg_type *args,
 **		get_ocp.c
 */
 void					find_args(t_game *game, int index, t_arg_type arg[],
-							int flag_arg);
+							int flag_arg, t_process *process);
 void					get_size(unsigned int *size, t_arg_type args, int i);
 int						reverse_bytes(void *ptr);
 int						read_bytes(t_game *game, int index, int size);
-short		read_2bytes(t_game *game, int index, int size);
 
 /*
 **		op_and_or.c

@@ -35,7 +35,7 @@ void		op_lld(t_game *game, t_process *process)
 	t_arg_type	args[4];
 
 	process->seek = process->index;
-	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg, process);
 	if (args[0] == DIR_CODE && args[1] == REG_CODE
 	&& check_args(game, process->seek, args, 13))
 	{
@@ -73,7 +73,7 @@ void		op_lldi(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg, process);
 	get_size(&size[0], args[0], 2);
 	get_size(&size[1], args[1], 2);
 	if (args[0] && (args[1] == DIR_CODE || args[1] == REG_CODE)

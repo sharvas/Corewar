@@ -39,7 +39,7 @@ void		op_st(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg, process);
 	if (args[0] == REG_CODE && args[1] == IND_CODE
 	&& check_args(game, process->seek, args, 3))
 	{

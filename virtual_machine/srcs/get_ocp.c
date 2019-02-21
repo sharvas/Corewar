@@ -12,9 +12,16 @@
 
 #include "vm.h"
 
-void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg)
+void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg,
+					t_process *process)
 {
 	unsigned char	mask;
+
+	ft_printf("index = %d, ", index);
+	ft_printf("cycle = %d, \n", game->cycle_count);
+	ft_printf("process id = %d, \n", process->process_id);
+	ft_printf("op = %#hhx, OCP =%#hhx\n",  game->arena[(index - 1 < 0 ? MEM_SIZE - 1 : index - 1)],
+			  game->arena[index % MEM_SIZE], game->cycle_count);
 
 	mask = 192;
 	arg[0] = (mask & game->arena[index % MEM_SIZE]) >> 6;
@@ -44,16 +51,18 @@ void	get_size(unsigned int *size, t_arg_type args, int i)
 
 int		reverse_bytes(void *ptr)
 {
-	int			ret_four;
-	int			i;
-	int			size;
+	int				ret_four;
+	int				i;
+	int				size;
+	unsigned char	*n;
 
 	ret_four = 0;
 	i = 0;
 	size = 4;
+	n = (unsigned char *)&ret_four;
 	while (size-- > 0)
 	{
-		ret_four |= *((unsigned char *)ptr + i) << (size * 8);
+		*(n + size) = *((unsigned char *)ptr + i);
 		i++;
 	}
 	return (ret_four);
@@ -61,29 +70,32 @@ int		reverse_bytes(void *ptr)
 
 int		read_bytes(t_game *game, int index, int size)
 {
-	short		ret_two;
-	int			ret_four;
-	int			i;
+	short			ret_two;
+	int				ret_four;
+	int				i;
+	unsigned char	*n;
 
 	ret_two = 0;
 	ret_four = 0;
 	i = 0;
 	if (size <= 2)
 	{
+		n = (unsigned char *)&ret_two;
 		while (size-- > 0)
 		{
-			ret_two |= *(char *)(game->arena + ((index + i)
-				% MEM_SIZE)) << (size * 8);
+			*(n + size) = *(unsigned char *)(game->arena + ((index + i)
+				% MEM_SIZE));
 			i++;
 		}
 		return (ret_two);
 	}
 	else if (size <= 4)
 	{
+		n = (unsigned char *)&ret_four;
 		while (size-- > 0)
 		{
-			ret_four |= *(char *)(game->arena + ((index + i)
-				% MEM_SIZE)) << (size * 8);
+			*(n + size) = *(unsigned char *)(game->arena + ((index + i)
+				% MEM_SIZE));
 			i++;
 		}
 		return (ret_four);
