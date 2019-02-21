@@ -180,7 +180,7 @@ int						check_args(t_game *game, int index, t_arg_type *args,
 **		get_ocp.c
 */
 void					find_args(t_game *game, int index, t_arg_type arg[],
-							int flag_arg, t_process *process);
+							int flag_arg);
 void					get_size(unsigned int *size, t_arg_type args, int i);
 int						reverse_bytes(void *ptr);
 int						read_bytes(t_game *game, int index, int size);

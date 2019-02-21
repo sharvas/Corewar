@@ -12,22 +12,21 @@
 
 #include "vm.h"
 
-void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg,
-					t_process *process)
+void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg)
 {
 	unsigned char	mask;
 
-	ft_printf("index = %d, ", index);
-	ft_printf("cycle = %d, \n", game->cycle_count);
-	ft_printf("process id = %d, \n", process->process_id);
-	ft_printf("op = %#hhx, OCP =%#hhx\n",  game->arena[(index - 1 < 0 ? MEM_SIZE - 1 : index - 1)],
-			  game->arena[index % MEM_SIZE], game->cycle_count);
+	// ft_printf("index = %d, ", index);
+	// ft_printf("cycle = %d, \n", game->cycle_count);
+	// ft_printf("process id = %d, \n", process->process_id);
+	// ft_printf("op = %#hhx, OCP =%#hhx\n",  game->arena[(index - 1 < 0 ? MEM_SIZE - 1 : index - 1)],
+	// 		  game->arena[index % MEM_SIZE], game->cycle_count);
 
 	mask = 192;
 	arg[0] = (mask & game->arena[index % MEM_SIZE]) >> 6;
 	arg[1] = ((mask >> 2) & game->arena[index % MEM_SIZE]) >> 4;
 	arg[2] = ((mask >> 4) & game->arena[index % MEM_SIZE]) >> 2;
-	arg[3] = (mask >> 6) & game->arena[index];
+	arg[3] = (mask >> 6) & game->arena[index % MEM_SIZE];
 	if (flag_arg)
 	{
 		ft_printf("arg1 - %i\n", arg[0]);

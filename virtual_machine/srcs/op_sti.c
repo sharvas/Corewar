@@ -33,7 +33,7 @@ static void	print_op_sti(t_game *game, t_process *process, unsigned char reg_id,
 static void	op_sti_args(t_game *game, t_process *process, t_arg_type *args,
 				unsigned int *size)
 {
-	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg, process);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	get_size(&size[0], args[1], 2);
 	get_size(&size[1], args[2], 2);
 }

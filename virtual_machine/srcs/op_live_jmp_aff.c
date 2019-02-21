@@ -52,7 +52,7 @@ void	op_aff(t_game *game, t_process *process)
 	t_arg_type		args[4];
 
 	process->seek = process->index;
-	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg, process);
+	find_args(game, ++process->seek % MEM_SIZE, args, game->flag_arg);
 	if (args[0] == REG_CODE
 	&& check_args(game, process->seek, args, 16))
 	{

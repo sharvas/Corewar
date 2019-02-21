@@ -29,6 +29,7 @@ void	index_sum(int index1, int index2, short *total)
 
 int		index_mod(int index)
 {
+	index = index % MEM_SIZE;
 	if (index < 0)
 		index = MEM_SIZE + index;
 	return (index);
