@@ -25,7 +25,6 @@ void		add_process(t_game *game, int champ)
 	new->reg[1] = champ;
 	new->duration_set = add_duration(game, new);
 	new->alive = 0;
-	new->process_id = count_process(game) + 1;
 	if (!game->process)
 		game->process = new;
 	else

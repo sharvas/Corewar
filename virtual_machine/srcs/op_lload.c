@@ -61,7 +61,7 @@ static void	op_lldi_print_carry(t_game *game, t_process *process, int *value)
 	if (game->flag_op)
 		ft_printf("LLDI(%i) index: %i, reg: %i\n", process->champ,
 		value[0] + value[1], game->arena[process->seek % MEM_SIZE]);
-	process->carry = (value[0] + value[1] == 0) ? 1 : 0;
+	process->carry = (value[0] == 0) ? 1 : 0;
 	process->index = process->seek;
 }
 
