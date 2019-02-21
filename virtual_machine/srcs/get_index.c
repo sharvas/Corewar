@@ -56,7 +56,7 @@ int		move_index(int index, t_arg_type *args, int op_id)
 			index += IND_SIZE;
 		i++;
 	}
-	return (index);
+	return (index % MEM_SIZE);
 }
 
 int		check_args(t_game *game, int index, t_arg_type *args, int op_id)

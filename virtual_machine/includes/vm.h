@@ -47,7 +47,6 @@ typedef struct			s_process
 	int					carry;
 	int					alive;
 	int					champ;
-	int					process_id;
 	struct s_process	*next;
 }						t_process;
 
