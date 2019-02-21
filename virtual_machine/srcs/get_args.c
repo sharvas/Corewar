@@ -71,7 +71,7 @@ void	get_first_value_ind_sti(t_game *game, t_process *process,
 	}
 	else if (args == IND_CODE)
 	{
-		index = read_bytes(game, (process->seek + 1) % MEM_SIZE, IND_SIZE);
+		get_index(game, (process->seek + 1) % MEM_SIZE, IND_SIZE, &index);
 		*value1 = read_bytes(game, index_mod(process->seek - 2 + index)
 			% MEM_SIZE, DIR_SIZE);
 		process->seek += IND_SIZE;
@@ -93,7 +93,7 @@ void	get_first_value_ind(t_game *game, t_process *process, t_arg_type args,
 	}
 	else if (args == IND_CODE)
 	{
-		index = read_bytes(game, (process->seek + 1) % MEM_SIZE, IND_SIZE);
+		get_index(game, (process->seek + 1) % MEM_SIZE, IND_SIZE, &index);
 		*value1 = read_bytes(game, index_mod(process->seek - 1 + index)
 			% MEM_SIZE, DIR_SIZE);
 		process->seek += IND_SIZE;
