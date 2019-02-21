@@ -16,12 +16,6 @@ void	find_args(t_game *game, int index, t_arg_type arg[4], int flag_arg)
 {
 	unsigned char	mask;
 
-	// ft_printf("index = %d, ", index);
-	// ft_printf("cycle = %d, \n", game->cycle_count);
-	// ft_printf("process id = %d, \n", process->process_id);
-	// ft_printf("op = %#hhx, OCP =%#hhx\n",  game->arena[(index - 1 < 0 ? MEM_SIZE - 1 : index - 1)],
-	// 		  game->arena[index % MEM_SIZE], game->cycle_count);
-
 	mask = 192;
 	arg[0] = (mask & game->arena[index % MEM_SIZE]) >> 6;
 	arg[1] = ((mask >> 2) & game->arena[index % MEM_SIZE]) >> 4;
@@ -81,22 +75,16 @@ int		read_bytes(t_game *game, int index, int size)
 	{
 		n = (unsigned char *)&ret_two;
 		while (size-- > 0)
-		{
-			*(n + size) = *(unsigned char *)(game->arena + ((index + i)
+			*(n + size) = *(unsigned char *)(game->arena + ((index + i++)
 				% MEM_SIZE));
-			i++;
-		}
 		return (ret_two);
 	}
 	else if (size <= 4)
 	{
 		n = (unsigned char *)&ret_four;
 		while (size-- > 0)
-		{
-			*(n + size) = *(unsigned char *)(game->arena + ((index + i)
+			*(n + size) = *(unsigned char *)(game->arena + ((index + i++)
 				% MEM_SIZE));
-			i++;
-		}
 		return (ret_four);
 	}
 	return (0);
