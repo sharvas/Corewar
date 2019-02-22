@@ -52,8 +52,8 @@ char		*ft_prec_c(char *num_str, t_print *all, int i)
 	if ((size_t)all->prec > ft_strlen(num_str))
 	{
 		len = ft_strlen(num_str);
-		if (!(str = (char*)malloc(sizeof(char) *
-			(all->prec - (len + 1)))))
+		if (!(str = (char*)malloc(sizeof(char)
+			* (all->prec - (len + 1)))))
 			ft_error(NULL, all->form);
 		i = 0;
 		while (i < all->prec - len)

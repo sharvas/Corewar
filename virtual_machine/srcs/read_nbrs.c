@@ -20,7 +20,7 @@ static void	read_dump_nbr(char *nbr, t_game *game)
 	i = -1;
 	while (nbr[++i])
 		if (!ft_isdigit(nbr[i]))
-			error_exit("argument following -d not a valid number", game);
+			error_exit("argument following -dump not a valid number", game);
 	tmp = ft_atoi_intmax(nbr);
 	if (tmp > 2147483647 || tmp < 0)
 		error_exit("-dump number outside of acceptable range", game);
