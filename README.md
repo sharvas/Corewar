@@ -35,7 +35,7 @@ lfork:	lfork %1238
 		zjmp %:live
 ```
 
-And the bytecode that is loaded into the `corewar`:
+And the bytecode, compiled with `asm`, that gets loaded into the `corewar`:
 ```console
 $> hexdump -C champion/the_best_player_around_the_whole_universe.cor
 00000000  00 ea 83 f3 74 68 65 5f  62 65 73 74 5f 70 6c 61  |....the_best_pla|
@@ -55,9 +55,28 @@ $> hexdump -C champion/the_best_player_around_the_whole_universe.cor
 000008d4
 ```
 
-
+The program cannot leak. All errors must be handled carefully. In no way can the program quit in an unexpected manner (Segmentation fault, bus error, double free, etc). Allowed functions for the mandatory part are `open`, `read`, `lseek`, `write`, `close`, `malloc`, `realloc`, `free`, `perror`, `strerror` and `exit`.
 
 ## Usage
+
+Run `make` to compile `asm` and `corewar`.
+
+### asm
+
+```console
+$> ./asm
+Usage : ./asm <sourcefile.s>
+```
+```console
+$> ./asm -o
+Usage : ./asm -c/o <dest> <sourcefile.s>
+```
+
+For the basic functionality `asm` has to take as an argument a `champion` with a '.s' file extension. If the `champion` is valid, it must be compiled. The compiled '.cor' binary must be placed in the same directory and with the same filename as the assembly file.
+
+As a bonus, `asm` can compile multiple assembley files with one run. With the flag `-o` the destination folder can be specified. And the flag `-c` removes the filesize limit. Also `asm` displays detailed error messages displaying line and collumn of the error in the assembley file.
+
+### corewar
 
 ```console
 $> ./corewar
@@ -77,6 +96,48 @@ usage:	./corewar [-dump nbr_cycles] [-i] [-a] [-op] [-arg] [-v [speed (1-100)]] 
 
 ```
 
+There are two big groups of `corewar` functionality. The debugging mode and the visualiser.
 
+`corewar` degugging works with the flag `-op` that prints out each executed operation and the argument values. The flag `-arg` also displays values extracted from the coding byte.
+
+`corewar` visualiser allows to display the game in any state. With the flag `-w` the game can be started at a certain cycle and with the flag `-dump` stopped at a specified cycle. Flag `-e` allows to find out the cycle when the game ends.
+
+The game also has audio effects when the processes gets killed with every check. And processes can be coloured in the colours inherited from the champions.
+
+### champion
+
+The champion (***the_best_player_around_the_whole_universe***) was written to always win agains the `zork`. It does so by overwriting `zork` program with the name of itself, `fork`'ing itself and calling itself `alive` in its own program and the zombie `zork`.
+
+```assembly
+.name "the_best_player_around_the_whole_universe"
+.comment"(anti-zork)"
+		ld	%58720256, r2
+		sti r1, %:live, %1
+		sti r1, %:live2, %1
+live:	live	%43
+		zjmp %:live
+add:	add r2, r3, r3
+live2:	live %1
+		sti r3, %:lfork, %1
+lfork:	lfork %1238
+		live %0
+		fork %:add
+		and r1, %0, r1
+		zjmp %:live
+```
+VS
+```assembly
+.name "zork"
+.comment "I'M ALIIIIVE"
+
+l2:		sti r1, %:live, %1
+		and r1, %0, r1
+
+live:	live %1
+		zjmp %:live
+```
+
+
+![champion](https://github.com/sharvas/corewar/raw/master/resources/champion.gif)
 
 The project was completed in a team of four with [@erli](https://github.com/dracoeric) @pmasson and [@dfinnis](https://github.com/dfinnis).
