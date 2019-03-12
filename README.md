@@ -98,9 +98,9 @@ usage:    ./corewar [-dump nbr_cycles] [-i] [-a] [-op] [-arg] [-v [speed (1-100)
 
 There are two big groups of `corewar` functionality. The ***debugging mode*** and the ***visualiser***.
 
-`corewar` debugging works with the flag `-op` that prints out each executed operation and the argument values. The flag `-arg` also displays values extracted from the coding byte.
+`corewar` ***debugging*** works with the flag `-op` that prints out each executed operation and the argument values. The flag `-arg` also displays values extracted from the coding byte.
 
-`corewar` visualiser allows displaying the game in any state. With the flag `-w` the game can be started at a certain cycle and with the flag `-dump` stopped at a specified cycle. Flag `-e` allows to find out the cycle when the game ends.
+`corewar` ***visualiser*** allows displaying the game in any state. With the flag `-w` the game can be started at a certain cycle and with the flag `-dump` stopped at a specified cycle. Flag `-e` allows to find out the cycle when the game ends.
 
 The game also has *audio effects* when the processes get killed with every check. And processes can be coloured (`-cp`) in the colours inherited from the champions.
 
