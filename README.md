@@ -74,7 +74,7 @@ Usage : ./asm -c/o <dest> <sourcefile.s>
 
 For the basic functionality `asm` has to take as an argument a `champion` with a '.s' file extension. If the `champion` is valid, it must be compiled. The compiled '.cor' binary must be placed in the same directory and with the same filename as the assembly file.
 
-As a bonus, `asm` can compile multiple assembly files with one run. With the flag `-o` the destination folder can be specified. And the flag `-c` removes the filesize limit. Also `asm` displays detailed error messages displaying line and column of the error in the assembly file.
+As a bonus, `asm` can compile multiple assembly files with one run. With the flag `-o` the destination folder can be specified. And the flag `-c` removes the filesize limit. Also `asm` displays detailed error messages specifying line and column number in the assembly file.
 
 ### corewar
 
@@ -96,13 +96,13 @@ usage:    ./corewar [-dump nbr_cycles] [-i] [-a] [-op] [-arg] [-v [speed (1-100)
 
 ```
 
-There are two big groups of `corewar` functionality. The debugging mode and the visualiser.
+There are two big groups of `corewar` functionality. The ***debugging mode*** and the ***visualiser***.
 
 `corewar` debugging works with the flag `-op` that prints out each executed operation and the argument values. The flag `-arg` also displays values extracted from the coding byte.
 
 `corewar` visualiser allows displaying the game in any state. With the flag `-w` the game can be started at a certain cycle and with the flag `-dump` stopped at a specified cycle. Flag `-e` allows to find out the cycle when the game ends.
 
-The game also has audio effects when the processes get killed with every check. And processes can be coloured in the colours inherited from the champions.
+The game also has *audio effects* when the processes get killed with every check. And processes can be coloured (`-cp`) in the colours inherited from the champions.
 
 ### champion
 
