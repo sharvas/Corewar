@@ -140,4 +140,4 @@ live:    live %1
 
 ![champion](https://github.com/sharvas/corewar/raw/master/resources/champion.gif)
 
-The project was completed in a team of four with [@erli](https://github.com/dracoeric) @pmasson and [@dfinnis](https://github.com/dfinnis) and myself.
+The project was completed in a team of four with [@erli](https://github.com/dracoeric), @pmasson, [@dfinnis](https://github.com/dfinnis) and myself.
